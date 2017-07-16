@@ -13,8 +13,8 @@ public:
 
 		int n = nums.size();
 
-		int a = rob(nums, 1, n - 1); //assuming the first element is not being rob
-		int b = rob(nums, 0, n - 2); //assuming the last element is not being rob
+		int a = rob(nums, 1, n - 1); //assuming that the first element will not be robbed
+		int b = rob(nums, 0, n - 2); //assuming that the last element will not be robbed
 		return max(a, b);
 	}
 
