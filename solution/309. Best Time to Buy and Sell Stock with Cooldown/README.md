@@ -1,2 +1,3 @@
 reference:
-https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/#/discuss
+
+https://discuss.leetcode.com/topic/30680/share-my-dp-solution-by-state-machine-thinking
