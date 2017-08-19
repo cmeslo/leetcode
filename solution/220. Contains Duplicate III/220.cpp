@@ -11,6 +11,7 @@ public:
 		set<long long> window;
 
 		for (int i = 0; i < nums.size(); ++i) {
+			// sliding window
 			if (i > k) window.erase(nums[i - k - 1]);
 			// | x - nums[i] | <= t
 			// -t <= x - nums[i] <= t  -----------> x >= nums[i] - t, x - nums[i] <= t
