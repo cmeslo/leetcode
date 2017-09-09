@@ -9,7 +9,7 @@ public:
         for (int i = 0; i < nums.size(); ++i) {
             int len = 1;
             for (int j = i + 1; j < nums.size(); ++j) {
-                if (abs(nums[j] - nums[i]) <= 1)
+                if (nums[j] - nums[i] <= 1)
                     ++len;
                 else 
                     break;
