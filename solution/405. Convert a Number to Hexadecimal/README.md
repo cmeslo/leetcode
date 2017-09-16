@@ -18,18 +18,16 @@ arithmetic shift right is not work for negative num, it will loop forever.
 * logical shift right.
   * (unsigned int) num `>>` 4;
 
-~~~C++
-    string toHex(int num) {
-        if (num == 0) return "0";
-        string map = "0123456789abcdef";
-        // vector<char> map = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-        
-        string result = "";
-        
-        while (num != 0) {
-            result = map[num & 15] + result;
-            num = (unsigned int) num >> 4;
-        }
-        return result;
+```C++
+string toHex(int num) {
+    if (num == 0) return "0";
+    string map = "0123456789abcdef";
+    string result = "";
+
+    while (num != 0) {
+        result = map[num & 15] + result;
+        num = (unsigned int) num >> 4;
     }
-~~~
+    return result;
+}
+```
