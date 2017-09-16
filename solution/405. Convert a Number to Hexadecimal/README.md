@@ -3,7 +3,7 @@
 
 `num >> 4` means `num / 16`
 
-arithmetic shift right is not work for negative num, it will loop forever.
+arithmetic shift right is not work for negative num, it will loop forever beacause of the sign bit.
 
 ## Java:
 * `>>` is arithmetic shift right.
