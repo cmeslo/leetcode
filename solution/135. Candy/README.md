@@ -25,3 +25,4 @@ example:
 
 1, 2, 1, 2, 3, 1 <== left-to-right  
 1, 2, 1, 1, 2, 1 <== right-to-left  
+1, 2, 1, 2, 3, 1 <== final
