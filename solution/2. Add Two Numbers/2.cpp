@@ -24,8 +24,10 @@ public:
             }
             carry = index->val / 10;
             index->val = index->val % 10;
-            if (l1 != NULL || l2 != NULL || carry != 0) index->next = new ListNode(carry);
-            index = index->next;
+            if (l1 != NULL || l2 != NULL || carry != 0) {
+                index->next = new ListNode(carry);
+                index = index->next;
+            }
         }
         return sum;
     }
