@@ -4,7 +4,7 @@
 Accepted with poor runtime.
 
 ## 138_02.cpp
-A special solution with constant space complexity O(1) and linear time compexity O(N) reference [here](https://discuss.leetcode.com/topic/7594/a-solution-with-constant-space-complexity-o-1-and-linear-time-complexity-o-n) and [here](http://fisherlei.blogspot.com/2013/11/leetcode-copy-list-with-random-pointer.html).
+A special solution with constant space complexity O(N) and linear time compexity O(N) reference [here](https://discuss.leetcode.com/topic/7594/a-solution-with-constant-space-complexity-o-1-and-linear-time-complexity-o-n) and [here](http://fisherlei.blogspot.com/2013/11/leetcode-copy-list-with-random-pointer.html).
 
 3 steps:
   1. copy and insert each nodes to the original list
