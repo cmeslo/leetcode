@@ -1,7 +1,7 @@
 # 142. Linked List Cycle II
 
 ## 142.cpp
-Floyd cycle detection algorithm, similar problem - 287. Find the Duplicate Number.
+Floyd cycle detection algorithm, similar problem - [287. Find the Duplicate Number](https://github.com/cmeslo/leetcode/tree/master/solution/287.%20Find%20the%20Duplicate%20Number).
 
 ### Why the distance from start node to entry node as same as meet node to entry node ?
 
