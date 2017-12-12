@@ -33,3 +33,15 @@ for (int i = p.size(); i < s.size(); ++i) {
 ```
 Make m1 a fixed window of string s, move char by char.
 
+# 438_03.cpp
+Sliding window with left and right pointer
+```cpp
+while (right < s.size()) {
+    //if m[right] > 0 after subtract, it means we got one char (cnt--). And right pointer move forward.
+    if (m[s[right++] - 'a']-- > 0) cnt--;
+    //if cnt == 0, got all char in p
+    if (cnt == 0) res.push_back(left);
+    //if m[left] >= 0 after subtract, means s[left] is one of the char in p (abandon it, we make cnt++). And left pointer move forward
+    if (right - left == p.size() && m[s[left++] - 'a']++ >= 0) cnt++;
+}
+```
