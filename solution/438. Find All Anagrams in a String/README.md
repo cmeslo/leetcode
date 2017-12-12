@@ -33,7 +33,7 @@ for (int i = p.size(); i < s.size(); ++i) {
 ```
 Make m1 a fixed window of string s, move char by char.
 
-# 438_03.cpp
+## 438_03.cpp
 Sliding window with left and right pointer
 ```cpp
 while (right < s.size()) {
