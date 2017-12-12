@@ -36,6 +36,7 @@ Make m1 a fixed window of string s, move char by char.
 ## 438_03.cpp
 Sliding window with left and right pointer
 ```cpp
+int left = 0, right = 0, cnt = p.size();
 while (right < s.size()) {
     //if m[right] > 0 after subtract, it means we got one char (cnt--). And right pointer move forward.
     if (m[s[right++] - 'a']-- > 0) cnt--;
