@@ -7,7 +7,7 @@ public:
         return res;
     }
     
-    void dfs(int k, int n, vector<int> &out,  int start, vector<vector<int>> &res) {
+    void dfs(int k, int n, vector<int> &out, int start, vector<vector<int>> &res) {
         if (k == 0) {
             if (n == 0) res.push_back(out);
             return;
