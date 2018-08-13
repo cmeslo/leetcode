@@ -1,6 +1,6 @@
 # 565. Array Nesting
 
-TLE 做法：
+## TLE 做法：
 
 ```cpp
 class Solution {
@@ -27,6 +27,7 @@ public:
 853 / 856 test cases passed.
 ```
 
+## 565_01.cpp
 例子：
 ```
 Input: A = [5,4,0,3,1,6,2]
@@ -59,3 +60,21 @@ int arrayNesting(vector<int>& nums) {
     return maxS;
 }
 ```
+
+## 565_02.cpp
+可以不使用額外的 visited 數組，用替換的方法
+```cpp
+swap(nums[i], nums[nums[i]]);
+```
+
+例子
+```
+A[0] = 5, A[1] = 4, A[2] = 0, A[3] = 3, A[4] = 1, A[5] = 6, A[6] = 2
+```
+比如第一個while循環的過程：
+```
+A[0] = 6, A[5] = 5
+A[0] = 2, A[6] = 6
+A[0] = 0, A[2] = 2
+```
+使到 0, 5, 6, 2 都出現在正確的位置上，不會再被遍歷，略過使用額外的 visited 數組。
