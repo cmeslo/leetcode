@@ -36,18 +36,21 @@ public:
 
         stack<NestedInteger> st;
         int start = 1;
-        for (int i = 1; i < s.size(); ++i) {
+        for (int i = 0; i < s.size(); ++i) {
             if (s[i] == '[') {
                 st.push(NestedInteger());
-            } else if (s[i] == ',' || s[i] == ']') {
-                st.top().add(NestedInteger(stoi(s.substr(start, i - start))));
                 start = i + 1;
-            }
-            
-            if (st.size() > 1 && s[i] == ']') {
-                NestedInteger ni = st.top();
-                st.pop();
-                st.top().add(ni);
+            } else if (s[i] == ',' || s[i] == ']') {
+                if (i > start) {
+                    st.top().add(NestedInteger(stoi(s.substr(start, i - start))));
+                }
+                start = i + 1;   
+                             
+                if (s[i] == ']' && st.size() > 1) {
+                    NestedInteger ni = st.top();
+                    st.pop();
+                    st.top().add(ni);
+                }
             }
         }
         
