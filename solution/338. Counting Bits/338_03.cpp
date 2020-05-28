@@ -1,4 +1,5 @@
 // Runtime: 4 ms
+// Your runtime beats 98.88 % of cpp submissions.
 
 class Solution {
 public:
