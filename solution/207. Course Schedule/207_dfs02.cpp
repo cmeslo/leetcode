@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        // construct tree
+        // construct graph
         _g = vector<vector<int>>(numCourses);
         _visited = vector<int>(numCourses, 0);
         for (const auto& pre : prerequisites) {
