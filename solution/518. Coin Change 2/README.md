@@ -1,4 +1,6 @@
-# Time Limit Exceeded 的解法
+# 518. Coin Change 2
+
+## Time Limit Exceeded 的解法
 
 ```cpp
 class Solution {
@@ -25,7 +27,7 @@ private:
 };
 ```
 
-# 518_01.cpp 用二維數組做DP的解法
+## 518_01.cpp 用二維數組做DP的解法
 
 row 是有多少種硬幣、由 0 至 coins.size() 個
 
@@ -36,14 +38,14 @@ column 是湊成的amount、由 0 至 amount
 ```cpp
 int change(int amount, vector<int>& coins) {
     int n = coins.size();
-    vector<vector<int>> dp = vector<vector<int>>(n+1, vector<int>(amount+1));
-    
+    vector<vector<int>> dp(n+1, vector<int>(amount+1, 0));
+
     for (int j = 1; j <= amount; j++)
         dp[0][j] = 0;
-    
+
     for (int i = 0; i <= n; i++)
         dp[i][0] = 1;
-    
+
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= amount; j++) {
             int coin = coins[i-1];
@@ -54,4 +56,24 @@ int change(int amount, vector<int>& coins) {
 }
 ```
 
-雖然可以再優化，把二維數組化成一維，但這樣代碼會不容易理解。
+
+## 518_02.cpp
+
+可以再優化，同樣思路、把二維數組化成一維。
+
+```cpp
+// 4ms
+// Your runtime beats 99.30 % of cpp submissions.
+
+int change(int amount, vector<int>& coins) {
+    vector<int> dp(amount+1, 0);
+
+    dp[0] = 1;
+    for (int coin : coins) {
+        for (int i = coin; i <= amount; i++) {
+            dp[i] += dp[i-coin];
+        }
+    }
+    return dp[amount];
+}
+```
