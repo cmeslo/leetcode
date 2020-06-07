@@ -53,3 +53,5 @@ int change(int amount, vector<int>& coins) {
     return dp[n][amount];
 }
 ```
+
+雖然可以再優化，把二維數組化成一維，但這樣代碼會不容易理解。
