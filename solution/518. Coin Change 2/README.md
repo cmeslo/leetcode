@@ -62,7 +62,7 @@ int change(int amount, vector<int>& coins) {
 可以再優化，同樣思路、把二維數組化成一維。
 
 ```cpp
-// 4ms
+// Runtime: 4 ms
 // Your runtime beats 99.30 % of cpp submissions.
 
 int change(int amount, vector<int>& coins) {
