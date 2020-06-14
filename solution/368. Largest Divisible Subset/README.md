@@ -4,7 +4,7 @@
 最開始用 recursive 方法做會TLE，加上memo優化後Accepted，但時間複雜度高。
 
 ## 369_02.cpp
-DP 的解法，參考了 https://www.youtube.com/watch?v=Wv6DlL0Sawg 的解釋。
+DP 的解法，學習了 https://www.youtube.com/watch?v=Wv6DlL0Sawg 的方法
 ```cpp
 class Solution {
 public:
