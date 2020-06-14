@@ -8,7 +8,7 @@ public:
         vector<int> dp(n, 1);
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < i; j++) {
-                if (nums[i] % nums[j] == 0 && (dp[i] < 1+dp[j])) {
+                if (nums[i] % nums[j] == 0 && (1+dp[j] > dp[i])) {
                     dp[i] = 1 + dp[j];
                     if (dp[i] > max_len) max_len = dp[i];
                 }
