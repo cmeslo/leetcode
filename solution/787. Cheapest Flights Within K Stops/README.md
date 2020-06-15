@@ -26,3 +26,7 @@ int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int
 https://www.youtube.com/watch?v=obWXjtg0L64
 
 也可以用 Dijkstra 算法做。
+
+Dijkstra 和 Bellman-Ford 兩種算法比較相似，具體不同點可以看下
+
+https://blog.csdn.net/mmy1996/article/details/52225893
