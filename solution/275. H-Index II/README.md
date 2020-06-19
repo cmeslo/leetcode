@@ -19,6 +19,6 @@ while (l < r) {
 return l;
 ```
 
-解釋如下:
+解釋如下：
 
 https://www.zhihu.com/question/36132386/answer/530313852
