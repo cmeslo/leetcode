@@ -42,4 +42,4 @@ Example: n = 4, k = 8
 
 最後可以得到 2 1 4 3
 
-[source](http://www.cnblogs.com/grandyang/p/4358678.html)
+https://www.youtube.com/watch?v=fe_DMBoe18o
