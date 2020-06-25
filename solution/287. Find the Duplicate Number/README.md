@@ -16,7 +16,7 @@ left = 1, mid = 5, right = 10
 
 時間複雜度： ```O(nlogn)```、空間複雜度： ```O(1)```
 
-Code:
+### Code:
 ```cpp
 int findDuplicate(vector<int>& nums) {
     int left = 0, right = nums.size()-1, mid;
@@ -44,7 +44,7 @@ Floyd cycle detection algorithm, take a look in [142. Linked List Cycle II](http
 
 時間複雜度： ```O(n)```、空間複雜度： ```O(1)```
 
-Code:
+### Code:
 ```cpp
 int findDuplicate(vector<int>& nums) {
     int slow = 0, fast = 0;
