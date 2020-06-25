@@ -1,20 +1,22 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int left = 1, right = nums.size() - 1;
+        int left = 0, right = nums.size()-1, mid;
         
         while (left < right) {
-            int mid = (left + right) / 2;
-            int leftCnt = 0;
+            mid = left + ((right-left)>>1);
+            
+            int cnt = 0;
             for (int n : nums) {
-                if (n <= mid) ++leftCnt;
+                if (n <= mid) cnt++;
             }
-            if (leftCnt <= mid) {
-                left = mid + 1;
-            } else {
+            
+            if (cnt > mid)
                 right = mid;
-            }
+            else
+                left = mid + 1;
         }
+        
         return left;
     }
 };
