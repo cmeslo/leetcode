@@ -1,9 +1,9 @@
 # 287. Find the Duplicate Number
 
 ## 287_01.cpp
-Binary search, considering:
+Binary search
 
-Example:
+由於是長度 n + 1，而只有 n 個數，Example:
 
 n + 1 = 11
 ```
@@ -12,6 +12,9 @@ n + 1 = 11
 ```
 left = 1, mid = 5, right = 10
 ```
+中間切一刀，左面或右面長度會多一點，不斷分割、最後找到重複數
+
+時間複雜度： ```O(nlogn)```、空間複雜度： ```O(1)```
 
 Code:
 ```cpp
@@ -34,11 +37,12 @@ int findDuplicate(vector<int>& nums) {
 
     return left;
 }
-
 ```
 
 ## 287_02.cpp
 Floyd cycle detection algorithm, take a look in [142. Linked List Cycle II](https://github.com/cmeslo/leetcode/tree/master/solution/142.%20Linked%20List%20Cycle%20II)
+
+時間複雜度： ```O(n)```、空間複雜度： ```O(1)```
 
 Code:
 ```cpp
