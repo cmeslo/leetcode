@@ -12,7 +12,6 @@
 class Solution {
 public:
     int sumNumbers(TreeNode* root) {
-        if (root == nullptr) return 0;
         return rootToLeaf(root, 0);
     }
 private:
