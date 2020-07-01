@@ -6,6 +6,12 @@
 
 ```Time complexity: O(sum(m*n*4^l))```, ```l``` 是每個 word 的長度
 
+另外有兩點注意：
+
+1. board 上遍歷過的位置、將它設置為 ```#```，防止重複遍歷。
+2. 用每個 word 的長度來限制 dfs 的深度，也就是剪枝，才不會超時。
+
+
 ```cpp
 // Time complexity: O(sum(m*n*4^l)), which l is length of each word
 
