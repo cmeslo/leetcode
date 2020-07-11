@@ -1,6 +1,8 @@
 # 662. Maximum Width of Binary Tree
 
-每個節點位於哪個位置，都是可以根據父節點計算出來的
+每個節點位於哪個位置，都是可以根據父節點計算出來的，queue 裡保存節點及位置:
+
+![662](./662.png)
 
 ```cpp
 int widthOfBinaryTree(TreeNode* root) {
