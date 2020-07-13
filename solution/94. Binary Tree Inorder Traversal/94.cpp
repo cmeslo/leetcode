@@ -1,55 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <stack>
-using namespace std;
-
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-	vector<int> inorderTraversal(TreeNode* root)
-	{
-		vector<int> ans;
-		if (nullptr == root) return ans;
-
-		stack<TreeNode*> st;
-		TreeNode* current = root;
-
-		while (!st.empty() || current)
-		{	
-			while (current) {
-				st.push(current);
-				current = current->left;
-			}
-			current = st.top();
-			st.pop();
-			ans.push_back(current->val);
-			current = current->right;
-		}
-		return ans;
-	}
+    vector<int> inorderTraversal(TreeNode* root) {
+        if (!root) return {};
+        
+        vector<int> ans;
+        stack<TreeNode*> st;
+        
+        auto* cur = root;
+        while (cur || !st.empty()) {
+            while (cur) {
+                st.push(cur);
+                cur = cur->left;
+            }
+            cur = st.top(); st.pop();
+            ans.push_back(cur->val);
+            cur = cur->right;
+        }
+        return ans;
+    }
 };
-
-void main()
-{
-//	TreeNode* t = nullptr;
-
-	TreeNode* t = new TreeNode(1);
-
-	t->left = new TreeNode(2);
-	t->right = new TreeNode(3);
-	t->left->left = new TreeNode(4);
-	t->left->right = new TreeNode(5);
-
-	auto ans = new Solution;
-	vector<int> v = ans->inorderTraversal(t);
-	for (vector<int>::iterator i = v.begin(); i != v.end(); ++i){
-		cout << *i << ", ";
-	}
-	cout << endl;
-}
