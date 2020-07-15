@@ -1,6 +1,6 @@
 # 101. Symmetric Tree
 
-## Recursive: 101_01.cpp
+## Recursive - 101_01.cpp
 ```cpp
 bool isSymmetric(TreeNode* root) {
     return isMirror(root, root);
@@ -15,7 +15,7 @@ bool isMirror(TreeNode* a, TreeNode* b) {
 }
 ```
 
-## Iteration: 101_02.cpp
+## Iterative - 101_02.cpp
 ```cpp
 bool isSymmetric(TreeNode* root) {
     queue<TreeNode*> q;
