@@ -6,25 +6,23 @@ Bucket sort
 ```cpp
 vector<int> topKFrequent(vector<int>& nums, int k) {
     unordered_map<int, int> count;
+    int max_freq = 1;
     for (const int num : nums) {
-        count[num]++;
+        max_freq = max(max_freq, ++count[num]);
     }
 
-    unordered_map<int, vector<int>> bucket;
+    unordered_map<int, vector<int>> buckets;
     for (auto& kv : count) {
-        bucket[kv.second].push_back(kv.first);
+        buckets[kv.second].push_back(kv.first);
     }
 
     vector<int> ans;
-    for (int i = nums.size(); i > 0, k > 0; i--) {
-        auto it = bucket.find(i);
-        if (it == bucket.end()) continue;
-        for (int j : bucket[i]) {
-            ans.push_back(j);
-            if (--k == 0) break;
-        }
+    for (int i = max_freq; i >= 1; i--) {
+        auto it = buckets.find(i);
+        if (it == buckets.end()) continue;
+        ans.insert(ans.end(), buckets[i].begin(), buckets[i].end());
+        if (ans.size() == k) return ans;
     }
-
     return ans;
 }
 ```
