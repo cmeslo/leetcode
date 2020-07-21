@@ -17,6 +17,7 @@ public:
     }
     
 private:
+    // topologic sort
     bool dfs(int node, vector<int>& ans, vector<vector<int>>& g, vector<int>& v) {
         if (v[node] == 1) return true; // cycle
         if (v[node] == 2) return false;
