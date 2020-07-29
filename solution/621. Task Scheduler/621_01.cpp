@@ -1,25 +1,17 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        int mx = 0, mxCnt = 0;
-		vector<int> taskCnt(26, 0);
-
-		for (auto task : tasks) {
-			++taskCnt[task - 'A'];
-			if (taskCnt[task - 'A'] == mx) {
-				mxCnt++;
-			}
-			else if (taskCnt[task - 'A'] > mx) {
-				mx = taskCnt[task - 'A'];
-				mxCnt = 1;
-			}
-		}
-
-		int partCnt = mx - 1;
-		int partLen = n + 1 - mxCnt;
-		int emptySlot = partCnt * partLen;
-		int taskLeft = tasks.size() - mx * mxCnt;
-		int idles = max(0, emptySlot - taskLeft);
-		return tasks.size() + idles;
+        vector<int> freq(26, 0);
+        int maxFreq = 0, cycle = 0;
+        
+        for (char& c : tasks)
+            maxFreq = max(maxFreq, ++freq[c - 'A']);
+        
+        for (int f : freq)
+            if (f == maxFreq) cycle++;
+        
+        int ans = (maxFreq - 1) * (n + 1) + cycle;
+        
+        return ans < tasks.size() ? tasks.size() : ans;
     }
 };
