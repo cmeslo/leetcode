@@ -38,7 +38,7 @@ int leastInterval(vector<char>& tasks, int n) {
 ```
 
 ## 模擬方法 (Priority queue) - 621_02.cpp:
-```
+```cpp
 int leastInterval(vector<char>& tasks, int n) {
     unordered_map<char, int> m;
     for (const char& c : tasks)
