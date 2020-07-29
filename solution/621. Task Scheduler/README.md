@@ -1,6 +1,6 @@
 # 621. Task Scheduler
 
-## 數學方法：
+## 數學方法 - 621_01.cpp：
 ```cpp
 int leastInterval(vector<char>& tasks, int n) {
     unordered_map<char, int> m;
@@ -37,7 +37,7 @@ int leastInterval(vector<char>& tasks, int n) {
 }
 ```
 
-## 模擬方法 (Priority queue):
+## 模擬方法 (Priority queue) - 621_02.cpp:
 ```
 int leastInterval(vector<char>& tasks, int n) {
     unordered_map<char, int> m;
