@@ -1,5 +1,7 @@
+# 309. Best Time to Buy and Sell Stock with Cooldown
 
-old version, space complexity is ```O(n)```
+## old version, space complexity is ```O(n)```
+
 ```cpp
 int maxProfit(vector<int>& prices) {
 
@@ -23,7 +25,8 @@ int maxProfit(vector<int>& prices) {
 }
 ```
 
-new version, space complexity is ```O(1)```
+## new version, space complexity is ```O(1)```
+
 ```cpp
 int maxProfit(vector<int>& prices) {
     int rest = 0;
