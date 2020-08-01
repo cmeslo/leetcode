@@ -3,28 +3,20 @@ public:
     bool detectCapitalUse(string word) {
         if (word.empty()) return true;
         
-        int i = 0;
-        string rest = word.substr(i + 1);
-        
-        if ('A' <= word[i] && word[i] <= 'Z') {
-            return isAllUpperCase(rest) || isAllLowerCase(rest);
-        } else if ('a' <= word[i] && word[i] <= 'z') {
-            return isAllLowerCase(rest);
-        }
-        
-        return false;
+        string rest = word.substr(1);
+        return isupper(word[0]) ? isAllUpper(rest) || isAllLower(rest) : isAllLower(rest);
     }
     
 private:
-    bool isAllUpperCase(const string& word) {
+    bool isAllUpper(const string& word) {
         for (const char& c : word)
-            if (c < 'A' || c > 'Z') return false;
+            if (!isupper(c)) return false;
         return true;
     }
     
-    bool isAllLowerCase(const string& word) {
+    bool isAllLower(const string& word) {
         for (const char& c : word)
-            if (c < 'a' || c > 'z') return false;
+            if (!islower(c)) return false;
         return true;
     }
 };
