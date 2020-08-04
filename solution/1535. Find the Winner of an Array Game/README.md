@@ -1,4 +1,4 @@
-#
+# 1535. Find the Winner of an Array Game
 
 ## Stupid method
 
@@ -26,6 +26,8 @@ int getWinner(vector<int>& arr, int k) {
 
 ## Time complexity: O(n), Space complexity: O(1) method:
 
+if ```k >= n-1```, winner needs to win all elements, so it will be the ```max(A)```.
+
 ```cpp
 int getWinner(vector<int>& arr, int k) {
     int winner = arr[0], win_count = 0;
@@ -35,7 +37,7 @@ int getWinner(vector<int>& arr, int k) {
             winner = arr[i];
             win_count = 0;
         }
-        if (++win_count >= k) break;
+        if (++win_count == k) break;
     }
 
     return winner;
