@@ -8,7 +8,7 @@ public:
                 winner = arr[i];
                 win_count = 0;
             }
-            if (++win_count >= k) break;
+            if (++win_count == k) break;
         }
         
         return winner;
