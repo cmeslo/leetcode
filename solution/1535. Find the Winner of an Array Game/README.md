@@ -26,7 +26,7 @@ int getWinner(vector<int>& arr, int k) {
 
 ## Time complexity: O(n), Space complexity: O(1) method:
 
-if ```k >= n-1```, winner needs to win all elements, so it will be the ```max(A)```.
+if ```k >= n-1```, winner needs to win all elements, so it will be the ```max(arr)```.
 
 ```cpp
 int getWinner(vector<int>& arr, int k) {
