@@ -4,6 +4,10 @@
 
 dfs, map and priority_queue
 
+Time complexity: O(nlogn)
+
+```map <X, priority_queue<pair<Y, val>>>```
+
 ```cpp
 class Solution {
 public:
