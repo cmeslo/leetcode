@@ -64,7 +64,8 @@ public:
                 else if (grid[y][x] == 1) ++fresh;
             }
         
-        while (!q.empty() && fresh) { // 添加 fresh 橙判斷，防止最後一個壞橙把答案加一
+        // 添加 fresh 橙判斷: 因為最後一批感染的壞橙、也會放到 queue 裡，但這時已經完成操作，答案不用加一
+        while (!q.empty() && fresh) {
             int size = q.size();
             mins++;
             while (size--) {
