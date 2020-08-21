@@ -7,12 +7,8 @@ public:
         
         int ans = 0, odd = 0;
         for (auto& it : freq) {
-            if (it.second % 2 == 0) {
-                ans += it.second;
-            } else {
-                odd = 1;
-                ans += it.second - 1;
-            }
+            ans += (it.second % 2 == 0 ? it.second : it.second - 1);
+            odd |= (it.second & 1);
         }
         
         return ans + odd;
