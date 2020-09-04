@@ -3,6 +3,9 @@
 ## 436_01.cpp 使用 map 的 lower_bound 方法
 
 ```cpp
+// Runtime: 156 ms
+// Memory Usage: 28.5 MB
+
 vector<int> findRightInterval(vector<vector<int>>& intervals) {
     int n = intervals.size();
     vector<int> ans;
@@ -26,6 +29,9 @@ vector<int> findRightInterval(vector<vector<int>>& intervals) {
  lower bound - 第一個 first 值大於等於目標 end 值的 intervals
 
 ```cpp
+// Runtime: 124 ms
+// Memory Usage: 24.1 MB
+
 class Solution {
 public:
     vector<int> findRightInterval(vector<vector<int>>& intervals) {
