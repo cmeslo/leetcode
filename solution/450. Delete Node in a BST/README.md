@@ -47,7 +47,7 @@ TreeNode* deleteNode(TreeNode* root, int key) {
         TreeNode* new_root;
         if (!root->left)
             new_root = root->right;
-        if (!root->right)
+        else if (!root->right)
             new_root = root->left;
         else {
             TreeNode* parent = root;
