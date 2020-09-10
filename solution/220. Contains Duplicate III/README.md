@@ -28,6 +28,8 @@ bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
 
 ## 220_02.cpp
 
+不太常見、比較特別的方法，
+
 使用 bucket 的概念，注意每次檢查、要把前後桶都一併檢查
 
 ```cpp
