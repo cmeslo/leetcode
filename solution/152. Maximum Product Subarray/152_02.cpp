@@ -8,8 +8,8 @@ public:
         
         for (int i = 1; i < nums.size(); ++i) {
             int mx = maxP, mi = minP;
-            maxP = max(nums[i], max(nums[i] * mx, nums[i] * mi));
-            minP = min(nums[i], min(nums[i] * mx, nums[i] * mi));
+            maxP = max(nums[i], max(nums[i] * mx, nums[i] * mi)); // max({nums[i], nums[i] * mx, nums[i] * mi});
+            minP = min(nums[i], min(nums[i] * mx, nums[i] * mi)); // min({nums[i], nums[i] * mx, nums[i] * mi});
             ans = max(ans, maxP);
         }
         
