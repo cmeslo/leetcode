@@ -3,7 +3,7 @@
 分兩種情況：
 
 1. 猜中了的時候 a++
-2. 猜不中的時候，分別記錄下 猜了甚麼(guess_vector)，以及 該位置的答案(secret_vector)是甚麼
+2. 猜不中的時候，分別記錄下 猜了甚麼(guess_vector)，以及 該位置的答案是甚麼(secret_vector)
 
 最後 guess_vector 和 secret_vector 取短板，構成 b
 
