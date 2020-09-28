@@ -19,6 +19,6 @@ bool isRobotBounded(string instructions) {
 }
 ```
 
-Explination:
+Explanation:
 
 https://leetcode.com/problems/robot-bounded-in-circle/discuss/290856/JavaC%2B%2BPython-Let-Chopper-Help-Explain
