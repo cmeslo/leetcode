@@ -1,9 +1,10 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        char ans = 0;
-		for (char c : s) ans ^= c;
-		for (char c : t) ans ^= c;
-		return ans;
+        int ans = 0;
+        for (char c : s) ans ^= (c - 'a');
+        for (char c : t) ans ^= (c - 'a');
+        return ans + 'a';
+
     }
 };
