@@ -27,6 +27,7 @@ char findTheDifference(string s, string t) {
 
 ## vector
 
+### 389_03.cpp
 ```cpp
 char findTheDifference(string s, string t) {
     vector<int> letters(26, 0);
@@ -36,6 +37,24 @@ char findTheDifference(string s, string t) {
 
     for (int i = 0; i < t.length(); ++i)
         --letters[t[i] - 'a'];
+
+    for (int i = 0; i < letters.size(); ++i)
+        if (letters[i] != 0) return i + 'a';
+
+    return '\0';
+}
+```
+
+### 389_04.cpp
+```cpp
+char findTheDifference(string s, string t) {
+    vector<int> letters(26, 0);
+
+    for (int i = 0; i < s.length(); ++i) {
+        ++letters[s[i] - 'a'];
+        --letters[t[i] - 'a'];
+    }
+    --letters[t.back() - 'a'];
 
     for (int i = 0; i < letters.size(); ++i)
         if (letters[i] != 0) return i + 'a';
