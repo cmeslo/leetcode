@@ -98,3 +98,79 @@ private:
 ```
 
 reference: https://www.youtube.com/watch?v=zfjBapE3Y6E
+
+## 835_04.cpp
+
+we can use "vector" as a key, then find the maximum value of the same "vector".
+
+```cpp
+int largestOverlap(vector<vector<int>>& A, vector<vector<int>>& B) {
+    int n = A.size();
+    vector<int> listA, listB;
+
+    for (int i = 0; i < n*n; ++i) {
+        if (A[i / n][i % n] == 1) listA.push_back(i / n * 100 + i % n);
+        if (B[i / n][i % n] == 1) listB.push_back(i / n * 100 + i % n);
+    }
+
+    int ans = 0;
+    unordered_map<int, int> v; // 向量
+    for (int a : listA) {
+        for (int b : listB) {
+            ans = max(ans, ++v[a - b]);
+        }
+    }
+
+    return ans;
+}
+```
+
+```cpp
+int largestOverlap(vector<vector<int>>& A, vector<vector<int>>& B) {
+    int n = A.size();
+    vector<int> listA, listB;
+
+    for (int i = 0; i < n*n; ++i) {
+        if (A[i / n][i % n] == 1) listA.push_back(i / n * 100 + i % n);
+        if (B[i / n][i % n] == 1) listB.push_back(i / n * 100 + i % n);
+    }
+
+    int ans = 0;
+    unordered_map<int, int> v; // 向量
+    for (int a : listA) {
+        for (int b : listB) {
+            ans = max(ans, ++v[a - b]);
+        }
+    }
+
+    return ans;
+}
+```
+
+we can also use string as a key, but too slow.
+
+```cpp
+int largestOverlap(vector<vector<int>>& A, vector<vector<int>>& B) {
+    int n = A.size();
+    vector<pair<int, int>> listA, listB;
+
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j) {
+            if (A[i][j] == 1) listA.push_back({i, j});
+            if (B[i][j] == 1) listB.push_back({i, j});
+        }
+
+    int ans = 0;
+    unordered_map<string, int> v; // 向量
+    for (const auto& a : listA) {
+        for (const auto& b : listB) {
+            string key = to_string(a.first - b.first) + "-" + to_string(a.second - b.second);
+            ans = max(ans, ++v[key]);
+        }
+    }
+
+    return ans;
+}
+```
+
+reference: https://leetcode.com/problems/image-overlap/discuss/130623/C%2B%2BJavaPython-Straight-Forward
