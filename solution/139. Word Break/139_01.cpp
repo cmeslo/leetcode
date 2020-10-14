@@ -1,3 +1,5 @@
+// Your runtime beats 96.98 % of cpp submissions.
+
 class TrieNode {
 public:
     vector<TrieNode*> next;
