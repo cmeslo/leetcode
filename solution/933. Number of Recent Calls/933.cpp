@@ -5,15 +5,10 @@ public:
     }
     
     int ping(int t) {
-        int start = t - 3000, end = t;
-        
         q.push(t);
-        while (!q.empty()) {
-            if (!(start <= q.front() && q.front() <= end))
-                q.pop();
-            else
-                break;
-        }
+        
+        while (q.front() < t - 3000)
+            q.pop();
         
         return q.size();
     }
