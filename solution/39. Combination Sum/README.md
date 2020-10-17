@@ -1,5 +1,7 @@
 # 39. Combination Sum
 
+兩個解法都是 ```Your runtime beats 98.58 % of cpp submissions.```
+
 ## 沒有sort
 
 ```cpp
