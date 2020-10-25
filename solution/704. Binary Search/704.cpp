@@ -1,8 +1,6 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        if (nums.empty()) return -1;
-        
         int l = 0, r = nums.size();
         
         while (l < r) {
