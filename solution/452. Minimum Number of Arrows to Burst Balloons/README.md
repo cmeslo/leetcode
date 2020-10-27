@@ -5,6 +5,8 @@
 1. sort by end
 2. shoot as right as possible
 
+Your runtime beats 84.10 % of cpp submissions.
+
 ```cpp
 int findMinArrowShots(vector<vector<int>>& points) {
     if (points.empty()) return 0;
@@ -29,6 +31,8 @@ int findMinArrowShots(vector<vector<int>>& points) {
 ## 452_02.cpp ##
 
 sort by start
+
+Your runtime beats 94.75 % of cpp submissions.
 
 ```cpp
 int findMinArrowShots(vector<vector<int>>& points) {
