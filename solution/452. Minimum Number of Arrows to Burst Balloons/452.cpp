@@ -1,17 +1,21 @@
 class Solution {
 public:
-    int findMinArrowShots(vector<pair<int, int>>& points) {
+    int findMinArrowShots(vector<vector<int>>& points) {
         if (points.empty()) return 0;
-        std::sort(points.begin(), points.end(), [](pair<int, int>& a, pair<int, int>& b) {
-            return a.second < b.second;
+        
+        sort(points.begin(), points.end(), [](const auto& a, const auto& b) {
+            return a[1] < b[1];
         });
         
-        int res = 1, arrowPos = points[0].second;
+        int shoot = 1;
+        int end = points[0][1];
         for (int i = 1; i < points.size(); ++i) {
-            if (arrowPos >= points[i].first) continue;
-            res++;
-            arrowPos = points[i].second;
+            if (end < points[i][0]) {
+                ++shoot;
+                end = points[i][1];
+            }
         }
-        return res;
+        
+        return shoot;
     }
 };
