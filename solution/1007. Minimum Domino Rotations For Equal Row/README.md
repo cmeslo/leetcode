@@ -57,3 +57,33 @@ int minDominoRotations(vector<int>& A, vector<int>& B) {
     return -1;
 }
 ```
+
+## 1007_03.cpp
+
+看了別人的解法，很巧妙，
+
+分別記錄兩個數組裡，1 至 6 的出現次數
+
+最後看數字 1 至 6 中，哪一個數字可以在兩行裡分別加起來後（共同出現的會多加了一次，把它減掉）等於 n
+
+那就代表該數字符合要求，可以湊滿一行
+
+```cpp
+int minDominoRotations(vector<int>& A, vector<int>& B) {
+    int n = A.size();
+
+    vector<int> countA(7, 0), countB(7, 0), same(7, 0);
+    for (int i = 0; i < n; ++i) {
+        ++countA[A[i]];
+        ++countB[B[i]];
+        if (A[i] == B[i])
+            ++same[A[i]];
+    }
+
+    for (int i = 1; i < 7; ++i)
+        if (countA[i] + countB[i] - same[i] == n) // 共同出現的會多加了一次，把它減掉
+            return n - max(countA[i], countB[i]); // 看看要填補多少個空缺，即交換多少次
+
+    return -1;
+}
+```
