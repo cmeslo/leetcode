@@ -29,3 +29,59 @@ Node* cloneGraph(Node* node) {
     return new_node;
 }
 ```
+
+## 133_02.cpp
+
+bfs
+
+```cpp
+Node* cloneGraph(Node* node) {
+    if (!node) return nullptr;
+
+    unordered_map<int, Node*> copies;
+    queue<Node*> todo;
+
+    copies[node->val] = new Node(node->val);
+    todo.push(node);
+
+    while (!todo.empty()) {
+        Node* cur = todo.front(); todo.pop();
+
+        for (Node* next : cur->neighbors) {
+            if (copies.find(next->val) == copies.end()) {
+                copies[next->val] = new Node(next->val);
+                todo.push(next);
+            }
+            copies[cur->val]->neighbors.push_back(copies[next->val]);
+        }
+    }
+
+    return copies[node->val];
+}
+```
+
+or vector
+
+```cpp
+Node* cloneGraph(Node* node) {
+    if (!node) return node;
+
+    vector<Node*> copies(101, nullptr);
+    copies[node->val] = new Node(node->val);
+    queue<Node*> todo;
+    todo.push(node);
+
+    while (!todo.empty()) {
+        auto* cur = todo.front(); todo.pop();
+        for (auto* next : cur->neighbors) {
+            if (!copies[next->val]) {
+                copies[next->val] = new Node(next->val);
+                todo.push(next);
+            }
+            copies[cur->val]->neighbors.push_back(copies[next->val]);
+        }
+    }
+
+    return copies[node->val];
+}
+```
