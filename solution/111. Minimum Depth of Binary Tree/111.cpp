@@ -1,47 +1,25 @@
-#include <iostream>
-using namespace std;
-
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-	int minDepth(TreeNode* root)
-	{
-		if (nullptr == root) return 0;
-
-		int leftDepth = minDepth(root->left);
-		int rightDepth = minDepth(root->right);
-
-		if (leftDepth == 0) {
-			return rightDepth + 1;
-		}
-
-		if (rightDepth == 0) {
-			return leftDepth + 1;
-		}
-
-		return leftDepth > rightDepth ? rightDepth + 1 : leftDepth + 1;
-	}
+    int minDepth(TreeNode* root) {
+        if (!root) return 0;
+        
+        int left_depth = minDepth(root->left);
+        int right_depth = minDepth(root->right);
+        
+        if (left_depth == 0 || right_depth == 0)
+            return 1 + left_depth + right_depth;
+        
+        return 1 + min(left_depth, right_depth);
+    }
 };
-
-void main()
-{
-	//TreeNode* t = nullptr;
-	TreeNode* t = new TreeNode(1);
-	t->left = new TreeNode(2);
-	//t->left->left = new TreeNode(1);
-
-	//t->left = new TreeNode(2);
-	//t->left->left = new TreeNode(1);
-	t->right = new TreeNode(2);
-	t->right->right = new TreeNode(1);
-
-	auto ans = new Solution;
-
-	cout << ans->minDepth(t) << endl;
-}
