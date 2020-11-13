@@ -53,7 +53,7 @@ bool find132pattern(vector<int>& nums) {
     vector<int> mins(n);
     mins[0] = nums[0];
     for (int i = 1; i < n; ++i)
-        mins[i] = min(mins[i - 1], nums[i]); // 記錄所有數字，對應的 1
+        mins[i] = min(mins[i - 1], nums[i - 1]); // 記錄所有數字，對應的 1
 
     stack<int> st;
     for (int j = n - 1; j >= 0; --j) {
