@@ -97,3 +97,14 @@ bool find132pattern(vector<int>& nums) {
     return false;
 }
 ```
+
+這裡：
+
+```cpp
+while (!st.empty() && nums_j > st.top()) { // stack 裡的元素都要比 nums[j] 大
+    third = st.top(); // 被踢走的就是比 nums[j] 小的下一個數字
+    st.pop();
+}
+```
+
+條件不是 ```nums_j >= st.top()```，因為 stack 是存放最高值的棧，我要 pop 出的 third 值一定要比<strong>最高值</strong>小，也就是 stack 裡可以同時存在多個一樣高度的元素。
