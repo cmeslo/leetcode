@@ -2,7 +2,9 @@
 
 ## 849_01.cpp
 
-每次遇到空位，就數一下連續空位的長度。
+每次遇到空位，就數一下連續空位的長度
+
+頭尾空位需要特別處理
 
 ```cpp
 int maxDistToClosest(vector<int>& seats) {
