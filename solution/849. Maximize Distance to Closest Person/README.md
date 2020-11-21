@@ -25,3 +25,26 @@ int maxDistToClosest(vector<int>& seats) {
     return max_distance;
 }
 ```
+
+## 849_02.cpp
+
+記錄最後一個人出現的位置 last，
+
+每當遇到另一個人、就與 last 計算距離、再更新答案，
+
+同樣頭尾要特殊處理
+
+```cpp
+int maxDistToClosest(vector<int>& seats) {
+    int res = 0, n = seats.size(), last = -1;
+
+    for (int i = 0; i < seats.size(); ++i) {
+        if (seats[i] == 1) {
+            res = last == -1 ? i : max(res, (i - last) / 2);
+            last = i;
+        }
+    }
+    res = max(res, n - last - 1);
+    return res;
+}
+```
