@@ -33,6 +33,8 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 or
 
 ```cpp
+// Your runtime beats 94.77 % of cpp submissions.
+
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
     stack<int> st1, st2;
     while (l1) {
