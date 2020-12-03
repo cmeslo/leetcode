@@ -32,6 +32,41 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 
 or
 
+```cpp
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    stack<int> st1, st2;
+    while (l1) {
+        st1.push(l1->val);
+        l1 = l1->next;
+    }
+    while (l2) {
+        st2.push(l2->val);
+        l2 = l2->next;
+    }
+
+    ListNode *head = nullptr;
+    int sum = 0;
+    while (!st1.empty() || !st2.empty() || sum) {
+        if (!st1.empty()) {
+            sum += st1.top(); st1.pop();
+        }
+        if (!st2.empty()) {
+            sum += st2.top(); st2.pop();
+        }
+
+        auto tmp = head;
+        head = new ListNode(sum % 10);
+        head->next = tmp;
+
+        sum /= 10;
+    }
+
+    return head;
+}
+```
+
+## [445_02.cpp](https://github.com/cmeslo/leetcode/blob/master/solution/445.%20Add%20Two%20Numbers%20II/445_02.cpp)
+
 時間換空間
 
 ```cpp
