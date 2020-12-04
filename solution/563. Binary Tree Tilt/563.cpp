@@ -12,17 +12,17 @@
 class Solution {
 public:
     int findTilt(TreeNode* root) {
-		int ans = 0;
-		postOrderTraversal(root, ans);
-		return ans;
+        int ans = 0;
+        postOrderTraversal(root, ans);
+        return ans;
     }
 
 private:
     int postOrderTraversal(TreeNode* root, int& ans) {
-		if (!root) return 0;
-		int leftSum = postOrderTraversal(root->left, ans);
-		int rightSum = postOrderTraversal(root->right, ans);
-		ans += abs(leftSum - rightSum);
-		return root->val + leftSum + rightSum;
-	}
+        if (!root) return 0;
+        int leftSum = postOrderTraversal(root->left, ans);
+        int rightSum = postOrderTraversal(root->right, ans);
+        ans += abs(leftSum - rightSum);
+        return root->val + leftSum + rightSum;
+    }
 };
