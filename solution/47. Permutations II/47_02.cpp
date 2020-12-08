@@ -1,28 +1,29 @@
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        vector<vector<int>> res;
-        vector<int> out, used(nums.size(), 0);
-        std::sort(nums.begin(), nums.end());
-        dfs(nums, used, out, res);
-        return res;
+        vector<vector<int>> ans;
+        vector<int> cur;
+        vector<bool> used(nums.size());
+        sort(begin(nums), end(nums));
+        dfs(nums, used, cur, ans);
+        return ans;
     }
     
-    void dfs(vector<int>& nums, vector<int>& used, vector<int>& out, vector<vector<int>>& res) {
-        if (out.size() == nums.size()) {
-            res.push_back(out);
+private:
+    void dfs(vector<int>& nums, vector<bool>& used, vector<int>& cur, vector<vector<int>>& ans) {
+        if (cur.size() == nums.size()) {
+            ans.push_back(cur);
             return;
         }
         
         for (int i = 0; i < nums.size(); ++i) {
-            if (i > 0 && nums[i - 1] == nums[i] && used[i - 1]) continue;
-            if (!used[i]) {
-                out.push_back(nums[i]);
-                used[i] = 1;
-                dfs(nums, used, out, res);
-                used[i] = 0;
-                out.pop_back();
-            }
+            if (used[i]) continue;
+            if (i > 0 && nums[i - 1] == nums[i] && used[i - 1] == false) continue;
+            used[i] = true;
+            cur.push_back(nums[i]);
+            dfs(nums, used, cur, ans);
+            cur.pop_back();
+            used[i] = false;
         }
     }
 };
