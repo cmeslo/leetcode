@@ -1,5 +1,7 @@
 # 845. Longest Mountain in Array
 
+## 845_01.cpp
+
 先從左、右分別開始走，記錄每個數字上 遞增 和 遞減 的數目
 
 最後再遍歷一次計算最大長度（當自己是山頂，把左、右分別走到山腳的長度相加）
@@ -45,5 +47,31 @@ int longestMountain(vector<int>& A) {
             ans = max(ans, up[i] + down[i] - 1);
 
     return ans >= 3 ? ans : 0;
+}
+```
+
+
+## 845_02.cpp
+
+一次遍歷
+
+```cpp
+int longestMountain(vector<int>& A) {
+    int n = A.size();
+
+    int ans = 0;
+    int inc = 0, dec = 0;
+    for (int i = 0; i < n - 1; ++i) {
+        if (dec && A[i] < A[i + 1] || A[i] == A[i + 1])
+            inc = dec = 0;
+
+        inc += A[i] < A[i + 1];
+        dec += A[i] > A[i + 1];
+
+        if (inc && dec)
+            ans = max(ans, inc + 1 + dec);
+    }
+
+    return ans;
 }
 ```
