@@ -22,3 +22,24 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
     return ans;
 }
 ```
+
+or
+
+```cpp
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    vector<vector<int>> ans;
+
+    std::sort(intervals.begin(), intervals.end(), [](const auto& a, const auto& b) {
+        return a[0] < b[0];
+    });
+
+    for (auto& interval : intervals) {
+        if (ans.empty() || ans.back()[1] < interval[0])
+            ans.push_back(interval);
+        else
+            ans.back()[1] = max(ans.back()[1], interval[1]);
+    }
+
+    return ans;
+}
+```
