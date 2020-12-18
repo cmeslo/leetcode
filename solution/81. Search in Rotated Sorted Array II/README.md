@@ -45,7 +45,7 @@ private:
 
 按照數組性質做 binary search，
 
-time complexity: O(logn)
+average time complexity: O(logn)
 
 the worst case: O(n)
 
