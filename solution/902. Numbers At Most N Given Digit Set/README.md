@@ -84,3 +84,5 @@ int atMostNGivenDigitSet(vector<string>& digits, int N) {
     return ans + 1;
 }
 ```
+
+reference: https://zxi.mytechroad.com/blog/math/leetcode-902-numbers-at-most-n-given-digit-set/
