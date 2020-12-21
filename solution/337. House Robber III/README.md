@@ -1,6 +1,6 @@
 # 337. House Robber III
 
-version 1
+## version 1
 
 ```cpp
 class Solution {
@@ -37,7 +37,7 @@ public:
 };
 ```
 
-version 2
+or
 
 ```cpp
 class Solution {
@@ -71,7 +71,7 @@ private:
 };
 ```
 
-version 3
+## version 2
 
 ```cpp
 class Solution {
