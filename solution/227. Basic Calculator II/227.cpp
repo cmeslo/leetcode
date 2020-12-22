@@ -14,14 +14,12 @@ public:
                 if (op == '+') st.push(num);
                 else if (op == '-') st.push(-num);
                 else if (op == '*' || op == '/') {
-                    int tmp = op == '*' ? st.top() * num : st.top() / num;
-                    st.pop();
-                    st.push(tmp);
+                    int tmp = st.top(); st.pop();
+                    st.push(op == '*' ? tmp * num : tmp / num);
                 }
-                op = s[i];
                 num = 0;
+                op = s[i];
             }
-
         }
         
         int ans = 0;
