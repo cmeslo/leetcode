@@ -43,7 +43,7 @@ int calculate(string s) {
     }
 
     int ans = 0;
-    while (!st_num.empty()) { // 不能直接從數字棧中取兩個數，從操作符棧中取一個符號，比如 "1*2-3/4+5*6-7*8+9/10" 會出錯
+    while (!st_num.empty()) { // 不能直接從數字棧中取兩個數，從操作符棧中取一個符號來計算。比如 "1*2-3/4+5*6-7*8+9/10" 會出錯
         int num = st_num.top(); st_num.pop(); 
         if (st_op.empty()) {
             ans += num;
