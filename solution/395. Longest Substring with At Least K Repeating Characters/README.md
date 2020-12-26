@@ -32,6 +32,8 @@ int len2 = longestSubstring(s.substr(i == 0 ? 1 : i), k);
 
 ## Code
 
+Time complexity: O(N^2)
+
 Your runtime beats 100.00 % of cpp submissions.
 
 ```cpp
