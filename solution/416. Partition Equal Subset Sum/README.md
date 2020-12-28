@@ -51,7 +51,8 @@ bool canPartition(vector<int>& nums) {
 
     for (int i = 1; i < n; ++i) {
         for (int j = 0; j <= target; ++j) {
-            if (nums[i] == j)
+            dp[i][j] = dp[i - 1][j];
+            if (nums[i] == j) // 因為這個判斷，所以 dp[0][0] 不用設為 true
                 dp[i][j] = true;
             else if (nums[i] < j)
                 dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
@@ -76,7 +77,7 @@ bool canPartition(vector<int>& nums) {
     int target = sum >> 1;
     vector<bool> dp(target + 1, false);
 
-    dp[0] = true;
+    dp[0] = true; // 理解上應該要是false
     if (nums[0] <= target)
         dp[nums[0]] = true;
 
@@ -91,3 +92,23 @@ bool canPartition(vector<int>& nums) {
 }
 ```
 
+最後
+
+```cpp
+bool canPartition(vector<int>& nums) {
+    int sum = accumulate(begin(nums), end(nums), 0);
+    if (sum & 1) return false;
+
+    int target = sum / 2;
+    vector<bool> dp(target + 1);
+
+    dp[0] = true; // base case
+    for (int num : nums) {
+        for (int i = target; i >= num; --i) {
+            dp[i] = dp[i] || dp[i - num];
+        }
+    }
+
+    return dp[target];
+}
+```
