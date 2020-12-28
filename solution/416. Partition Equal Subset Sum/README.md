@@ -30,3 +30,64 @@ private:
     }
 };
 ```
+
+## DP (416_02.cpp)
+
+二維數組
+
+Your runtime beats 36.36 % of cpp submissions.
+
+```cpp
+bool canPartition(vector<int>& nums) {
+    int n = nums.size();
+    int sum = accumulate(begin(nums), end(nums), 0);
+    if (sum & 1) return false;
+
+    int target = sum >> 1;
+    vector<vector<bool>> dp(n, vector<bool>(target + 1, false));
+
+    if (nums[0] <= target)
+        dp[0][nums[0]] = true;
+
+    for (int i = 1; i < n; ++i) {
+        for (int j = 0; j <= target; ++j) {
+            if (nums[i] == j)
+                dp[i][j] = true;
+            else if (nums[i] < j)
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
+        }
+        if (dp[i][target]) return true;
+    }
+
+    return false;
+}
+```
+
+空間優化成一維，從後往前遍歷，避免覆蓋掉DP表格中左面的數據
+
+Your runtime beats 40.53 % of cpp submissions.
+
+```cpp
+bool canPartition(vector<int>& nums) {
+    int n = nums.size();
+    int sum = accumulate(begin(nums), end(nums), 0);
+    if (sum & 1) return false;
+
+    int target = sum >> 1;
+    vector<bool> dp(target + 1, false);
+
+    dp[0] = true;
+    if (nums[0] <= target)
+        dp[nums[0]] = true;
+
+    for (int i = 1; i < n; ++i) {
+        for (int j = target; j >= 0 && nums[i] <= j; --j) {
+            dp[j] = dp[j] || dp[j - nums[i]];
+        }
+        if (dp[target]) return true;
+    }
+
+    return dp[target];
+}
+```
+
