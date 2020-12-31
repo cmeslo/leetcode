@@ -15,6 +15,9 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
 ## Monotonic Queue with value (239_01.cpp)
 
 ```cpp
+// 568 ms
+// Your runtime beats 30.13 % of cpp submissions.
+
 class MonotonicQueue {
 private:
     deque<int> _data;
@@ -51,4 +54,31 @@ public:
         return ans;
     }
 };
+```
+
+## Monotonic Queue with index (239_02.cpp)
+
+```cpp
+// 364 ms
+// Your runtime beats 77.30 % of cpp submissions.
+
+vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+    vector<int> ans;
+    deque<int> indexs;
+
+    for (int i = 0; i < nums.size(); ++i) {
+        while (!indexs.empty() && nums[indexs.back()] <= nums[i])
+            indexs.pop_back();
+        indexs.push_back(i);
+
+        if (i < k - 1) continue;
+
+        ans.push_back(nums[indexs.front()]);
+
+        if (i - k + 1 == indexs.front())
+            indexs.pop_front();
+    }
+
+    return ans;
+}
 ```
