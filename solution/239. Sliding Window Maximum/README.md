@@ -2,6 +2,8 @@
 
 ## Brute force (TLE)
 
+Time complexity: O((n - k + 1) * k)
+
 ```cpp
 vector<int> maxSlidingWindow(vector<int>& nums, int k) {
     vector<int> ans;
@@ -13,6 +15,8 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
 ```
 
 ## Monotonic Queue with value (239_01.cpp)
+
+Time complexity: O(n)
 
 ```cpp
 // 568 ms
@@ -57,6 +61,8 @@ public:
 ```
 
 ## Monotonic Queue with index (239_02.cpp)
+
+Time complexity: O(n)
 
 ```cpp
 // 364 ms
