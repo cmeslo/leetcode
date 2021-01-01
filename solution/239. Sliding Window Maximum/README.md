@@ -98,7 +98,7 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
 Time complexity: O(n)
 
 ```cpp
-// 344ms
+// 344 ms
 // Your runtime beats 92.63 % of cpp submissions.
 
 vector<int> maxSlidingWindow(vector<int>& nums, int k) {
@@ -123,3 +123,7 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
     return ans;
 }
 ```
+
+reference:
+
+https://leetcode.com/problems/sliding-window-maximum/discuss/65881/O(n)-solution-in-Java-with-two-simple-pass-in-the-array
