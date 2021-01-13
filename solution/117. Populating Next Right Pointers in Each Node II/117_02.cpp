@@ -1,42 +1,52 @@
-/**
- * Definition for binary tree with next pointer.
- * struct TreeLinkNode {
- *  int val;
- *  TreeLinkNode *left, *right, *next;
- *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
- * };
- */
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
+
 class Solution {
 public:
-    void connect(TreeLinkNode *root) {
-        if (!root) return;
+    Node* connect(Node* root) {
+        Node *head = root;
+        Node *firstChild = nullptr;
+        Node *cur = nullptr;
         
-        TreeLinkNode *head = NULL, *prev = NULL, *cur = root;
-        
-        while (cur) {
-            
-            while (cur) {
-                if (cur->left) {
-                    if (prev == NULL) {
-                        head = cur->left;
-                    } else {
-                        prev->next = cur->left;
-                    }
-                    prev = cur->left;
+        while (head) {
+            if (head->left) {
+                if (cur) {
+                    cur->next = head->left;
+                    cur = cur->next;
+                } else {
+                    firstChild = cur = head->left;
                 }
-                if (cur->right) {
-                    if (prev == NULL) {
-                        head = cur->right;
-                    } else {
-                        prev->next = cur->right;
-                    }
-                    prev = cur->right;
-                }
-                cur = cur->next;
             }
-            cur = head;
-            head = NULL;
-            prev = NULL;
+            if (head->right) {
+                if (cur) {
+                    cur->next = head->right;
+                    cur = cur->next;
+                } else {
+                    firstChild = cur = head->right;
+                }
+            }
+            
+            if (!(head = head->next)) {
+                head = firstChild;
+                firstChild = cur = nullptr;
+            }
         }
+        
+        return root;
     }
 };
