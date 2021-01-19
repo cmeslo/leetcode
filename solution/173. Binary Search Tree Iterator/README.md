@@ -40,7 +40,7 @@ private:
 };
 ```
 
-### 方法二 (Morris Traversal):
+### 方法二 (Morris Traversal)：
 
 Morris Traversal 的重點是：
 ```
