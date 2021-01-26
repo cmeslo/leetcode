@@ -19,7 +19,7 @@
       ^------------------最後才打破它
 ...
 ...
-1 l . k . . . r 1
+1 l . . . . . k 1
               ^----------最後才打破它
 
 可以得到公式：
@@ -28,6 +28,16 @@ dp[l][r] = max(dp[l][r], nums[l-1] * nums[k] * nums[r+1] + dp[l][k-1] + dp[l][k-
 ```
 
 ### Bottom up - DP
+
+要知道 dp[l][r]，要先知道dp[l][k-1]和dp[k+1][r]，所以bottom up要由len小至大
+
+```
+base case:
+if (l > r) return 0
+if (l == r) return nums[l-1] * nums[l] * nums[l+1]
+```
+
+#### Code
 
 ```cpp
 int maxCoins(vector<int>& nums) {
