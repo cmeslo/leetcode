@@ -27,6 +27,8 @@ int countBalls(int lowLimit, int highLimit) {
 所以可以不用 map：
 
 ```cpp
+// Your runtime beats 95.38 % of cpp submissions.
+
 int countBalls(int lowLimit, int highLimit) {
     vector<int> boxes(46);
     int ans = 0;
