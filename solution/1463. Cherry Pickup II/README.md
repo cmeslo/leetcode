@@ -31,7 +31,7 @@ int cherryPickup(vector<vector<int>>& grid) {
 
 ## Bottom-up DP (1463_02.cpp)
 
-從下向上走，有明確的目標格子（左上和右上），可以省掉最後用 O(n^2) 查找最終結果
+從下向上走，有明確的目標格子（左上和右上），可以省掉最後用 O(n^2) 查找最終結果。
 
 ### 三維DP
 
