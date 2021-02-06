@@ -31,9 +31,41 @@ int cherryPickup(vector<vector<int>>& grid) {
 
 ## Bottom-up DP (1463_02.cpp)
 
-從下向上走，有明確的目標格子（左上和右上），可以省掉最後用 O(n^2) 查找最終結果。
+### 解釋
 
-### 三維DP
+由於走格子要考慮各種路徑、移動方法，所以很容易可以聯想到DP，關鍵是狀態轉移方程要怎麼寫：
+
+#### 當從上向下走時：
+
+```
+dp[y][x1][x2] = dp[y - 1][a][b] + grid[x1] + grid[x2]
+```
+x1 代表 機械人1 在當前行的位置，
+x2 代表 機械人2 在當前行的位置。
+
+a 和 b 分別代表機械人上一輪的可能位置，機械人1由 a 走到 x1，機械人2由 b 走到 x2，
+
+a 有三種取值：(x1 - 1), x1, (x1 + 1)
+
+b 有三種取值：(x2 - 1), x2, (x2 + 1)
+
+a 和 b 各有三種可能性，合共 9 種組合。
+
+如果 x1 和 x2 在同一格子上，只有一個人可以拿到cherry，所以有：
+```
+dp[y][x1][x2] = dp[y - 1][a][b] + grid[x1] + (x1 != x2) * grid[x2]
+```
+
+#### 另外有兩個技巧：
+
+1. 擴充邊界，可以忽略邊界處理代碼，讓代碼更簡潔。
+2. 從下向上走，有明確的目標格子（左上和右上），可以省掉最後用 O(n^2) 查找最終結果。
+
+```
+dp[y][x1][x2] = dp[y + 1][a][b] + grid[x1] + (x1 != x2) * grid[x2]
+```
+
+### 代碼 - 三維DP
 
 ```cpp
 int cherryPickup(vector<vector<int>>& grid) {
@@ -56,7 +88,7 @@ int cherryPickup(vector<vector<int>>& grid) {
 }
 ```
 
-### 空間壓縮成二維
+### 代碼 - 空間壓縮成二維
 
 ```cpp
 int cherryPickup(vector<vector<int>>& grid) {
@@ -81,7 +113,7 @@ int cherryPickup(vector<vector<int>>& grid) {
 }
 ```
 
-#### 從上向下走的代碼：
+### 代碼 - 不擴充邊界，然後從上向下走：
 
 ```cpp
 int cherryPickup(vector<vector<int>>& grid) {
