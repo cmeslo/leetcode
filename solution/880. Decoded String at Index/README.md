@@ -46,7 +46,8 @@ string decodeAtIndex(string S, int K) {
     for (int i = 0; i < n; ++i) {
         if (isdigit(S[i])) {
             int times = S[i] - '0';
-            if (cnt * times < K) { // 相乘後仍然小於 K，可以繼續
+            if (cnt * times < K) {
+                // 相乘後仍然小於 K，可以繼續
                 cnt *= times;
             } else if (K % cnt == 0) {
                 // 相乘後大於等於 K，並且 K 是 cnt 的數倍 -> 代表答案是當前 cnt 裡的的最後一個字符
