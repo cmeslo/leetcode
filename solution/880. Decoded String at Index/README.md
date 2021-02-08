@@ -50,7 +50,8 @@ string decodeAtIndex(string S, int K) {
                 // 相乘後仍然小於 K，可以繼續
                 cnt *= times;
             } else if (K % cnt == 0) {
-                // 相乘後大於等於 K，並且 K 是 cnt 的數倍 -> 代表答案是當前 cnt 裡的的最後一個字符
+                // 相乘後大於等於 K，並且 K 是 cnt 的數倍 -> 代表答案是當前 cnt 裡的的最後一個字符，
+                // cnt 可能由英文和數字組成，所以要遞歸地查找
                 return decodeAtIndex(S.substr(0, i), cnt);
             } else {
                 // 相乘後大於等於 K，並且 K 不是 cnt 的數倍 -> 代表相乘後，K 超出了一點點，
