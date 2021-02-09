@@ -1,7 +1,7 @@
 # 910. Smallest Range II
 
 ## Explanation:
-![910.png](910.png)
+![Explanation](910.png)
 
 
 ## Code:
