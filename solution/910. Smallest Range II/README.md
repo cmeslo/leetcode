@@ -1,5 +1,11 @@
 # 910. Smallest Range II
 
+## Explanation:
+![910.png](910.png)
+
+
+## Code:
+
 ```cpp
 int smallestRangeII(vector<int>& A, int K) {
     sort(begin(A), end(A));
