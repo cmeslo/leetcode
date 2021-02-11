@@ -33,7 +33,7 @@ int nextGreaterElement(int n) {
 
     // 2. 從後往前，找第一個比s[i]大的數字，索引 j
     int j = s.size() - 1;
-    while (j > i && s[i] >= s[j]) --j; // 為什麼要用 >=，要留意上面第三個例子
+    while (j > i && s[i] >= s[j]) --j; // 這裡用 > 還是 >= ？留意上面第三個例子
 
     // 3. 找到 i 和 j 後交換，然後 sort 或 reverse 在 i 之後的數字
     swap(s[i], s[j]);
