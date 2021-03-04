@@ -14,7 +14,7 @@ bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
 }
 ```
 
-## Solution 2 - 4 pointers (1662_01.cpp)
+## Solution 2 - 4 pointers (1662_02.cpp)
 
 ```cpp
 if (++idx1 == word1[arrIdx1].size()) {
