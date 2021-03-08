@@ -1,6 +1,6 @@
 # 127. Word Ladder
 
-## Solution1 - BFS
+## Solution1 - BFS (127_01.cpp)
 
 用 BFS 搜索 shortest path.
 
@@ -43,7 +43,7 @@ int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
 Time complexity: ```O(N * 26 * l) = O(N * l)```
 
 
-## Solution2 - Bidirectional BFS
+## Solution2 - Bidirectional BFS (127_02.cpp)
 
 兩端同時擴展的BFS，可以有效縮小擴展的寛度。
 
