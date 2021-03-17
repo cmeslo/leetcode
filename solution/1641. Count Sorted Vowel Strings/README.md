@@ -167,3 +167,5 @@ int countVowelStrings(int n) {
   return (n + 1) * (n + 2) * (n + 3) * (n + 4) / 24;
 }
 ```
+
+reference: https://leetcode.com/problems/count-sorted-vowel-strings/discuss/918498/JavaC%2B%2BPython-DP-O(1)-Time-and-Space
