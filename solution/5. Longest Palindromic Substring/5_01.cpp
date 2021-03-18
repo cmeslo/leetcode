@@ -1,30 +1,24 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        int startIndex = 0, maxLen = 1;
-
-        for (int i = 0; i < s.size() - 1; ++i)
-        {
-            if(s[i] == s[i + 1]) {
-                palindrome(s, i, i + 1, startIndex, maxLen); //"aaaa"
-            }
-            palindrome(s, i, i, startIndex, maxLen); // "aaa", "bab", "sooos"
+        if (s.empty()) return s;
+        
+        pair<int, int> ans = {0, 1}; // {start, len}
+        for (int i = 0; i < s.length(); ++i) {
+            auto str1 = getPalindrome(s, i, i + 1);
+            auto str2 = getPalindrome(s, i - 1, i + 1);
+            ans = str1.second > ans.second ? str1 : ans;
+            ans = str2.second > ans.second ? str2 : ans;
         }
-        return s.substr(startIndex, maxLen);
+
+        return s.substr(ans.first, ans.second);
     }
 
-    void palindrome(string& s, int left, int right, int& startIndex, int& maxLen) {
-        int step = 1;
-        while (left - step >= 0 && right + step < s.size()) {
-            if (s[left - step] != s[right + step]) break;
-            ++step;
+private:
+    pair<int, int> getPalindrome(string& s, int l, int r) {
+        while (l >= 0 && r < s.length() && s[l] == s[r]) {
+            --l, ++r;
         }
-        
-        int len = step * 2 - 1 + (right - left);
-
-        if (maxLen < len) {
-            startIndex = left - step + 1;
-            maxLen = len;
-        }
+        return {l + 1, r - l - 1};
     }
 };
