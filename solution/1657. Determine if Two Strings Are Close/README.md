@@ -7,9 +7,6 @@
 1. 兩個字符串是否有同樣pattern
 2. 同樣的組成元素
 
-- Time complexity: O(N)
-- Space complexity: O(1)
-
 ## Code
 
 ```cpp
@@ -33,3 +30,6 @@ bool closeStrings(string word1, string word2) {
     return w1 == w2;
 }
 ```
+
+- Time complexity: O(N)
+- Space complexity: O(1)
