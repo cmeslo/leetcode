@@ -20,10 +20,9 @@ public:
         ListNode dummy(0);
         auto tail = &dummy;
         while (!pq.empty()) {
-            auto top = pq.top(); pq.pop();
-            if (top->next)
-                pq.push(top->next);
-            tail = tail->next = top;
+            tail->next = pq.top(); pq.pop();
+            tail = tail->next;
+            if (tail->next) pq.push(tail->next);
         }
         return dummy.next;
     }
