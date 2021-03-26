@@ -29,6 +29,8 @@ ListNode* mergeKLists(vector<ListNode*>& lists) {
 
 ## Solution 2: heap
 
+最優方法，也最簡潔。
+
 Time complexity: ```O(Nlogk)```
 
 ### 自定義比較函數，lambda 寫法 (23_02.cpp)：
