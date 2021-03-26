@@ -129,7 +129,7 @@ k/2*(2n) + k/4*(4n) + k/8*(8n) + ... + (k/2^logk)*(2^logk*n)
 = logk * (kn)
 ```
 
-## code (23_03.cpp)
+### code (23_03.cpp)
 
 ```cpp
 class Solution {
