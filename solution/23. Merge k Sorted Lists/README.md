@@ -122,7 +122,7 @@ public:
 1. 分治合併數組時，處理index的技巧
 2. 分治的時間複雜度分析方法
 
-Time complexity:
+Time complexity: ```O(logk*(kn))```
 ```
 k/2*(2n) + k/4*(4n) + k/8*(8n) + ... + (k/2^logk)*(2^logk*n)
 = kn + kn + kn + ... + kn
