@@ -1,8 +1,10 @@
 # 1631. Path With Minimum Effort
 
-## Solution 1: binary search 猜答案 + BFS 驗證
+## Solution 1: binary search 猜答案 + BFS/DFS 驗證
 
-可以 AC，但 runtime 不是太好。
+找到一條能夠走通的 lower bound 通路，每次用 bfs/dfs 看能否走通，
+
+這個方法可以 AC，但 runtime 不是太好。
 
 ```cpp
 int minimumEffortPath(vector<vector<int>>& H) {
