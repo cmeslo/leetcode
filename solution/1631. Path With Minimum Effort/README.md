@@ -6,6 +6,8 @@
 
 這個方法可以 AC，但 runtime 不是太好。
 
+### Code
+
 ```cpp
 int minimumEffortPath(vector<vector<int>>& H) {
     int h = H.size(), w = H[0].size();
@@ -66,6 +68,8 @@ if (next_effort >= dist[next_index]) continue;
 這裡 "等於" 是必要的，因為：
 - ```dist[v]``` 相等的話，沒必要再走；
 - 防止走回頭路。
+
+### Code
 
 ```cpp
 // Runtime: 112 ms, Your runtime beats 97.51 % of cpp submissions.
