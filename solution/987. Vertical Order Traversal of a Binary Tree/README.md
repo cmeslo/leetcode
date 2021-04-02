@@ -2,7 +2,7 @@
 
 ## 987_01.cpp
 
-Dfs, map and priority_queue
+DFS, map and priority_queue
 
 Time complexity: O(nlogn)
 
@@ -46,7 +46,7 @@ private:
 
 ## 987_02.cpp
 
-Dfs, map and sort.
+DFS, map and sort.
 
 ```cpp
 class Solution {
