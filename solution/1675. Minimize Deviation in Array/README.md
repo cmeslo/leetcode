@@ -58,3 +58,33 @@ int minimumDeviation(vector<int>& nums) {
     return ans;
 }
 ```
+
+## Solution 2: heap
+
+這裡用 priority_queue 比 set 更快（即使 priority_queue 容器裡有重複值），
+
+但要自己維護 heap 裡面的最小值。
+
+```cpp
+int minimumDeviation(vector<int>& nums) {
+    int mn = INT_MAX;
+    priority_queue<int> q;
+    for (int x : nums) {
+        x = x % 2 ? x * 2 : x;
+        q.push(x);
+        mn = min(mn, x);
+    }
+
+    int ans = INT_MAX;
+    while (true) {
+        int x = q.top(); q.pop();
+        ans = min(ans, x - mn);
+        mn = min(mn, x / 2);
+        if (x % 2 == 0)
+            q.push(x / 2);
+        else
+            break;
+    }
+    return ans;
+}
+```
