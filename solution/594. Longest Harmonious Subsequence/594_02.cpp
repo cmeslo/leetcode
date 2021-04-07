@@ -1,18 +1,15 @@
 class Solution {
 public:
     int findLHS(vector<int>& nums) {
-        if (nums.empty()) return 0;
+        unordered_map<int, int> m;
+        for (int x : nums)
+            ++m[x];
         
-        int maxLen = 0;
-        map<int, int> m;
+        int ans = 0;
+        for (auto& [x, cnt] : m)
+            if (m.count(x - 1))
+                ans = max(ans, m[x - 1] + m[x]);
         
-        for (int n : nums) ++m[n];
-        
-        for (auto a : m) {
-            if (m.count(a.first + 1)) {
-                maxLen = max(maxLen, m[a.first] + m[a.first + 1]);
-            }
-        }
-        return maxLen;
+        return ans;
     }
 };
