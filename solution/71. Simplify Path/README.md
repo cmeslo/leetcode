@@ -68,8 +68,8 @@ private:
 
 按 / 符號分割，再判斷要skip、push還是要pop，代碼更簡潔。
 
-- istringstream 只讀數據，只處理 >> 符號，如 ```iss >> string```
-- ostringstream 只寫數據，只處理 << 符號，如 ```oss << "test"```
+- istringstream 只讀數據，只處理 >> 符號，如 ```iss >> string```；
+- ostringstream 只寫數據，只處理 << 符號，如 ```oss << "test"```；
 - stringstream 可寫可讀。
 
 ```cpp
