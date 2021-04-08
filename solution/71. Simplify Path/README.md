@@ -1,6 +1,6 @@
 # 71. Simplify Path
 
-## Solution 1: 不用 stringstream 和 getline 方法
+## Solution 1: 原始方法
 
 ```cpp
 class Solution {
@@ -62,4 +62,34 @@ private:
         i = j + 1;
     }
 };
+```
+
+## Solution 2: 使用 stringstream 和 getline
+
+按 / 符號分割，再判斷要skip、push還是要pop，代碼更簡潔。
+
+- istringstream 只讀數據，只處理 >> 符號，如 ```iss >> string```
+- ostringstream 只寫數據，只處理 << 符號，如 ```oss << "test"```
+- stringstream 可寫可讀。
+
+```cpp
+string simplifyPath(string path) {
+    istringstream ss(path);
+    string tmp;
+
+    vector<string> q;
+    while (getline(ss, tmp, '/')) {
+        if (tmp == "" || tmp == ".") continue;
+        if (tmp == "..") {
+            if (!q.empty()) q.pop_back();
+        } else {
+            q.push_back(tmp);
+        }
+    }
+
+    string ans;
+    for (string name : q)
+        ans += "/" + name;
+    return ans.empty() ? "/" : ans;
+}
 ```
