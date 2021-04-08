@@ -64,7 +64,7 @@ private:
 };
 ```
 
-## Solution 2: 使用 stringstream 和 getline
+## Solution 2: 使用 stringstream 和 getline (推薦)
 
 按 / 符號分割，再判斷要skip、push還是要pop，代碼更簡潔。
 
