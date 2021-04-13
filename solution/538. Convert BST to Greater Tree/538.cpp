@@ -12,17 +12,17 @@
 class Solution {
 public:
     TreeNode* convertBST(TreeNode* root) {
-        int mx = 0;
-        dfs(root, mx);
+        int sum = 0;
+        dfs(root, sum);
         return root;
     }
     
 private:
-    void dfs(TreeNode* node, int& mx) {
+    void dfs(TreeNode* node, int& sum) {
         if (!node) return;
         
-        dfs(node->right, mx);
-        mx = node->val += mx;
-        dfs(node->left, mx);
+        dfs(node->right, sum);
+        sum = node->val += sum;
+        dfs(node->left, sum);
     }
 };
