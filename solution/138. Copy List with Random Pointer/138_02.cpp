@@ -1,44 +1,50 @@
-/**
- * Definition for singly-linked list with a random pointer.
- * struct RandomListNode {
- *     int label;
- *     RandomListNode *next, *random;
- *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
- * };
- */
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
 class Solution {
 public:
-    RandomListNode *copyRandomList(RandomListNode *head) {        
-        // insert nodes
-        RandomListNode *p = head;
-        while (p != NULL) {
-            RandomListNode *temp = new RandomListNode(p->label);
-            temp->next = p->next;
-            p->next = temp;
-            p = temp->next;
+    Node* copyRandomList(Node* head) {
+        if (!head) return head;
+        
+        // 1. insert copy nodes
+        auto p = head;
+        while (p) {
+            Node* copy = new Node(p->val);
+            copy->next = p->next;
+            p->next = copy;
+            p = copy->next;
         }
         
-        // copy random
+        // 2. copy random pointer
         p = head;
-        while (p != NULL) {
-            RandomListNode *temp = p->next;
-            if (p->random != NULL) {
-                temp->random = p->random->next;
-            }
-            p = temp->next;
+        while (p) {
+            if (p->random)
+                p->next->random = p->random->next;
+            p = p->next->next;
         }
         
-        // split two links
-        RandomListNode *dup = head == NULL ? NULL : head->next;
+        // 3. split two links
+        auto ans = head->next;
         p = head;
-        while (p != NULL) {
-            RandomListNode *temp = p->next;
-            p->next = temp->next;
-            if (temp->next != NULL) {
-                temp->next = temp->next->next;
-            }
-            p = p->next;
+        while (p && p->next) {
+            auto tmp = p->next;
+            p->next = tmp->next;
+            p = tmp;
         }
-        return dup;
+        
+        return ans;
     }
 };
