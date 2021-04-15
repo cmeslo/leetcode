@@ -1,10 +1,11 @@
 # 138. Copy List with Random Pointer
 
-## Solution 1: map (138_01.cpp)
+## Solution 1: map
 
 - Time complexity: ```O(n)```
 - Space complexity: ```O(n)```
 
+### 138_01.cpp
 ```cpp
 Node* copyRandomList(Node* head) {
     unordered_map<Node*, Node*> copies;
@@ -26,7 +27,7 @@ Node* copyRandomList(Node* head) {
 }
 ```
 
-## Solution 2: O(1) space (138_02.cpp)
+## Solution 2: O(1) space
 
 3 steps:
   1. copy and insert each nodes to the original list
@@ -37,6 +38,8 @@ Node* copyRandomList(Node* head) {
 
 - Time complexity: ```O(n)```
 - Space complexity: ```O(1)```
+
+### 138_02.cpp
 
 ```cpp
 Node* copyRandomList(Node* head) {
@@ -73,3 +76,28 @@ Node* copyRandomList(Node* head) {
 ```
 
 reference [here](https://discuss.leetcode.com/topic/7594/a-solution-with-constant-space-complexity-o-1-and-linear-time-complexity-o-n) and [here](http://fisherlei.blogspot.com/2013/11/leetcode-copy-list-with-random-pointer.html).
+
+## Solution 3: map + recursive
+
+- Time complexity: ```O(n)```
+- Space complexity: ```O(n)```
+
+### 137_03.cpp
+
+```cpp
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) return head;
+        
+        m[head] = new Node(head->val);;
+        m[head]->next = copyRandomList(head->next);
+        m[head]->random = m[head->random];
+        
+        return m[head];
+    }
+    
+private:
+    unordered_map<Node*, Node*> m;
+};
+```
