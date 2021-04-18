@@ -1,6 +1,3 @@
-// Your runtime beats 96.98 % of cpp submissions.
-// Your memory usage beats 86.69 % of cpp submissions.
-
 class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
