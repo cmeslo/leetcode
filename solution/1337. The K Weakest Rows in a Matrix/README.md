@@ -4,9 +4,9 @@
 
 維護大小為 k 的 max heap，
 
-heap 裡保存的是 ```{soldiers的數目, 行數}```
+heap 裡保存的是，每一行 ```{1 的數目, 行數}```
 
-- ```soldiers的數目```：除了可以用循環逐個數之外，還可以利用題目 <strong>all the 1's will appear to the left of all the 0's in each row</strong> 這個性質、做 binary search。
+- ```1 的數目```：除了可以用循環逐個數之外，還可以利用題目 <strong>all the 1's will appear to the left of all the 0's in each row</strong> 這個性質、做 binary search。
 
 ```cpp
 class Solution {
