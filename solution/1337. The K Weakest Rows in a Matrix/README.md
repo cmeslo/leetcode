@@ -9,6 +9,9 @@ heap 裡保存的是，每一行 ```{1 的數目, 行數}```
 - ```1 的數目```：除了可以用循環逐個數之外，還可以利用題目 <strong>all the 1's will appear to the left of all the 0's in each row</strong> 這個性質、做 binary search。
 
 ```cpp
+// Your runtime beats 95.54 % of cpp submissions.
+// Your memory usage beats 91.37 % of cpp submissions.
+
 class Solution {
 public:
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
