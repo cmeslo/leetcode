@@ -1,6 +1,8 @@
 # 13. Roman to Integer
 
-比較差的做法：
+## Solution 1: 比較差的做法
+
+### Code
 
 ```cpp
 int romanToInt(string s) {
@@ -32,7 +34,7 @@ int romanToInt(string s) {
 }
 ```
 
-## Solution
+## Solution 2: 找規律
 
 ### 解釋
 
