@@ -1,29 +1,29 @@
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-        stack<int> lefts;
-        
+        stack<int> left;
+
         for (int i = 0; i < s.size(); ++i) {
             if (s[i] == '(')
-                lefts.push(i);
+                left.push(i);
             else if (s[i] == ')') {
-                if (!lefts.empty())
-                    lefts.pop();
+                if (!left.empty())
+                    left.pop();
                 else
-                    s[i] = '*';
+                    s[i] = '*'; // 無法匹配的右括號，標記為 *
             }
         }
-        
-        while (!lefts.empty()) {
-            s[lefts.top()] = '*';
-            lefts.pop();
+
+        while (!left.empty()) {
+            s[left.top()] = '*'; // 無法匹配的左括號，標記為 *
+            left.pop();
         }
-        
+
         string ans;
         for (char& c : s)
             if (c != '*')
                 ans += c;
-        
+
         return ans;
     }
 };
