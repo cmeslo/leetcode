@@ -52,7 +52,7 @@ public:
     }
     
 private:
-    priority_queue<vector<int>> q_; // 佔用很多空間，可以換成 pair<int, pair<int, int>>
+    priority_queue<vector<int>> q_; // 佔用很多空間，vector<int> 可以換成 pair<int, pair<int, int>>
     unordered_map<int, int> f_;
     int seq_;
 };
