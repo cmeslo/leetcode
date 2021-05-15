@@ -56,6 +56,8 @@ public:
 這樣找葉子會方便一點
 
 ```cpp
+// Your runtime beats 38.86 % of cpp submissions.
+
 class TrieNode {
 public:
     unordered_map<char, TrieNode*> next;
@@ -86,4 +88,23 @@ public:
         return ans;
     }
 };
+```
+
+## Solution 2 - 暴力刪走所有結尾子字符串
+
+```cpp
+// Your runtime beats 81.25 % of cpp submissions.
+
+int minimumLengthEncoding(vector<string>& words) {
+    unordered_set<string> s(begin(words), end(words));
+
+    for (auto word : s)
+        for (int i = 1; i < word.size(); ++i)
+            s.erase(word.substr(i));
+
+    int ans = 0;
+    for (auto word : s)
+        ans += word.size() + 1;
+    return ans;
+}
 ```
