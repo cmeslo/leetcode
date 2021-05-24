@@ -11,18 +11,17 @@
 class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        auto *tmp = head;
-        int step = k;
-        while (--step) {
-            tmp = tmp->next;
-        }
-        auto *p1 = tmp;
+        auto p = head;
+        ListNode *p1 = nullptr, *p2 = head;
+        while (--k)
+            p = p->next;
+        p1 = p;
         
-        auto *p2 = head;
-        while (tmp->next) {
+        while (p->next) {
+            p = p->next;
             p2 = p2->next;
-            tmp = tmp->next;
         }
+        
         swap(p1->val, p2->val);
         return head;
     }
