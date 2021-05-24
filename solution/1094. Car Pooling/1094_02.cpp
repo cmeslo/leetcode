@@ -1,19 +1,15 @@
 class Solution {
 public:
     bool carPooling(vector<vector<int>>& trips, int capacity) {
-        vector<int> d(1001, 0);
-        
-        for (auto& trip : trips) {
-            d[trip[1]] += trip[0];
-            d[trip[2]] -= trip[0];
+        vector<int> diff(1001);
+        for (auto& t : trips) {
+            diff[t[1]] -= t[0];
+            diff[t[2]] += t[0];
         }
-        
-        int sum = 0;
-        for (int c : d) {
-            sum += c;
-            if (sum > capacity) return false;
+        for (int x : diff) {
+            capacity += x;
+            if (capacity < 0) return false;
         }
-        
         return true;
     }
 };
