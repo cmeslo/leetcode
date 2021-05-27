@@ -10,9 +10,9 @@ public:
         double x, y;
         do {
             double f1 = (double) rand() / RAND_MAX;
-            x = f1 * (2 * r_) - r_;
+            x = f1 * (r_ + r_) - r_;
             double f2 = (double) rand() / RAND_MAX;
-            y = f2 * (2 * r_) - r_;
+            y = f2 * (r_ + r_) - r_;
         } while (x * x + y * y > r_ * r_);
         
         return {x_ + x, y_ + y};
