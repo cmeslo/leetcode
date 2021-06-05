@@ -54,3 +54,8 @@ private:
     }
 };
 ```
+
+代碼裡用了 long，因為比如 case: 999999999，用 int 會因為 UndefinedBehavior 而出現 runtime error，
+
+但因為 test case 不嚴格，用 int 也可以AC。
+
