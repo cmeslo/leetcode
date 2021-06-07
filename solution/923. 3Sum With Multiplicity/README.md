@@ -50,27 +50,29 @@ int threeSumMulti(vector<int>& arr, int target) {
 // Your memory usage beats 81.86 % of cpp submissions.
 
 int threeSumMulti(vector<int>& arr, int target) {
-    vector<long> m(101);
-    for (int x : arr) ++m[x];
+    const int mod = 1e9 + 7;
+    vector<long> c(101);
+    for (int a : arr) ++c[a];
 
     long ans = 0;
-    for (int a = 0; a <= target / 3; ++a) { // for (int a = 0; a <= target; ++a) 也可以
-        for (int b = a; b <= target / 2; ++b) { // for (int b = a; b <= target; ++b) 也可以
-            int c = target - a - b;
-            if (0 <= c && c <= 100 && b <= c) { // 保證 a <= b <= c
-                if (!m[a] || !m[b] || !m[c]) continue;
-                if (a == b && b == c)
-                    ans += m[a] * (m[a] - 1) * (m[a] - 2) / 6;
-                else if (a == b && b != c)
-                    ans += m[a] * (m[a] - 1) / 2 * m[c];
-                else if (a != b && b == c)
-                    ans += m[a] * m[b] * (m[b] - 1) / 2;
-                else if (a < b && b < c)
-                    ans += m[a] * m[b] * m[c];
+    for (int i = 0; i <= target / 3; ++i) { // for (int i = 0; i <= target; ++i) 也可以
+        for (int j = i; j <= target / 2; ++j) { // for (int j = i; j <= target; ++j) 也可以
+            int k = target - i - j;
+            if (k >= 0 && k <= 100 && j <= k) { // 保證 i <= j <= k
+                if (!c[i] || !c[j] || !c[k]) continue;
+                if (i == j && j == k)
+                    ans += c[i] * (c[i] - 1) * (c[i] - 2) / 6;
+                else if (i == j && j != k)
+                    ans += c[i] * (c[i] - 1) / 2 * c[k];
+                else if (i != j && j == k)
+                    ans += c[i] * c[j] * (c[j] - 1) / 2;
+                else if (i < j && j < k)
+                    ans += c[i] * c[j] * c[k];
             }
         }
     }
-    return ans % 1000000007;
+    return ans % mod;
+}
 ```
 
 ### 寫法二：用map
@@ -142,3 +144,5 @@ else if (i < j && j < k)
        ^--不合法，因為不符合 j <= k，跳過
 ```
 其實就是如何確保 [a, a, b] 這個 Combination 只會出現一次計算。
+
+reference: https://zxi.mytechroad.com/blog/hashtable/leetcode-923-3sum-with-multiplicity/
