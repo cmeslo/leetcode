@@ -61,13 +61,13 @@ int threeSumMulti(vector<int>& arr, int target) {
             if (k >= 0 && k <= 100 && j <= k) { // 保證 i <= j <= k
                 if (!c[i] || !c[j] || !c[k]) continue;
                 if (i == j && j == k)
-                    ans += c[i] * (c[i] - 1) * (c[i] - 2) / 6;
+                    ans += c[i] * (c[i] - 1) * (c[i] - 2) / 6; // C(c[i], 3)
                 else if (i == j && j != k)
-                    ans += c[i] * (c[i] - 1) / 2 * c[k];
+                    ans += c[i] * (c[i] - 1) / 2 * c[k]; // C(c[i], 2) * C(c[k], 1)
                 else if (i != j && j == k)
-                    ans += c[i] * c[j] * (c[j] - 1) / 2;
+                    ans += c[i] * c[j] * (c[j] - 1) / 2; // C(c[i], 1) * C(c[j], 2)
                 else if (i < j && j < k)
-                    ans += c[i] * c[j] * c[k];
+                    ans += c[i] * c[j] * c[k]; // C(c[i], 1) * C(c[j], 1) * C(c[k], 1)
             }
         }
     }
