@@ -70,6 +70,18 @@ private:
 
 增加seen作優化，忽略已處理的index。
 
+```
+#號代表seen
+
+aabcaca <--找到abca，index = 1
+a#***ca <--找到a***，index = 0
+##***ca <--找到****，忽略
+##*#*ca <--找到**ca，index = 3
+##*#***
+```
+
+
+
 ```cpp
 class Solution {
 public:
