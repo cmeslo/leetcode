@@ -1,36 +1,39 @@
 class Solution {
 public:
     vector<int> movesToStamp(string stamp, string target) {
+        int n = target.size();
         vector<int> ans;
-        int n = target.size(), stars = 0;
-        while (stars != n) {
-            int i = chop(stamp, target);
-            if (i == -1) return {};
-            ans.push_back(i);
-            for (int j = 0; j < stamp.size(); ++j) {
-                if (target[i + j] == '*') continue;
-                target[i + j] = '*';
-                ++stars;
+        vector<int> seen(n);
+        int total = 0;
+        
+        while (total < n) {
+            bool found = false;
+            for (int i = 0; i <= n - stamp.size(); ++i) {
+                if (seen[i]) continue;
+                int len = unStamp(stamp, target, i);
+                if (len == 0) continue;
+                seen[i] = 1;
+                total += len;
+                ans.push_back(i);
+                found = true;
             }
+            if (!found) return {};
         }
         reverse(begin(ans), end(ans));
         return ans;
     }
     
 private:
-    int chop(string& stamp, string& target) {
-        for (int i = 0; i + stamp.size() <= target.size(); ++i) {
-            int matched = 0;
-            int j;
-            for (j = 0; j < stamp.size(); ++j) {
-                if (target[i + j] == '*') continue;
-                if (target[i + j] == stamp[j])
-                    ++matched;
-                else
-                    break;
-            }
-            if (j == stamp.size() && matched) return i;
+    int unStamp(const string& stamp, string& target, int s) {
+        int len = stamp.size();
+        for (int i = 0; i < stamp.size(); ++i) {
+            if (target[s + i] == '*')
+                --len;
+            else if (target[s + i] != stamp[i])
+                return 0;
         }
-        return -1;
+        if (len != 0)
+            std::fill(begin(target) + s, begin(target) + s + stamp.size(), '*');
+        return len;
     }
 };
