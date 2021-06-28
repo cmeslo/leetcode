@@ -3,6 +3,9 @@
 ## Solution: DFS + memorization
 
 ```cpp
+// Your runtime beats 91.94 % of cpp submissions.
+// Your memory usage beats 44.57 % of cpp submissions.
+
 class Solution {
 public:
     int longestIncreasingPath(vector<vector<int>>& matrix) {
