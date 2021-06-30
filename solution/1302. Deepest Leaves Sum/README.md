@@ -28,3 +28,23 @@ private:
     }
 };
 ```
+
+## Solution 2: BFS
+
+```cpp
+int deepestLeavesSum(TreeNode* root) {
+    int ans;
+    queue<TreeNode*> q;
+    q.push(root);
+    while (!q.empty()) {
+        ans = 0;
+        for (int i = q.size() - 1; i >= 0; --i) {
+            auto node = q.front(); q.pop();
+            ans += node->val;
+            if (node->left) q.push(node->left);
+            if (node->right) q.push(node->right);
+        }
+    }
+    return ans;
+}
+```
