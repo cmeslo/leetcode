@@ -15,36 +15,35 @@
  *     const vector<NestedInteger> &getList() const;
  * };
  */
+
 class NestedIterator {
-private:
-    stack<NestedInteger> s;
-    
 public:
     NestedIterator(vector<NestedInteger> &nestedList) {
-        for (int i = nestedList.size() - 1; i >= 0; --i) {
-            s.push(nestedList[i]);
-        }
+        for (int i = nestedList.size() - 1; i >= 0; --i)
+            st_.push(nestedList[i]);
     }
-
+    
     int next() {
-        NestedInteger n = s.top();
-        s.pop();
-        return n.getInteger();
+        auto top = st_.top(); st_.pop();
+        return top.getInteger();
     }
-
+    
     bool hasNext() {
-        while (!s.empty()) {
-            NestedInteger n = s.top();
-            if (n.isInteger()) {
+        while (!st_.empty()) {
+            auto top = st_.top();
+            if (top.isInteger())
                 return true;
-            } else {
-                s.pop();
-                const vector<NestedInteger> &arr = n.getList();
-                for (int i = arr.size() - 1; i >= 0; --i) s.push(arr[i]);
-            }
+            
+            st_.pop();
+            auto list = top.getList(); 
+            for (int i = list.size() - 1; i >= 0; --i)
+                st_.push(list[i]);
         }
         return false;
     }
+    
+private:
+    stack<NestedInteger> st_;
 };
 
 /**
