@@ -1,6 +1,6 @@
 # 696. Count Binary Substrings
 
-## 696_01.cpp
+## Solution 1 (696_01.cpp)
 
 zeros 是統計在 i 以及之前，連續出現 0 的個數
 
@@ -33,5 +33,30 @@ int countBinarySubstrings(string s) {
     }
 
     return ans;
+}
+```
+
+## Solution 2 (696_02.cpp)
+
+### 解釋
+
+```
+[0 0 0 0] [1 1 1] 0
+   pre      cur   i
+```
+
+```cpp
+int countBinarySubstrings(string s) {
+    int ans = 0, pre = 0, cur = 1;
+    for (int i = 1; i < s.size(); ++i) {
+        if (s[i - 1] == s[i])
+            ++cur;
+        else {
+            ans += min(pre, cur);
+            pre = cur;
+            cur = 1;
+        }
+    }
+    return ans + min(pre, cur);
 }
 ```
