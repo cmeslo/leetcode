@@ -1,19 +1,16 @@
 class Solution {
 public:
     int leastBricks(vector<vector<int>>& wall) {
-        unordered_map<int, int> m;
-        int maxSeam = 0;
+        unordered_map<int, int> edges;
+        auto mn = wall.size(); // size_t
         
-        for (int i = 0; i < wall.size(); ++i) {
-            int row = 0;
-            for (int j = 0; j < wall[i].size() - 1; ++j) {
-                row += wall[i][j];
-                m[row]++;
-                maxSeam = max(maxSeam, m[row]);
-                if (wall.size() == maxSeam) return 0; //optimize
+        for (auto& row : wall) {
+            for (int i = 0, width = 0; i < row.size() - 1; ++i) {
+                width += row[i];
+                edges[width]++;
+                mn = min(mn, wall.size() - edges[width]);
             }
         }
-        
-        return wall.size() - maxSeam;
+        return mn;
     }
 };
