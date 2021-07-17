@@ -1,18 +1,8 @@
 # 48. Rotate Image
 
-## 48_01.cpp
-```cpp
-for (int i = 0; i < n / 2; ++i) {
-    for (int j = i; j < n - 1 - i; ++j) {
-        int tmp = matrix[i][j];
-        matrix[i][j] = matrix[n - 1 - j][i];
-        matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
-        matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
-        matrix[j][n - 1 - i] = tmp;
-    }
-}
-```
+## Solution 1: 48_01.cpp
 
+### Explanation
 Example:
 ```
 1 2 3       7 2 1      7 4 1
@@ -20,8 +10,7 @@ Example:
 7 8 9       9 8 3      9 6 3
 ```
 
-### Loop
-
+#### Loop
 we need to convert n/2 times
 ```cpp
 for (int i = 0; i < n / 2; ++i)
@@ -32,7 +21,7 @@ from outside to inside, smaller and smaller
 for (int j = i; j < n - 1 - i; ++j)
 ```
 
-### Position thinking
+#### Thinking processes
 Take the example above, and convert it one by one:
 ```
 (0, 0) --> (0, 2)
@@ -46,7 +35,23 @@ matrix[n - 1 - i][n - 1 - j]  --> matrix[n - 1 - j][i]
 matrix[n - 1 - j][i]          --> matrix[i][j]
 ```
 
-## 48_02.cpp
+### Code
+
+```cpp
+for (int i = 0; i < n / 2; ++i) {
+    for (int j = i; j < n - 1 - i; ++j) {
+        int tmp = matrix[i][j];
+        matrix[i][j] = matrix[n - 1 - j][i];
+        matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
+        matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
+        matrix[j][n - 1 - i] = tmp;
+    }
+}
+```
+
+## Solution 2: 48_02.cpp
+
+### Explanation
 First, rotate by diagonal, then upside down by x-axis to get the result.
 
 ```
@@ -55,7 +60,7 @@ First, rotate by diagonal, then upside down by x-axis to get the result.
 7 8 9       7 4 1      9 6 3
 ```
 
-### Rotate by diagonal
+#### 1. Rotate by diagonal
 ```
 (0, 0) --> (2, 2)
 (0, 1) --> (1, 2)
@@ -67,30 +72,35 @@ First, rotate by diagonal, then upside down by x-axis to get the result.
 (2, 0) --> (2, 0)
 ```
 
-```cpp
-for (int i = 0; i < n - 1; ++i) {
-    for (int j = 0; j < n - i; ++j) {
-        swap(matrix[i][j], matrix[n - 1 - j][n - 1 - i]);
-    }
-}
-```
-
-### Upside down
+#### 2. Upside down
 ```
 (0, 0) --> (2, 0)
 (0, 1) --> (2, 1)
 (0, 2) --> (2, 2)
 ```
 
+### Code
 ```cpp
-for (int i = 0; i < n / 2; ++i) {
-    for (int j = 0; j < n; ++j) {
-        swap(matrix[i][j], matrix[n - 1 - i][j]);
+void rotate(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+
+    // 1. Rotate by diagonal
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i; ++j) {
+            swap(matrix[i][j], matrix[n - 1 - j][n - 1 - i]);
+        }
+    }
+
+    // 2. Upside down
+    for (int i = 0; i < n / 2; ++i) {
+        for (int j = 0; j < n; ++j) {
+            swap(matrix[i][j], matrix[n - 1 - i][j]);
+        }
     }
 }
 ```
 
-## 48_03.cpp
+## Solution 3: 48_03.cpp
 Get transpose, then reverse left and right sides.
 
 ```
@@ -99,6 +109,7 @@ Get transpose, then reverse left and right sides.
 7 8 9       3 6 9      9 6 3
 ```
 
+### Code
 ```cpp
 for (int i = 0; i < n; ++i) {
     for (int j = i + 1; j < n; ++j) {
