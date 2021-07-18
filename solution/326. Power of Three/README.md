@@ -13,6 +13,18 @@ bool isPowerOfThree(int n) {
 
 ## Solution 2: 換底公式
 
+### 解釋
+
+```cpp
+3^x = n
+x = log3(n)
+x = log10(n) / log10(3)  <--- 使用 log10，是因為精度問題，log(也就是log2) 在 n = 243 時會算錯
+```
+
+計算出幂後，再用 ```x - int(x) == 0``` 判斷是否整數
+
+### Code
+
 ```cpp
 bool isPowerOfThree(int n) {
     return n > 0 && (log10(n) / log10(3)) - int(log10(n) / log10(3)) == 0;
