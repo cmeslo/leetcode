@@ -4,8 +4,11 @@ public:
         long long a = stoll(left);
         long long b = stoll(right);
         
+        int start = (int)pow(10, max(0, (int)left.size() / 4 - 1));
+        int end = (int)pow(10, right.size() / 4 + 1);
+        
         int ans = 0;
-        for (int i = 1; i <= 1e5; ++i) {
+        for (int i = start; i <= end; ++i) {
             for (int type = 0; type <= 1; ++type) {
                 long long palin = getPalindrome(i, type);
                 if (palin > 1e9) continue;
