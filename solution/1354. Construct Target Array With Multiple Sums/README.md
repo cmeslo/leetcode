@@ -18,6 +18,9 @@ case: [4]
 ### Code
 
 ```cpp
+// Your runtime beats 98.31 % of cpp submissions.
+// Your memory usage beats 86.86 % of cpp submissions.
+
 bool isPossible(vector<int>& target) {
     long sum = accumulate(target.begin(), target.end(), 0LL);
     priority_queue<int> pq(target.begin(), target.end());
