@@ -22,7 +22,7 @@ void flatten(TreeNode* root) {
 }
 ```
 
-### 寫法二（推薦，但有點難想到）
+### 寫法二（推薦，但有點難想到）：
 
 ```cpp
 class Solution {
@@ -42,11 +42,11 @@ private:
 };
 ```
 
-## Solution 2: Itreative（推薦）
+## Solution 2: Iterative（推薦）
 
 Solution 1 由於遞歸用了 stack，所以 space complexity 不是 O(1) 的，
 
-以下是迭代的寫法，比 Solution 1 的寫法二更簡單
+Solution 2 是迭代的寫法，比 Solution 1 的寫法二更簡單，類似 Morris traversal。
 
 ```cpp
 void flatten(TreeNode* root) {
@@ -66,7 +66,5 @@ void flatten(TreeNode* root) {
 ```
 
 reference:
-
-https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/36977/My-short-post-order-traversal-Java-solution-for-share
-
-https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/37010/Share-my-simple-NON-recursive-solution-O(1)-space-complexity!
+- https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/36977/My-short-post-order-traversal-Java-solution-for-share
+- https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/37010/Share-my-simple-NON-recursive-solution-O(1)-space-complexity!
