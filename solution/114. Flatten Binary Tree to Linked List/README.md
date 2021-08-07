@@ -14,7 +14,7 @@ void flatten(TreeNode* root) {
     root->left = nullptr;
     if (l) {
         root->right = l;
-        while (l && l->right) <----為了找到尾巴，要重複走一次
+        while (l && l->right) // <----為了找到尾巴，要重複走一次
             l = l->right;
         l->right = r;
     }
