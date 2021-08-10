@@ -2,6 +2,8 @@
 
 ## Solution 1: DP
 
+類似 longest increasing subsequence 問題
+
 ```cpp
 // Your runtime beats 76.19 % of cpp submissions.
 // Your memory usage beats 94.20 % of cpp submissions.
