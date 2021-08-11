@@ -93,6 +93,9 @@ private:
 ## Solution 2: DP + map
 
 ```cpp
+// Your runtime beats 67.25 % of cpp submissions.
+// Your memory usage beats 78.84 % of cpp submissions.
+
 int longestStrChain(vector<string>& words) {
     sort(begin(words), end(words), [&](string& a, string& b) {
         return a.size() < b.size();
