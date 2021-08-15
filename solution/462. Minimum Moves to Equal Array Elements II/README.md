@@ -26,3 +26,30 @@ int minMoves2(vector<int>& nums) {
     return ans;
 }
 ```
+
+## Solution 2: median
+
+```cpp
+int minMoves2(vector<int>& nums) {
+    sort(begin(nums), end(nums));
+    int ans = 0;
+    int i = 0, j = nums.size() - 1;
+    while (i < j)
+        ans += nums[j--] - nums[i++];
+    return ans;
+}
+```
+
+or
+
+```cpp
+int minMoves2(vector<int>& nums) {
+    int n = nums.size();
+    nth_element(begin(nums), begin(nums) + n / 2, end(nums));
+
+    int ans = 0;
+    for (int x : nums)
+        ans += abs(x - nums[n / 2]);
+    return ans;
+}
+```
