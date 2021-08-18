@@ -3,8 +3,8 @@ public:
     vector<vector<string>> solveNQueens(int n) {
         board_.resize(n, string(n, '.'));
         cols_.resize(n, 0);
-        diag1_.resize(2 * n - 1, 0);
-        diag2_.resize(2 * n - 1, 0);
+        diag1_.resize(n + n - 1, 0);
+        diag2_.resize(n + n - 1, 0);
         dfs(0, n);
         return ans_;
     }
@@ -12,9 +12,9 @@ public:
 private:
     vector<vector<string>> ans_;
     vector<string> board_;
-    vector<int> cols_;
-    vector<int> diag1_;
-    vector<int> diag2_;
+    vector<bool> cols_;
+    vector<bool> diag1_;
+    vector<bool> diag2_;
     
     void dfs(int y, int n) {
         if (y == n) {
