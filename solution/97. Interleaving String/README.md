@@ -17,12 +17,12 @@ C: Z Z Z Z Z Z Z Z Z Z a
 如果 ```A[i]``` 與 ```C[i+j]``` 是相同字符，它們是否符合要求，就取決於上一步 ```dp[i-1][j]``` 是否符合要求，
 
 ```
-A: X X X X
-         ^--i-1
-B: Y Y Y Y Y b
-             ^--j
-C: Z Z Z Z Z Z Z Z Z Z
-                     ^--i+j-1
+A: [X X X X] a
+          ^--i-1
+B: [Y Y Y Y Y b]
+              ^--j
+C: [Z Z Z Z Z Z Z Z Z Z] a
+                      ^--i+j-1
 ```
 
 所以，得出狀態轉移方程：
