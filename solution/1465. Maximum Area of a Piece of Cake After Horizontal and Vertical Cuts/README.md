@@ -2,7 +2,7 @@
 
 ## Solution
 
-找到間距最大的寛度和高度，相乘。
+找到行和列的最大間距，相乘。
 
 ```cpp
 int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
