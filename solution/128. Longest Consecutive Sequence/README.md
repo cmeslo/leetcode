@@ -26,11 +26,11 @@ int longestConsecutive(vector<int>& nums) {
 
 ## Solution 2: unordered_set
 
-只由每組 consecutive sequence 裡的第一個數字開始處理，
-
-runtime 似乎有點慢。
+把所有數字放到 set 裡，同時只由每組 consecutive sequence 裡的第一個數字開始處理。
 
 ```cpp
+// Your runtime beats 12.00 % of cpp submissions.
+
 int longestConsecutive(vector<int>& nums) {
     unordered_set<int> s(begin(nums), end(nums));
     int ans = 0;
