@@ -23,3 +23,23 @@ int longestConsecutive(vector<int>& nums) {
     return ans;
 }
 ```
+
+## Solution 2: unordered_set
+
+只由每組 consecutive sequence 裡的第一個數字開始處理，
+
+runtime 似乎有點慢。
+
+```cpp
+int longestConsecutive(vector<int>& nums) {
+    unordered_set<int> s(begin(nums), end(nums));
+    int ans = 0;
+    for (int x : nums) {
+        if (s.count(x - 1)) continue;
+        int cnt = 0;
+        while (s.count(x++)) ++cnt;
+        ans = max(ans, cnt);
+    }
+    return ans;
+}
+```
