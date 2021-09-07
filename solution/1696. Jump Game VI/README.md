@@ -1,10 +1,18 @@
 # 1696. Jump Game VI
 
-## 解釋
+## Solution 1: Brute force (TLE)
 
-### 方法一：最初想到的解法 (TLE)
+### 解釋:
 
-由於 ```dp[i]``` 與前 k 個數 ```dp[i - k]``` 至 ```dp[i - 1]``` 有關係，所以很容易寫出：
+由於 ```dp[i]``` 與前 k 個數 ```dp[i - k]``` 至 ```dp[i - 1]``` 有關係，所以很容易寫出 brute force 方法，
+
+但在最後幾個 test case TLE 了，
+
+原因是當 k 很大、甚至與 n 一樣大的時候，這個方法相當於是 ```O(n^2)```
+
+數字範圍：```1 <= nums.length, k <= 10^5```
+
+### Code:
 
 ```cpp
 int maxResult(vector<int>& nums, int k) {
@@ -21,13 +29,9 @@ int maxResult(vector<int>& nums, int k) {
 }
 ```
 
-但在最後幾個 test case TLE 了，
+## Solution 2: Monotonic queue (推薦)
 
-原因是當 k 很大、甚至與 n 一樣大的時候，這個方法相當於是 ```O(n^2)```
-
-數字範圍：```1 <= nums.length, k <= 10^5```
-
-### 方法二：Monotonic queue
+### 解釋:
 
 維護一個<strong>單向遞減隊列</strong>，隊列裡的元素代表 ```{i, 包含nums[i]的 maximum score}```。
 
@@ -46,33 +50,33 @@ int maxResult(vector<int>& nums, int k) {
      ^             queue: [10],   cur = -5 + 10 = 5
                           [10],   !(10 <= cur), 保留 10
                           [10,5], push_back(cur)
-                          檢查如果queue的front對應的index脫離了window, 要pop_front
+                          檢查如果 queue 的 front 對應的 index 脫離了 window, 要 pop_front
 
 [10,-5,-2],4,0,3
         ^          queue: [10,5], cur = -2 + 10 = 8
                           [10],   5 <= cur, pop_back()
                           [10],   !(10 <= cur), 保留 10
                           [10,8], push_back(cur)
-                          檢查如果queue的front對應的index脫離了window, 要pop_front
+                          檢查如果 queue 的 front 對應的 index 脫離了 window, 要 pop_front
 
 [10,-5,-2,4],0,3
           ^        queue: [10,8], cur = 4 + 10 = 14
                           [10],   8 <= cur, pop_back()
                           [],     10 <= cur, pop_back()
                           [14],   push_back(cur)
-                          檢查如果queue的front對應的index脫離了window, 要pop_front
+                          檢查如果 queue 的 front 對應的 index 脫離了 window, 要 pop_front
 
 10,[-5,-2,4,0],3
             ^      queue: [14],  cur = 0 + 14 = 14
                           [],    14 <= cur, pop_back()
                           [14],  push_back(cur)
-                          檢查如果queue的front對應的index脫離了window, 要pop_front
+                          檢查如果 queue 的 front 對應的 index 脫離了 window, 要 pop_front
 
 10,-5,[-2,4,0,3]
               ^    queue: [14],  cur = 3 + 14 = 17
                           [],    14 <= cur, pop_back()
                           [17],  push_back(cur)
-                          檢查如果queue的front對應的index脫離了window, 要pop_front
+                          檢查如果 queue 的 front 對應的 index 脫離了 window, 要 pop_front
 ```
 答案就是 queue.back()，17
 
@@ -86,7 +90,7 @@ int maxResult(vector<int>& nums, int k) {
 
 Time complexity: ```O(n)```
 
-#### Code:
+### Code:
 
 ```cpp
 int maxResult(vector<int>& nums, int k) {
@@ -108,5 +112,32 @@ int maxResult(vector<int>& nums, int k) {
     }
 
     return q.back().second;
+}
+```
+
+## Solution 3: multiset
+
+### 解釋:
+
+Solution 1 的改進版，使用 multiset 找到 window 內的最大元素，
+
+勉強可以 AC，沒有 Solution 2 好。
+
+### Code:
+
+```cpp
+int maxResult(vector<int>& nums, int k) {
+    int n = nums.size();
+    multiset<int> s;
+    vector<int> dp(n);
+    for (int i = 0; i < n; ++i) {
+        dp[i] = (s.empty() ? 0 : *s.rbegin()) + nums[i];
+        s.insert(dp[i]);
+        if (i >= k) {
+            auto it = s.find(dp[i - k]);
+            s.erase(it);
+        }
+    }
+    return dp[n - 1];
 }
 ```
