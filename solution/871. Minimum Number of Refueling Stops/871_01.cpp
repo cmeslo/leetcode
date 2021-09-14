@@ -1,24 +1,17 @@
 class Solution {
 public:
     int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
-        int n = stations.size();
+        priority_queue<int> pq;
+        int ans = 0, cur = startFuel, i = 0;
         
-        auto cmp = [&](int i, int j) {
-            return stations[i][1] < stations[j][1];
-        };
-        priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
-        int ans = 0;
-        int cur = 0, fuel = startFuel;
-        int i = 0;
-        while (cur + fuel < target) {
-            while (i < n && cur + fuel >= stations[i][0])
-                pq.push(i++);
-            if (pq.empty()) break;
-            int index = pq.top(); pq.pop();
-            fuel = fuel - (stations[index][0] - cur) + stations[index][1];
-            cur = stations[index][0];
+        while (cur < target) {
+            while (i < stations.size() && cur >= stations[i][0])
+                pq.push(stations[i++][1]);
+            if (pq.empty()) return -1;
+            cur += pq.top(), pq.pop();
             ++ans;
         }
-        return cur + fuel >= target ? ans : -1;
+        
+        return ans;
     }
 };
