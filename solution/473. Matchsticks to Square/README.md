@@ -1,6 +1,6 @@
 # 473. Matchsticks to Square
 
-## Solution: DFS
+## Solution: Brute force - DFS
 
 ```cpp
 // Your runtime beats 82.39 % of cpp submissions.
