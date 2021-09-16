@@ -3,6 +3,8 @@
 ## Solution: DFS
 
 ```cpp
+// Your runtime beats 82.39 % of cpp submissions.
+
 class Solution {
 public:
     bool makesquare(vector<int>& matchsticks) {
@@ -31,6 +33,38 @@ private:
             visited_[i] = false;
         }
         
+        return false;
+    }
+};
+```
+
+or
+
+```cpp
+// Your runtime beats 41.35 % of cpp submissions.
+
+class Solution {
+public:
+    bool makesquare(vector<int>& matchsticks) {
+        int sum = accumulate(matchsticks.begin(), matchsticks.end(), 0);
+        if (sum % 4) return false;
+        vector<int> sides(4, 0);
+        sort(matchsticks.rbegin(), matchsticks.rend());
+        return dfs(matchsticks, 0, sides, sum / 4);
+    }
+    
+private:
+    bool dfs(vector<int>& nums, int index, vector<int>& sides, int target) {
+        if (index == nums.size())
+            return sides[0] == sides[1] && sides[1] == sides[2];
+        
+        for (int i = 0; i < 4; ++i) {
+            if (sides[i] + nums[index] > target) continue;
+            sides[i] += nums[index];
+            if (dfs(nums, index + 1, sides, target))
+                return true;
+            sides[i] -= nums[index];
+        }
         return false;
     }
 };
