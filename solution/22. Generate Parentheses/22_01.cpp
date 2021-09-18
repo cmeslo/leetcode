@@ -2,24 +2,24 @@ class Solution {
 public:
     vector<string> generateParenthesis(int n) {
         vector<string> res;
-        string out = "";
-        dfs(n, 0, 0, out, res);
+        string cur;
+        dfs(n, n, cur, res);
         return res;
     }
     
-    void dfs(int n, int left, int right, string out, vector<string>& res) {
-        if (left < n) {
-            out.push_back('(');
-            dfs(n, left + 1, right, out, res);
-            out.pop_back();
+private:
+    void dfs(int left, int right, string& cur, vector<string>& res) {
+        if (right == 0) {
+            res.push_back(cur);
+            return;
         }
-        if (left > right) {
-            out.push_back(')');
-            dfs(n, left, right + 1, out, res);
-            out.pop_back();
+        if (left) {
+            dfs(left - 1, right, cur += '(', res);
+            cur.pop_back();
         }
-        if (left == n && right == n) {
-            res.push_back(out);
+        if (left < right) {
+            dfs(left, right - 1, cur += ')', res);
+            cur.pop_back();
         }
     }
 };
