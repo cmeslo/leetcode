@@ -25,3 +25,58 @@ private:
     }
 };
 ```
+
+## Solution 2: One pass
+
+```
+[1,1,2,1,1,4,2,3], L = 2, R = 3
+left 用來記錄最後一個不符合的index，if (A[i] > R) left = i;
+right 用來記錄最後一個符合的index，if (A[i] >= L) right = i;
+
+i=0.    [1] 1 2 1 1 4 2 3
+    l,r--------------------ans += r-l = (-1)-(-1) = 0
+
+i=1.    1 [1] 2 1 1 4 2 3
+    l,r--------------------ans += r-l = (-1)-(-1) = 0
+
+i=2.    1 1 [2] 1 1 4 2 3
+      l      r-------------ans += r-l = 2-(-1) = 3
+                           包含了[1 1 2], [1, 2], [2]
+
+i=3.    1 1 2 [1] 1 4 2 3
+      l     r--------------ans += r-l = 2 - (-1) = 3
+                           仔細看這裡，
+                           它包含了[1 1 2 1], [1 2 1], [2, 1]，
+                           相當於把 1 併接在了上一輪三個subarray的尾
+
+i=4.    1 1 2 1 [1] 4 2 3
+      l     r--------------ans += r-l = 2-(-1) = 3
+                           它包含了[1 1 2 1 1], [1 2 1 1], [2 1 1]
+                           相當於把 1 併接在了上一輪三個subarray的尾
+
+i=5.    1 1 2 1 1 [4] 2 3
+                  l,r----- ans += r-l = 5-5 = 0
+
+i=6.    1 1 2 1 1 4 [2] 3
+                  l  r-----ans += r-l = 6-5 = 1
+                           它包含了[2]
+
+i=7.    1 1 2 1 1 4 2 [3]
+                  l    r---ans += r-l = 7-5 = 2
+                           它包含了[2 3], [3]
+
+ans = 12
+```
+
+```cpp
+int numSubarrayBoundedMax(vector<int>& nums, int L, int R) {
+    int ans = 0;
+    int left = -1, right = -1;
+    for (int i = 0; i < nums.size(); ++i) {
+        if (nums[i] > R) left = i;
+        if (nums[i] >= L) right = i;
+        ans += right - left;
+    }
+    return ans;
+}
+```
