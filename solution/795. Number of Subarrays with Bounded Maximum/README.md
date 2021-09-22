@@ -28,6 +28,7 @@ private:
 
 ## Solution 2: One pass
 
+### Example
 ```
 [1,1,2,1,1,4,2,3], L = 2, R = 3
 left 用來記錄最後一個不符合的index，if (A[i] > R) left = i;
@@ -68,6 +69,8 @@ i=7.    1 1 2 1 1 4 2 [3]
 ans = 12
 ```
 
+### Code
+
 ```cpp
 int numSubarrayBoundedMax(vector<int>& nums, int L, int R) {
     int ans = 0;
@@ -76,6 +79,59 @@ int numSubarrayBoundedMax(vector<int>& nums, int L, int R) {
         if (nums[i] > R) left = i;
         if (nums[i] >= L) right = i;
         ans += right - left;
+    }
+    return ans;
+}
+```
+
+## Solution 3: Three pass, 單調棧
+
+### Example
+```
+x 9 [x x 8 x x] 10 x x
+  j      i      k
+
+preGreaterOrEqual[i] = j
+nextGreater[i] = k
+
+ans += (i - j) * (k - i)
+
+注意重複元素的計算：
+x 9 x 8 [8 8 8] 10 x x
+      j  i      k
+```
+
+### Code
+```cpp
+int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
+    int n = nums.size();
+    vector<int> preGreaterOrEqual(n, -1);
+    vector<int> nextGreater(n, n);
+
+    stack<int> st;
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && nums[st.top()] < nums[i]) {
+            nextGreater[st.top()] = i;
+            st.pop();
+        }
+        st.push(i);
+    }
+    while (!st.empty()) st.pop();
+
+    for (int i = n - 1; i >= 0; --i) {
+        while (!st.empty() && nums[i] >= nums[st.top()]) {
+            preGreaterOrEqual[st.top()] = i;
+            st.pop();
+        }
+        st.push(i);
+    }
+
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        if (left <= nums[i] && nums[i] <= right) {
+            int j =  preGreaterOrEqual[i], k = nextGreater[i];
+            ans += (i - j) * (k - i);
+        }
     }
     return ans;
 }
