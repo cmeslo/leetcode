@@ -64,3 +64,58 @@ private:
     }
 };
 ```
+
+## Solution 3: 狀態機
+
+### 解釋
+
+Solution 2 要用 binary search - ```O(logN)``` 的方法查找下一個字母的出現位置
+
+這裡可以先做一點預處理，使用 ```O(1)``` 的方法查找下一個字母的出現位置
+
+```
+0 1 2 3 4 5 6
+  a b c a d e
+
+next[0][a] = 1 <--從位置 0，看下一個字母 'a' 的出現位置
+next[0][b] = 2
+...
+next[1][a] = 4
+```
+
+### Code
+```cpp
+// Your runtime beats 68.91 % of cpp submissions.
+// Your memory usage beats 91.55 % of cpp submissions.
+
+int numMatchingSubseq(string s, vector<string>& words) {
+    int n = s.size();
+
+    int next[n + 1][26];
+
+    for (int i = 0; i < 26; ++i)
+        next[n][i] = -1;
+
+    for (int i = n - 1; i >= 0; --i) {
+        for (int j = 0; j < 26; ++j)
+            next[i][j] = next[i + 1][j];
+        next[i][s[i] - 'a'] = i + 1;
+    }
+
+    int ans = 0;
+    for (string& w : words) {
+        int i = 0;
+        bool flag = true;
+        for (char& c : w) {
+            i = next[i][c - 'a'];
+            if (i == -1) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) ++ans;
+    }
+
+    return ans;
+}
+```
