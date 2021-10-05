@@ -1,5 +1,7 @@
 # 18. 4Sum
 
+## Solution: Two Pointers
+
 ```cpp
 vector<vector<int>> fourSum(vector<int>& nums, int target) {
     const int n = nums.size();
