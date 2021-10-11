@@ -1,6 +1,6 @@
 # 80. Remove Duplicates from Sorted Array II
 
-## Two pointers
+## Solution: Two pointers
 
 ```cpp
 int removeDuplicates(vector<int>& nums) {
@@ -11,5 +11,21 @@ int removeDuplicates(vector<int>& nums) {
     }
 
     return i;
+}
+```
+
+or
+
+```cpp
+int removeDuplicates(vector<int>& nums) {
+    int n = nums.size();
+    if (n == 1) return 1;
+
+    int i = 1;
+    for (int j = 2; j < n; ++j) {
+        if (nums[i] == nums[j] && nums[i] == nums[i-1]) continue;
+        swap(nums[++i], nums[j]);
+    }
+    return i + 1;
 }
 ```
