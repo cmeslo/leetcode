@@ -4,13 +4,12 @@ public:
         int n = arr.size();
         int i = 0;
         auto it = lower_bound(arr.begin(), arr.end(), x);
-        if (it != arr.end()) {
-            if (it != arr.begin() && abs(x - *prev(it)) <= abs(x - *it))
-                it = prev(it);
-            i = it - arr.begin();
-        } else {
+        if (it == arr.end())
             i = n - 1;
-        }
+        else if (it != arr.begin() && x - *prev(it) <= *it - x)
+            i = prev(it) - arr.begin();
+        else
+            i = it - arr.begin();
         
         int l = i, r = i;
         while (r - l + 1 < k) {
