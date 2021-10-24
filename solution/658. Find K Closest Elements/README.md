@@ -31,7 +31,7 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
 }
 ```
 
-## Solution 2: deque
+## Solution 2: Deque
 
 用額外空間 - deque，去避免處理 index。
 
@@ -94,3 +94,27 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     return res;
 }
 ```
+
+## Solution 3: Binary search (推薦)
+
+以上解法都要 ```O(n)```，但這個解法只要 ```O(log(N-K) + K)```，
+
+用 binary search 去尋找 window 的左邊界，
+
+注意這裡是用 ```arr[left]``` 和 ```arr[left + k]``` 作比較
+
+```cpp
+vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+    int low = 0, high = arr.size() - k;
+    while (low < high) {
+        int left = low + (high - low) / 2;
+        if (x - arr[left] <= arr[left + k] - x)
+            high = left;
+        else
+            low = left + 1;
+    }
+    return vector<int>(arr.begin() + low, arr.begin() + low + k);
+}
+```
+
+[reference](https://leetcode.com/problems/find-k-closest-elements/discuss/106426/JavaC%2B%2BPython-Binary-Search-O(log(N-K)-%2B-K))
