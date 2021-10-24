@@ -101,7 +101,9 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
 
 用 binary search 去尋找 window 的左邊界，
 
-注意這裡是用 ```arr[left]``` 和 ```arr[left + k]``` 作比較
+注意這裡是用 ```arr[left]``` 和 ```arr[left + k]``` 作比較，
+
+而且判斷時不可以取絶對值，原因可以看[詳細解釋](https://leetcode.com/problems/find-k-closest-elements/discuss/106426/JavaC%2B%2BPython-Binary-Search-O(log(N-K)-%2B-K))。
 
 ```cpp
 vector<int> findClosestElements(vector<int>& arr, int k, int x) {
@@ -116,5 +118,3 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     return vector<int>(arr.begin() + low, arr.begin() + low + k);
 }
 ```
-
-[reference](https://leetcode.com/problems/find-k-closest-elements/discuss/106426/JavaC%2B%2BPython-Binary-Search-O(log(N-K)-%2B-K))
