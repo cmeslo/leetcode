@@ -5,6 +5,8 @@
 time: ```O(n^2)```
 
 ```cpp
+// Your runtime beats 63.48 % of cpp submissions.
+
 int lengthOfLIS(vector<int>& nums) {
     int n = nums.size(), ans = 0;
     vector<int> dp(n, 1);
@@ -26,6 +28,9 @@ int lengthOfLIS(vector<int>& nums) {
 time: ```O(nlogn)```
 
 ```cpp
+// Your runtime beats 98.91 % of cpp submissions.
+// Your memory usage beats 63.58 % of cpp submissions.
+
 int lengthOfLIS(vector<int>& nums) {
     vector<int> q;
     for (int x : nums) {
