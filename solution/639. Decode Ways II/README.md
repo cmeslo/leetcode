@@ -70,3 +70,53 @@ int numDecodings(string s) {
     return dp[n];
 }
 ```
+
+由於 ```dp[i]``` 只和 ```dp[i-1]``` 和 ```dp[i-2]``` 有關，所以可以進行空間壓縮：
+
+```cpp
+class Solution {
+public:
+    int numDecodings(string s) {
+        const int kMod = 1e9 + 7;
+        int n = s.size();
+        
+        long dpi_2 = 0, dpi_1 = 1; //dpi_2 = dp[i-2], dpi_1 = dp[i-1]
+        for (int i = 1; i <= n; ++i) {
+            long dpi = 0;
+            dpi += dpi_1 * ways(s, i-1);
+            dpi += dpi_2 * ways(s, i-2, i-1);
+            dpi %= kMod;
+            dpi_2 = dpi_1;
+            dpi_1 = dpi;
+        }
+        return dpi_1;
+    }
+    
+private:
+    int ways(string& s, int i) {
+        if (s[i] == '*') return 9;
+        if (s[i] == '0') return 0;
+        return 1;
+    }
+    
+    int ways(string& s, int i, int j) {
+        if (i < 0) return 0;
+        
+        if (s[i] == '*' && s[j] == '*') {
+            return 15;
+        } else if (s[i] == '*') {
+            return ('0' <= s[j] && s[j] <= '6' ? 2 : 1);
+        } else if (s[j] == '*') {
+            if (s[i] == '1')
+                return 9;
+            else if (s[i] == '2')
+                return 6;
+        } else {
+            int num = (s[i] - '0') * 10 + (s[j] - '0');
+            if (10 <= num && num <= 26)
+                return 1;
+        }
+        return 0;
+    }
+};
+```
