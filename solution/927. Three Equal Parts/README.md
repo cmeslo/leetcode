@@ -45,4 +45,4 @@ vector<int> threeEqualParts(vector<int>& arr) {
 }
 ```
 
-[reference](https://youtu.be/lqqaMlQQsjw)
+[reference](https://github.com/wisdompeak/LeetCode/tree/master/Others/927.Three-Equal-Parts)
