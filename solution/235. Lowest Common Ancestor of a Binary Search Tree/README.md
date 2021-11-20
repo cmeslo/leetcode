@@ -14,3 +14,18 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     return root;
 }
 ```
+
+## Solution 2
+
+不管 BST，針對 Binary Tree 的萬能解法。
+
+```cpp
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (!root) return root;
+    if (root == p || root == q) return root;
+    auto l = lowestCommonAncestor(root->left, p, q);
+    auto r = lowestCommonAncestor(root->right, p, q);
+    if (l && r) return root;
+    return l ? l : r;
+}
+```
