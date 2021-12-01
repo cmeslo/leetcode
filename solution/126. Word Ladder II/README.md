@@ -2,9 +2,12 @@
 
 ## BFS（寫法一）
 
-同一距離出現同一字符串時，才加到鏈裡
+使用額外空間 ```dist```，來記錄並判斷、同一距離出現同一字符串時，才加到鏈裡。
 
 ```cpp
+// Your runtime beats 94.39 % of cpp submissions.
+// Your memory usage beats 85.77 % of cpp submissions.
+
 class Solution {
 public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
@@ -81,9 +84,12 @@ private:
 
 ## BFS（寫法二）
 
-用 ```set``` 作為 BFS 的容器，同時利用 ```dict``` 去確保不會走回頭路
+用 ```set``` 作為 BFS 的容器，同時利用 ```dict``` 去確保不會走回頭路。
 
 ```cpp
+// Your runtime beats 94.39 % of cpp submissions.
+// Your memory usage beats 93.81 % of cpp submissions.
+
 class Solution {
 public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
