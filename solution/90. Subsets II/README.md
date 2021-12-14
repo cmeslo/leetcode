@@ -4,6 +4,19 @@
 
 不斷重用已有的集合
 
+去重複：
+
+```
+1, 2, 2
+
+    {}
+1:  {},{1}
+2:  {},{1},{2},{1,2}
+            ^--> next time start from here.
+2:  {},{1},{2},{1,2},{2,2},{1,2,2}
+```
+
+### 寫法一：
 ```cpp
 vector<vector<int>> subsetsWithDup(vector<int>& nums) {
     vector<vector<int>> res{vector<int>{}};
@@ -28,9 +41,56 @@ vector<vector<int>> subsetsWithDup(vector<int>& nums) {
 }
 ```
 
+### 寫法二：
+
+```cpp
+// Your runtime beats 100.00 % of cpp submissions.
+// Your memory usage beats 96.31 % of cpp submissions.
+
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    int n = nums.size();
+    vector<vector<int>> res{{}};
+    sort(nums.begin(), nums.end());
+    int pre_start = 0, start = 0;
+    for (int i = 0; i < n; ++i) {
+        pre_start = res.size();
+        if (i > 0 && nums[i - 1] != nums[i])
+            start = 0;
+        for (int j = res.size() - 1; j >= start; --j) {
+            res.push_back(res[j]);
+            res.back().push_back(nums[i]);
+        }
+        start = pre_start;
+    }
+    return res;
+}
+```
+
+or
+
+```cpp
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    int n = nums.size();
+    vector<vector<int>> res{{}};
+    sort(nums.begin(), nums.end());
+    int pre_start = 0, start = 0;
+    for (int i = 0; i < n; ++i) {
+        start = i > 0 && nums[i - 1] != nums[i] ? 0 : pre_start;
+        pre_start = res.size();
+        for (int j = res.size() - 1; j >= start; --j) {
+            res.push_back(res[j]);
+            res.back().push_back(nums[i]);
+        }
+    }
+    return res;
+}
+```
+
 ## Solution 2: DFS
 
-去重：相同的數字，如果要取 k 個，就只取前 k 個
+### 寫法一：
+
+用輔助數組 visited 去重複：相同的數字，如果要取 k 個，就只取前 k 個
 
 ```cpp
 class Solution {
@@ -65,11 +125,14 @@ private:
 };
 ```
 
-or
+### 寫法二：
 
-去重：同一樹層的連續相同元素，只取第一個
+去重複：同一樹層的連續相同元素，只取第一個
 
 ```cpp
+// Your runtime beats 100.00 % of cpp submissions.
+// Your memory usage beats 55.53 % of cpp submissions.
+
 class Solution {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
