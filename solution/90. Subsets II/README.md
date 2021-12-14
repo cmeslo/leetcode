@@ -30,6 +30,8 @@ vector<vector<int>> subsetsWithDup(vector<int>& nums) {
 
 ## Solution 2: DFS
 
+去重：相同的數字，如果要取 k 個，就只取前 k 個
+
 ```cpp
 class Solution {
 public:
@@ -64,6 +66,8 @@ private:
 ```
 
 or
+
+去重：同一樹層的連續相同元素，只取第一個
 
 ```cpp
 class Solution {
