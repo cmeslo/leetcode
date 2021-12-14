@@ -1,0 +1,64 @@
+# 90. Subsets II
+
+## Solution 1:
+
+不斷重用已有的集合
+
+```cpp
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    vector<vector<int>> res{vector<int>{}};
+    if (nums.empty()) return res;
+
+    sort(nums.begin(), nums.end());
+
+    int size = 1, last = nums[0];
+    for (int i = 0; i < nums.size(); ++i)
+    {
+        if (last != nums[i]) {
+            last = nums[i];
+            size = res.size();
+        }
+        int realSize = res.size();
+        for (int j = realSize - size; j < realSize; ++j) {
+            res.push_back(res[j]);
+            res.back().push_back(nums[i]);
+        }
+    }
+    return res;
+}
+```
+
+## Solution 2: DFS
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        int n = nums.size();
+        visited.resize(n);
+        
+        sort(nums.begin(), nums.end());
+        
+        vector<int> cur;
+        dfs(nums, 0, cur);
+        return res;
+    }
+
+private:
+    vector<vector<int>> res;
+    vector<bool> visited;
+    
+    void dfs(vector<int>& nums, int start, vector<int>& cur) {
+        res.push_back(cur);
+        
+        for (int i = start; i < nums.size(); ++i) {
+            if (i > start && nums[i - 1] == nums[i]) continue;
+            visited[i] = true;
+            cur.push_back(nums[i]);
+            dfs(nums, i + 1, cur);
+            cur.pop_back();
+            visited[i] = false;
+        }
+    }
+};
+```
