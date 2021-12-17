@@ -63,3 +63,50 @@ bool stoneGame(vector<int>& piles) {
     return dp[1][n] > presum[n] - dp[1][n];
 }
 ```
+
+or
+
+### 另一種 DP 定義
+```
+x x x [x x x x] x x
+       i     j
+
+dp[i][j] := 在 i 至 j 範圍內，最多可以比對方高多少分
+
+dp[i][j] = max(p[i] - dp[i+1][j],
+               p[j] - dp[i][j-1])
+```
+
+```cpp
+class Solution {
+public:
+    bool stoneGame(vector<int>& piles) {
+        int n = piles.size();
+        vector<vector<int>> dp(n, vector<int>(n));
+        for (int i = 0; i < n; ++i)
+            dp[i][i] = piles[i];
+        
+        for (int len = 1; len < n; ++len) {
+            for (int i = 0; i + len < n; ++i) {
+                int j = i + len;
+                dp[i][j] = max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
+            }
+        }
+        return dp[0][n - 1] > 0;
+    }
+};
+```
+
+## Solution 3
+
+```
+X [O X O X O X O]
+```
+
+Alice 可以控制全選 X 或者 O，所以必勝。
+
+```cpp
+bool stoneGame(vector<int>& piles) {
+    return true;
+}
+```
