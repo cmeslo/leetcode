@@ -1,6 +1,6 @@
 # 926. Flip String to Monotone Increasing
 
-## Solution
+## Solution 1: Two pass
 
 ### 解釋
 
@@ -34,5 +34,78 @@ int minFlipsMonoIncr(string s) {
     for (int i = 0; i + 1 < n; ++i)
         ans = min(ans, f0[i] + f1[i + 1]);
     return ans;
+}
+```
+
+or
+
+```cpp
+int minFlipsMonoIncr(string s) {
+    int n = s.size();
+    s = '0' + s + '1';
+    vector<int> left(n + 2), right(n + 2);
+    for (int i = 1; i <= n; ++i) {
+        left[i] = left[i - 1] + (s[i] == '1');
+        right[n - i + 1] = right[n - i + 2] + (s[n - i + 1] == '0');
+    }
+    // for (int i = n; i >= 1; --i)
+    //     right[i] = right[i + 1] + (s[i] == '0');
+
+    int res = n;
+    for (int i = 1; i <= n + 1; ++i) {
+        res = min(res, left[i - 1] + right[i]);
+    }
+    return res;
+}
+ 
+// _ 0 0 1 1 0 _
+// 0 1 2 3 4 n n+1
+```
+
+## Solution 2: DP
+
+### 解釋
+
+```
+x x x x x x [x]
+
+dp[i][0] := 範圍 [0:i]，把 s[i] 改為以 0 結尾所要的最少 Flip 次數
+dp[i][1] := 範圍 [0:i]，把 s[i] 改為以 1 結尾所要的最少 Flip 次數
+
+if (s[i] == '0')
+    dp[i][0] = dp[i-1][0]
+    dp[i][1] = min(dp[i-1][0], dp[i-1][1]) + 1
+if (s[i] == '1')
+    dp[i][0] = dp[i-1][0] + 1
+    dp[i][1] = min(dp[i-1][0], dp[i-1][1])
+```
+
+### Code
+
+```cpp
+int minFlipsMonoIncr(string s) {
+    int dp0 = 0, dp1 = 0;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == '0')
+            dp1 = min(dp0, dp1) + 1;
+        else {
+            dp1 = min(dp0, dp1);
+            dp0 = dp0 + 1;
+        }
+    }
+    return min(dp0, dp1);
+}
+```
+
+可以簡化成
+
+```cpp
+int minFlipsMonoIncr(string s) {
+    int dp0 = 0, dp1 = 0;
+    for (char& c : s) {
+        dp1 = min(dp0, dp1) + (c == '0');
+        dp0 = dp0 + (c == '1');
+    }
+    return min(dp0, dp1);
 }
 ```
