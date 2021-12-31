@@ -1,5 +1,7 @@
 # 954. Array of Doubled Pairs
 
+## Solution: Hashmap + sort
+
 ```cpp
 bool canReorderDoubled(vector<int>& arr) {
     int n = arr.size();
@@ -25,6 +27,33 @@ bool canReorderDoubled(vector<int>& arr) {
     for (int x : arr)
         if (m[x] != 0)
             return false;
+    return true;
+}
+```
+
+更簡潔的做法：
+
+```cpp
+// Your runtime beats 99.48 % of cpp submissions.
+// Your memory usage beats 53.14 % of cpp submissions.
+
+bool canReorderDoubled(vector<int>& arr) {
+    unordered_map<int, int> m;
+    for (int x : arr) ++m[x];
+
+    vector<int> keys;
+    for (auto it : m)
+        keys.push_back(it.first);
+
+    sort(keys.begin(), keys.end(), [&](int a, int b) {
+        return abs(a) < abs(b);
+    });
+
+    for (int x : keys) {
+        if (m[x] > m[x * 2])
+            return false;
+        m[x * 2] -= m[x];
+    }
     return true;
 }
 ```
