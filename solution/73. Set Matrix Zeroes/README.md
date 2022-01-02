@@ -21,6 +21,56 @@ void setZeroes(vector<vector<int>>& matrix) {
 
 ## Solution 2: 按題目要求，不使用額外空間的方法
 
+### 寫法一：
+
+```cpp
+void setZeroes(vector<vector<int>>& matrix) {
+    int m = matrix.size(), n = matrix[0].size();
+    bool isZeroCol = false, isZeroRow = false;
+    for (int i = 0; i < m; ++i) {
+        if (matrix[i][0] == 0) {
+            isZeroCol = true;
+            break;
+        }
+    }
+    for (int j = 0; j < n; ++j) {
+        if (matrix[0][j] == 0) {
+            isZeroRow = true;
+            break;
+        }
+    }
+
+    for (int i = 1; i < m; ++i) {
+        for (int j = 1; j < n; ++j) {
+            if (matrix[i][j] == 0)
+                matrix[0][j] = matrix[i][0] = 0;
+        }
+    }
+    for (int j = 1; j < n; ++j) {
+        if (matrix[0][j] == 0) {
+            for (int i = 1; i < m; ++i)
+                matrix[i][j] = 0;
+        }
+    }
+    for (int i = 1; i < m; ++i) {
+        if (matrix[i][0] == 0) {
+            for (int j = 1; j < n; ++j)
+                matrix[i][j] = 0;
+        }
+    }
+    if (isZeroCol) {
+        for (int i = 0; i < m; ++i)
+            matrix[i][0] = 0;
+    }
+    if (isZeroRow) {
+        for (int j = 0; j < n; ++j)
+            matrix[0][j] = 0;
+    }
+}
+```
+
+### 寫法二：
+
 ```cpp
 void setZeroes(vector<vector<int>>& matrix) {
     int m = matrix.size(), n = matrix[0].size();
