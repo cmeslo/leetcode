@@ -3,7 +3,7 @@
 ## Solution 1: Sliding window + Brute force
 
 ```cpp
-// Runtime: 172 ms / 403 ms
+// Runtime: 172ms or 403ms
 
 class Solution {
 public:
@@ -36,4 +36,31 @@ private:
         return true;
     }
 };
+```
+
+## Solution 2: Sliding window + Counting
+
+```cpp
+// Runtime: 3ms or 4ms
+// Your runtime beats 98.80 % of cpp submissions.
+// Your memory usage beats 83.13 % of cpp submissions.
+
+string minWindow(string s, string t) {
+    vector<int> need(128);
+    for (char& c : t) need[c]++;
+
+    int n = s.size();
+    int cnt = 0, l = 0, len = n + 1;
+    for (int i = 0, j = 0; j < n; ++j) {
+        if (need[s[j]]-- > 0) ++cnt;
+        while (cnt == t.size()) {
+            if (j - i + 1 < len) {
+                l = i;
+                len = j - i + 1;
+            }
+            if (++need[s[i++]] > 0) --cnt;
+        }
+    }
+    return len == n + 1 ? "" : s.substr(l, len);
+}
 ```
