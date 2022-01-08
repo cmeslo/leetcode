@@ -1,6 +1,6 @@
 # 91. Decode Ways
 
-## Recursive (91_01.cpp)
+## Solution 1: Recursive (91_01.cpp)
 
 ```cpp
 class Solution {
@@ -29,7 +29,7 @@ private:
 };
 ```
 
-## DP
+## Solution 2: DP
 
 ### DP with O(n) space
 
@@ -54,34 +54,21 @@ int numDecodings(string s) {
 }
 ```
 
-#### 正向 （因為 s 要取 i - 1 坐標，所以不太好看）
+#### 正向
 ```cpp
-class Solution {
-public:
-    int numDecodings(string s) {
-        int n = s.size();
-        if (n == 0 || s[0] == '0') return 0;
-        
-        vector<int> dp(n + 1);
-        dp[0] = 1;
-        for (int i = 1; i <= n; ++i) {
-            if (valid(s, i - 1))
-                dp[i] = dp[i - 1];
-            if (i - 2 >= 0 && valid(s, i - 2, i - 1))
-                dp[i] += dp[i - 2];
-        }
-        return dp[n];
+int numDecodings(string s) {
+    int n = s.size();
+    s = '0' + s;
+    vector<int> dp(n + 1);
+    dp[0] = 1;
+    for (int i = 1; i <= n; ++i) {
+        if ('1' <= s[i] && s[i] <= '9')
+            dp[i] += dp[i - 1];
+        if (i > 1 && (s[i-1] == '1') || (s[i-1] == '2' && s[i] <= '6'))
+            dp[i] += dp[i - 2];
     }
-    
-private:
-    bool valid(const string& s, int i) {
-        return s[i] != '0';
-    }
-    bool valid(const string& s, int i, int j) {
-        int num = (s[i] - '0') * 10 + (s[j] - '0');
-        return 10 <= num && num <= 26;
-    }
-};
+    return dp[n];
+}
 ```
 
 ### DP with O(1) space
@@ -139,4 +126,23 @@ private:
         return 10 <= num && num <= 26;
     }
 };
+```
+
+or
+
+```cpp
+int numDecodings(string s) {
+    int n = s.size();
+    int dp2 = 0, dp1 = 1; // dp2 = dp[i - 2], dp1 = dp[i - 1]
+    for (int i = 0; i < n; ++i) {
+        int dpi = 0;
+        if ('1' <= s[i] && s[i] <= '9')
+            dpi += dp1;
+        if (i > 0 && ((s[i-1] == '1') || (s[i-1] == '2' && s[i] <= '6')))
+            dpi += dp2;
+        dp2 = dp1;
+        dp1 = dpi;
+    }
+    return dp1;
+}
 ```
