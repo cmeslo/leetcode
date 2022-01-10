@@ -1,6 +1,6 @@
 # 1339. Maximum Product of Splitted Binary Tree
 
-## Solution 1: DFS + memo
+## Solution 1: DFS + Memorize
 
 ```cpp
 class Solution {
@@ -33,6 +33,29 @@ private:
         
         dfs(node->left, cur_sum + r);
         dfs(node->right, cur_sum + l);
+    }
+};
+```
+
+## Solution 2: DFS + Two pass (推薦)
+
+```cpp
+class Solution {
+public:
+    int maxProduct(TreeNode* root) {
+        total_ = s(root);
+        s(root);
+        return ans_ % (int)(1e9 + 7);
+    }
+    
+private:
+    long ans_ = 0, total_ = 0;
+    
+    long s(TreeNode* node) {
+        if (!node) return 0;
+        long sub = node->val + s(node->left) + s(node->right);
+        ans_ = max(ans_, sub * (total_ - sub));
+        return sub;
     }
 };
 ```
