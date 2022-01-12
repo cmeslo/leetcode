@@ -1,6 +1,6 @@
 # 36. Valid Sudoku
 
-## Solution 1
+## Solution 1: Brute force
 
 ```cpp
 // Runtime: 53 ms
@@ -52,7 +52,7 @@ private:
 };
 ```
 
-## Solution 2 (推薦)
+## Solution 2: Bit mask (推薦)
 
 ```cpp
 // Runtime: 20 ms
