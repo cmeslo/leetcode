@@ -22,3 +22,39 @@ bool isValidSerialization(string preorder) {
     return st.size() == 1 && st.back() == "#";
 }
 ```
+
+or
+
+```cpp
+bool isValidSerialization(string preorder) {
+    istringstream ss(preorder);
+    string node;
+    stack<string> st;
+    while (getline(ss, node, ',')) {
+        if (node == "#") {
+            while (st.size() >= 2 && st.top() == "#") {
+                st.pop();
+                if (st.top() == "#") return false;
+                st.pop();
+            }
+        }
+        st.push(node);
+    }
+    return st.size() == 1 && st.top() == "#";
+}
+```
+
+## Solution 2: 計算入度和出度
+
+```cpp
+bool isValidSerialization(string preorder) {
+    istringstream iss(preorder);
+    string node;
+    int diff = 1;
+    while (getline(iss, node, ',')) {
+        if (--diff < 0) return false;
+        if (node != "#") diff += 2;
+    }
+    return diff == 0;
+}
+```
