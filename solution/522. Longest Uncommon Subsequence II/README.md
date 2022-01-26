@@ -1,8 +1,11 @@
 # 522. Longest Uncommon Subsequence II
 
-## Solution: Brute force
+## Solution 1: Brute force
 
 ```cpp
+// Runtime: 632 ms
+// Memory Usage: 63.5 MB
+
 class Solution {
 public:
     int findLUSlength(vector<string>& strs) {
@@ -52,6 +55,49 @@ private:
             if (i == sub.size()) return true;
         }
         return false;
+    }
+};
+```
+
+## Solution 2
+
+觀察隱藏規則：「如果 s 的 subsequence 是特殊序列 那麼 s 也是特殊序列 因此只需看整體 s 就可以了」
+
+因為 s 的子序列如果是 uncommon 的，再添加幾個字符變成完整的 s，也會是 uncommon 的，所以只要判斷 s 就可以了，不用生成它的所有子序列，逐個判斷。
+
+```cpp
+// Runtime: 0 ms, Your runtime beats 100.00 % of cpp submissions.
+// Memory Usage: 8.3 MB, Your memory usage beats 69.27 % of cpp submissions.
+
+class Solution {
+public:
+    int findLUSlength(vector<string>& strs) {
+        int n = strs.size();
+        sort(strs.begin(), strs.end(), [&](const string& a, const string& b) {
+            return a.size() > b.size();
+        });
+        
+        for (int i = 0; i < n; ++i) {
+            bool is_uncommon = true;
+            for (int j = 0; j < n; ++j) {
+                if (i == j) continue;
+                if (isSubsequence(strs[i], strs[j])) {
+                    is_uncommon = false;
+                    break;
+                }
+            }
+            if (is_uncommon) return strs[i].size();
+        }
+        return -1;
+    }
+    
+private:
+    bool isSubsequence(const string& a, const string& b) {
+        if (a.size() > b.size()) return false;
+        int i = 0;
+        for (int j = 0; i < a.size() && j < b.size(); ++j)
+            if (a[i] == b[j]) ++i;
+        return i == a.size();
     }
 };
 ```
