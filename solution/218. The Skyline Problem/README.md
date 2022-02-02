@@ -2,6 +2,8 @@
 
 ## Solution: Line Sweep
 
+### 寫法一：multiset
+
 ```cpp
 class Solution {
 public:
@@ -52,4 +54,42 @@ private:
         return *ms_.rbegin();
     }
 };
+```
+
+### 寫法二：map
+
+```cpp
+vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+    vector<vector<int>> L;
+    for (auto& b : buildings) {
+        int x1 = b[0], x2 = b[1], y = b[2];
+        L.push_back({x1, y});
+        L.push_back({x2, -y});
+    }
+    sort(L.begin(), L.end(), [](auto& a, auto& b) {
+        return a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]);
+    });
+
+    vector<vector<int>> res;
+    map<int, int> H;
+    H[0] = 1;
+    for (auto& l : L) {
+        int x = l[0], y = abs(l[1]);
+        bool entering = l[1] > 0;
+        int old_h = H.rbegin()->first;
+
+        if (entering) {
+            H[y]++;
+        } else {
+            if (--H[y] == 0)
+                H.erase(y);
+        }
+
+        int new_h = H.rbegin()->first;
+        if (old_h != new_h) { // 高度發生變化
+            res.push_back({x, new_h});
+        }
+    }
+    return res;
+}
 ```
