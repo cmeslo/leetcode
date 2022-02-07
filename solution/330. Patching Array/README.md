@@ -1,5 +1,7 @@
 # 330. Patching Array
 
+## 第一種解釋方法：
+
 ```cpp
 int minPatches(vector<int>& nums, int n) {
     long miss = 1, patched = 0, i = 0;
@@ -34,4 +36,42 @@ int minPatches(vector<int>& nums, int n) {
 // 1, 5, 10
 //       ^----covered = [0:13), 我下一個想覆蓋到 13，遇到 10，直接延伸現有覆蓋範圍 covered = [0:24)，
 //            現在覆蓋範圍是 [0:23]，已經覆蓋到 20 了，完。
+```
+
+## 第二種解釋方法：
+
+```cpp
+int minPatches(vector<int>& nums, int n) {
+    long covered = 0, patched = 0, i = 0;
+    while (covered < n) {
+        if (i < nums.size() && nums[i] <= covered + 1) {
+            covered += nums[i++];
+        } else {
+            covered += covered + 1;
+            patched++;
+        }
+    }
+    return patched;
+}
+
+// Example:
+// [1, 5, 10], n = 20
+
+// 1, 5, 10
+// ^----covered = [0:0], 我下一個想覆蓋到 1，剛好碰到 1，直接延伸現有覆蓋範圍 covered = [0:1]
+
+// 1, 5, 10
+//    ^----covered = [0:1], 我下一個想覆蓋到 2，但遇到 5，沒辦法、只能自己添加 patch 了，添加 2
+//         covered 範圍由 [0:1] 變成 [0:3]
+
+// 1, 5, 10
+//    ^----covered = [0:3], 我下一個想覆蓋到 4，但遇到 5，沒辦法、只能自己添加 patch 了，添加 4
+//         covered 範圍由 [0:3] 變成 [0:7]
+        
+// 1, 5, 10
+//    ^----covered = [0:7], 我下一個想覆蓋到 8，遇到 5，直接延伸現有覆蓋範圍 covered = [0:12]
+
+// 1, 5, 10
+//       ^----covered = [0:12], 我下一個想覆蓋到 13，遇到 10，直接延伸現有覆蓋範圍 covered = [0:23]
+//            已經覆蓋到 20 了，完。
 ```
