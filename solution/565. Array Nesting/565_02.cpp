@@ -1,17 +1,15 @@
 class Solution {
 public:
     int arrayNesting(vector<int>& nums) {
-        int max = 0;
-        
+        int res = 0;
         for (int i = 0; i < nums.size(); ++i) {
-            int curr = 1;
+            int group_size = 1;
             while (nums[i] != i) {
-                curr++;
                 swap(nums[i], nums[nums[i]]);
+                ++group_size;
             }
-            if (curr > max) max = curr;
+            res = max(res, group_size);
         }
-        
-        return max;
+        return res;
     }
 };
