@@ -1,20 +1,20 @@
 class Solution {
 public:
     int arrayNesting(vector<int>& nums) {
-        int maxS = 0;
-        vector<bool> visited(nums.size(), false);
-        
-        for (int i = 0; i < nums.size(); ++i) {
-            if (visited[i]) continue;
-            int a = i, currS = 1;
-            while (nums[a] != i) {
-                visited[a] = true;
-                currS++;
-                a = nums[a];
+        int n = nums.size();
+        int max_group_size = 0;
+        vector<bool> visited(n, false);
+        for (int i = 0; i < n; ++i) {
+            if (!visited[i]) {
+                int group_size = 0, j = i;
+                while (!visited[j]) {
+                    visited[j] = true;
+                    j = nums[j];
+                    ++group_size;
+                }
+                max_group_size = max(max_group_size, group_size);
             }
-            if (currS > maxS) maxS = currS;
         }
-        
-        return maxS;
+        return max_group_size;
     }
 };
