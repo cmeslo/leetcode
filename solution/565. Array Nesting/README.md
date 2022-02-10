@@ -58,3 +58,54 @@ A[0] = 0, A[2] = 2
 ```
 
 使到 0, 5, 6, 2 都出現在正確的位置上，不會再被遍歷，略過使用額外的 visited 數組。
+
+
+## Solution 3: Union Find
+
+因為有分組，所以也可以用 Union Find 解，
+
+不過不及 Solution 1 和 Solution 2(最快) 兩個方法快
+
+```cpp
+class UFS {
+public:
+    vector<int> parent;
+    UFS(int n): parent(n) {
+        for (int i = 0; i < n; ++i)
+            parent[i] = i;
+    };
+    
+    void merge(int i, int j) {
+        i = find(i), j = find(j);
+        if (i < j)
+            parent[j] = i;
+        else
+            parent[i] = j;
+    }
+    
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+};
+
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+        int n = nums.size();
+        UFS ufs(n);
+        for (int i = 0; i < n; ++i) {
+            if (ufs.find(i) != ufs.find(nums[i]))
+                ufs.merge(i, nums[i]);
+        }
+        int res = 0;
+        unordered_map<int, int> m;
+        for (int x : nums) {
+            int parent_x = ufs.find(x);
+            res = max(res, ++m[parent_x]);
+        }
+        return res;
+    }
+};
+```
