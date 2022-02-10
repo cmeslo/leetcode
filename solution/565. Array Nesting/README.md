@@ -64,7 +64,7 @@ A[0] = 0, A[2] = 2
 
 因為有分組，所以也可以用 Union Find 解，
 
-不過不及 Solution 1 和 Solution 2(最快) 兩個方法快
+不過不及 Solution 1 和 Solution 2(最快) 兩個方法快。
 
 ```cpp
 class UFS {
