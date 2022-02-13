@@ -2,23 +2,15 @@
 
 ```cpp
 vector<int> sortEvenOdd(vector<int>& nums) {
-    vector<int> A, B;
-    int n = nums.size();
-    for (int i = 0; i < n; i += 2) {
-        A.push_back(nums[i]);
-        if (i + 1 < n)
-            B.push_back(nums[i + 1]);
-    }
-    sort(A.begin(), A.end());
-    sort(B.rbegin(), B.rend());
+    vector<int> A[2];
+    for (int i = 0; i < nums.size(); ++i)
+        A[i & 1].push_back(nums[i]);
 
-    vector<int> res(n);
-    int j = 0;
-    for (int i = 0; i < n; i += 2)
-        res[i] = A[j++];
-    j = 0;
-    for (int i = 1; i < n; i += 2)
-        res[i] = B[j++];
-    return res;
+    sort(A[0].begin(), A[0].end());
+    sort(A[1].rbegin(), A[1].rend());
+
+    for (int i = 0; i < nums.size(); ++i)
+        nums[i] = A[i & 1][i / 2];
+    return nums;
 }
 ```
