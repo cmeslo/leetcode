@@ -62,6 +62,8 @@ int minimumXORSum(vector<int>& nums1, vector<int>& nums2) {
 ```
 
 ```cpp
+// Runtime: 336 ms
+
 int minimumXORSum(vector<int>& nums1, vector<int>& nums2) {
     using PII = pair<int, int>;
     int n = nums1.size();
