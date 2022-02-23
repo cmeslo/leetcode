@@ -1,5 +1,7 @@
 # 764. Largest Plus Sign
 
+從四個方向找最短的長度
+
 ```cpp
 int orderOfLargestPlusSign(int n, vector<vector<int>>& mines) {
     vector<vector<int>> up(n, vector<int>(n));
