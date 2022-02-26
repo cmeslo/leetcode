@@ -1,6 +1,6 @@
 # 446. Arithmetic Slices II - Subsequence
 
-## Solution 1: 現在會 TLE
+## Solution 1: DP (現在會 TLE)
 
 ```
 dp[i][diff] := 以 nums[i] 為結尾，公差為 diff 的 sequence (元素個數 >=2) 數目
@@ -22,7 +22,7 @@ int numberOfArithmeticSlices(vector<int>& nums) {
 }
 ```
 
-## Solution 2:
+## Solution 2: DP
 
 ```
 dp[j][i] := 以 nums[j]，nums[i] 為最後兩項的等差數列的個數
