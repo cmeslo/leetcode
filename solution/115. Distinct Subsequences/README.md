@@ -17,6 +17,10 @@ Y Y Y j
 
 dp[i][j] = dp[i-1][j-1] if (s[i] == s[j])
            + dp[i-1][j] if (s[i] != s[j] or s[i] == s[j])
+           
+s = ' ', 'r', 'a', 'b'
+t = ' '
+ans = 1
 ```
 
 ### Code
