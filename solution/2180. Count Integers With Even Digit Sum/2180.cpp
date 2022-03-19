@@ -10,7 +10,6 @@ public:
                 sum += temp % 10;
                 temp /= 10;
             }
-            // cout << x << ": " << sum << endl;
             if (sum % 2 == 0)
                 ++res;
             ++x;
