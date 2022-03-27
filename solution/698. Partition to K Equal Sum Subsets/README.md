@@ -1,6 +1,6 @@
 # 698. Partition to K Equal Sum Subsets
 
-## Solution: Backtracking + Prune
+## Solution: Backtracking + Pruning
 
 ```cpp
 class Solution {
