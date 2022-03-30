@@ -1,28 +1,20 @@
 class Solution {
 public:
     int islandPerimeter(vector<vector<int>>& grid) {
-        int res = 0;
-        int rowLen = grid.size();
-        int colLen = grid[0].size();
+        const vector<int> dirs = {0, -1, 0, 1, 0};
+        int m = grid.size(), n = grid[0].size();
         
-        for (int i = 0; i < rowLen; ++i) {
-            for (int j = 0; j < colLen; ++j) {
-                if (grid[i][j] == 1) res += sidesCount(grid, i, j);
+        int ans = 0;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (grid[i][j] != 1) continue;
+                for (int k = 0; k < 4; ++k) {
+                    int y = i + dirs[k];
+                    int x = j + dirs[k + 1];
+                    if (y < 0 || y >= m || x < 0 || x >= n || grid[y][x] == 0) ++ans;
+                }
             }
         }
-        return res;
-    }
-    
-    int sidesCount(vector<vector<int>>& grid, int row, int col) {
-        int res = 0;
-        int rowLen = grid.size();
-        int colLen = grid[0].size();
-
-        if (col - 1 < 0 || grid[row][col - 1] == 0) res++;
-        if (row - 1 < 0 || grid[row - 1][col] == 0) res++;
-        if (col + 1 > colLen - 1 || grid[row][col + 1] == 0) res++;
-        if (row + 1 > rowLen - 1 || grid[row + 1][col] == 0) res++;
-        
-        return res;
+        return ans;
     }
 };
