@@ -7,42 +7,42 @@
 原數組內容：
 [ 4, 3, 2, 7, 8, 2, 3, 1]
 
-4
-[ 4, 3, 2, 7, 8, 2,-3, 1]
+val = 4
+[ 4, 3, 2,-7, 8, 2, 3, 1]
 
-3:
-[ 4,-3, 2, 7, 8, 2, 3, 1]
+val = 3
+[ 4, 3,-2,-7, 8, 2, 3, 1]
 
-2
-[ 4,-3,-2, 7, 8, 2, 3, 1]
+val = 2
+[ 4,-3,-2,-7, 8, 2, 3, 1]
 
-7
-[ 4,-3, 2, 7, 8, 2, 3, 1] --->找到2
+val = 7
+[ 4,-3,-2,-7, 8, 2,-3, 1]
 
-8
-[-4,-3, 2, 7, 8, 2, 3, 1]
+val = 8
+[ 4,-3,-2,-7, 8, 2,-3,-1]
 
-2
-[-4,-3,-2, 7, 8, 2, 3, 1] 
+val = 2
+[ 4,-3,-2,-7, 8, 2,-3,-1] -> find 2
 
-3
-[-4, 3,-2, 7, 8, 2, 3, 1] --->找到3
+val = 3
+[ 4,-3,-2,-7, 8, 2,-3,-1] -> find 3
 
-1
-[-4, 3,-2,-7, 8, 2, 3, 1]
+val = 1
+[-4,-3,-2,-7, 8, 2,-3,-1]
 ```
 
 ```cpp
 vector<int> findDuplicates(vector<int>& nums) {
-    vector<int> res;
-
+    vector<int> ans;
     for (int i = 0; i < nums.size(); ++i) {
-        int j = abs(nums[i]) - 1;
-        if (nums[j] < 0) res.push_back(j + 1);
-        nums[j] = -nums[j];
+        int index = abs(nums[i]) - 1;
+        if (nums[index] < 0)
+            ans.push_back(index + 1);
+        else
+            nums[index] = -nums[index];
     }
-
-    return res;
+    return ans;
 }
 ```
 
@@ -65,4 +65,36 @@ vector<int> findDuplicates(vector<int>& nums) {
 
     return ans;
 }
+```
+
+or
+
+```cpp
+vector<int> findDuplicates(vector<int>& nums) {
+    vector<int> ans;
+    for (int i = 0; i < nums.size(); ++i) {
+        while (nums[i] != 0 && nums[i] != i + 1) {
+            if (nums[i] == nums[nums[i] - 1]) {
+                ans.push_back(nums[i]);
+                nums[i] = 0;
+                break;
+            }
+            swap(nums[i], nums[nums[i] - 1]);
+        }
+    }
+    return ans;
+}
+
+// 0 1 2 3 4 5 6 7
+// 1 2 3 4 x x 7 8
+// 4 3 2 7 8 2 3 1
+
+// [7]3 2 4 8 2 3 1
+// [3]3 2 4 8 2 7 1
+// [2]3 3 4 8 2 7 1
+// [0]2 3 4 8 2 7 1 --> find 3
+//  0 2 3 4[1]2 7 8
+//  1 2 3 4[0]2 7 8
+//  1 2 3 4 0[2]7 8 --> find 2
+//  1 2 3 4 0 0 7 8
 ```
