@@ -1,6 +1,6 @@
 # 212. Word Search II
 
-## 212_01.cpp
+## Solution 1: Brute Force DFS (212_01.cpp)
 
 對 words 裡的每一個 word，都去整個 Board 裡找一遍，
 
@@ -53,7 +53,7 @@ private:
 };
 ```
 
-## 212_02.cpp
+## Solution 2: Trie + DFS (212_02.cpp)
 
 用```Trie```來做，先用所有 word 構建出```Trie```樹，
 
@@ -122,6 +122,67 @@ private:
         walk(board, y, x+1, next);
         walk(board, y, x-1, next);
         board[y][x] = c;
+    }
+};
+```
+
+2022/04/05 重寫了一次：
+
+```cpp
+class TrieNode {
+public:
+    vector<TrieNode*> next;
+    const string* word;
+    
+    TrieNode(): next(26, nullptr), word(nullptr) {};
+};
+
+class Solution {
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        TrieNode root;
+        for (string& w : words) {
+            auto p = &root;
+            for (char& c : w) {
+                auto& next = p->next[c - 'a'];
+                if (!next)
+                    next = new TrieNode();
+                p = next;
+            }
+            p->word = &w;
+        }
+        
+        m = board.size(), n = board[0].size();
+        vector<string> ans;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                dfs(board, &root, i, j, ans);
+            }
+        }
+        return ans;
+    }
+    
+private:
+    int m, n;
+    const vector<int> dirs = {0, -1, 0, 1, 0};
+    
+    void dfs(vector<vector<char>>& board, TrieNode* p, int i, int j, vector<string>& ans) {
+        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] == '#') return;
+        p = p->next[board[i][j] - 'a'];
+        if (!p) return;
+        if (p->word) {
+            ans.push_back(*p->word);
+            p->word = nullptr;
+        }
+        
+        const char c = board[i][j];
+        board[i][j] = '#';
+        for (int k = 0; k < 4; ++k) {
+            int y = i + dirs[k];
+            int x = j + dirs[k + 1];
+            dfs(board, p, y, x, ans);
+        }
+        board[i][j] = c;
     }
 };
 ```
