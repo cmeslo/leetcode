@@ -1,5 +1,7 @@
 # 201. Bitwise AND of Numbers Range
 
+Common prefix
+
 ```cpp
 int rangeBitwiseAnd(int left, int right) {
     int res = 0;
@@ -13,5 +15,19 @@ int rangeBitwiseAnd(int left, int right) {
             break;
     }
     return res;
+}
+```
+
+or
+
+```cpp
+int rangeBitwiseAnd(int left, int right) {
+    int i = 0;
+    while (left != right) {
+        left >>= 1;
+        right >>= 1;
+        ++i;
+    }
+    return left << i;
 }
 ```
