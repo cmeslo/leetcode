@@ -11,7 +11,7 @@ class Solution(object):
                 res = res + (t // x)
             return res
         
-        l, r = 0, sys.maxint
+        l, r = 0, 10**14
         while l < r:
             mid = (l + r) // 2
             trips = count(mid)
