@@ -27,7 +27,7 @@ int maxProfit(vector<int>& prices) {
 }
 ```
 
-## ## Solution 1: DP
+## Solution 2: DP
 
 space complexity: ```O(1)```
 
