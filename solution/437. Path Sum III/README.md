@@ -1,6 +1,6 @@
 # 437. Path Sum III
 
-## 437_01.cpp - Recursive
+## Solution 1: DFS + Brute force (437_01.cpp)
 
 ```cpp
 class Solution {
@@ -24,7 +24,7 @@ private:
 };
 ```
 
-## 437_02.cpp - Prefix Sum
+## Solution 2: DFS + Prefix Sum (437_02.cpp)
 
 ```cpp
 class Solution {
