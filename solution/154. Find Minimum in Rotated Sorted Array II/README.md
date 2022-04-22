@@ -1,5 +1,7 @@
 # 154. Find Minimum in Rotated Sorted Array II
 
+## 解釋
+
 觀察一下會出現的可能性，就會發現用 mid 和 right 判斷會更容易處理
 
 ```
@@ -32,6 +34,8 @@ case 5:
 *       
    *  *
 ```
+
+## Code
 
 ```cpp
 int findMin(vector<int>& nums) {
