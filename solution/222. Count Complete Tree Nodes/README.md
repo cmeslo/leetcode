@@ -8,7 +8,7 @@ int countNodes(TreeNode* root) {
 }
 ```
 
-## Solution 2: 利用 Complete Tree 的性質
+## Solution 2: Binary search + 利用 Complete Tree 的性質驗證
 
 ```cpp
 class Solution {
