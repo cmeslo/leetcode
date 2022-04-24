@@ -54,3 +54,28 @@ public:
     }
 };
 ```
+
+## Solution 3: DFS + Pruning
+
+如果左右長度一樣就可以剪掉 (也是利用了 Complete Tree 的性質)
+
+```cpp
+int countNodes(TreeNode* root) {
+    if (!root) return 0;
+
+    int left_h = 0, right_h = 0;
+    auto p1 = root, p2 = root;
+    while (p1) {
+        ++left_h;
+        p1 = p1->left;
+    }
+    while (p2) {
+        ++right_h;
+        p2 = p2->right;
+    }
+
+    if (left_h == right_h)
+        return (1 << left_h) - 1;
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
+```
