@@ -88,3 +88,37 @@ public:
 st1.push(val)
 st2.push(min(st2.top(), val))
 ```
+
+## Solution 3: One stack
+
+用 pair 取代兩個 stack，再簡潔一些
+
+```cpp
+class MinStack {
+public:
+    stack<pair<int, int>> st; // {val, min_val}
+
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        if (st.empty())
+            st.emplace(val, val);
+        else
+            st.emplace(val, min(st.top().second, val));
+    }
+    
+    void pop() {
+        st.pop();
+    }
+    
+    int top() {
+        return st.top().first;
+    }
+    
+    int getMin() {
+        return st.top().second;
+    }
+};
+```
