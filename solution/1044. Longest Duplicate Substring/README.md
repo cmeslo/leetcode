@@ -1,6 +1,6 @@
 # 1044. Longest Duplicate Substring
 
-## Solution: Rolling hash - Version 1
+## Solution: Rolling hash - Version 1 (Collision Check)
 
 ```cpp
 #define p 10000007
