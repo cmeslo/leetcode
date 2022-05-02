@@ -74,6 +74,14 @@ private:
 
 ## Solution: Rolling hash - version 2
 
+```
+ b a n a n a
+[     ]
+
+b*p^2 + a*p^1 + n
+        a*p^2 + n*p^1 + a
+```
+
 ```cpp
 class Solution {
 public:
