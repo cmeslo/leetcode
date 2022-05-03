@@ -11,33 +11,22 @@ public:
 
 class Solution {
 public:
-    Node* flatten(Node* head) {
-        Node *cur = head;
-        
-        while (cur) {
-            if (cur->child) {
-                Node* tmp = cur->next;
-
-                cur->next = cur->child;
-                cur->child->prev = cur;
-                
-                Node* tail = getTailNode(cur->child);
-                if (tmp) {
-                    tmp->prev = tail;
-                    tail->next = tmp;
-                }
-
-                cur->child = nullptr;
-            }
-            cur = cur->next;
-        }
-        
-        return head;
-    }
+    Node* tail;
     
-private:
-    Node* getTailNode(Node* node) {
-        while (node && node->next) node = node->next;
-        return node;
+    Node* flatten(Node* head) {
+        auto p = head;
+        while (p) {
+            if (p->child) {
+                auto next = flatten(p->child);
+                next->prev = p;
+                tail->next = p->next;
+                if (p->next) p->next->prev = tail;
+                p->next = p->child;
+                p->child = nullptr;
+            }
+            tail = p;
+            p = p->next;
+        }
+        return head;
     }
 };
