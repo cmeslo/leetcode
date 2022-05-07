@@ -12,16 +12,14 @@
 class Solution {
 public:
     int sumNumbers(TreeNode* root) {
-        return rootToLeaf(root, 0);
+        return dfs(root, 0);
     }
-private:
-    int rootToLeaf(TreeNode* root, int sum) {
+    
+    int dfs(TreeNode* root, int cur) {
         if (!root) return 0;
-        
-        sum = sum*10 + root->val;
-        if (root->left == nullptr && root->right == nullptr) {
-            return sum;
-        }
-        return rootToLeaf(root->left, sum) + rootToLeaf(root->right, sum);
+        cur = cur * 10 + root->val;
+        if (!root->left && !root->right)
+            return cur;
+        return dfs(root->left, cur) + dfs(root->right, cur);
     }
 };
