@@ -1,20 +1,19 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        vector<int> ans(2, 0);
-		int x = 0;
-		
-		for (int n : nums) x ^= n;
-		
-		x &= -x; // get bit 1 at the most right side
-		
-		for (int n : nums) {
-			if (x & n) {
-				ans[0] ^= n;
-			} else {
-				ans[1] ^= n;
-			}
-		}
-		return ans;
+        long ab = 0;
+        for (int x : nums)
+            ab ^= x;
+        
+        int lastBit = ab & (-ab);
+        
+        vector<int> res = {0, 0};
+        for (int x : nums) {
+            if (x & lastBit)
+                res[0] ^= x;
+            else
+                res[1] ^= x;
+        }
+        return res;
     }
 };
