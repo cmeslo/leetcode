@@ -1,6 +1,6 @@
 # 96. Unique Binary Search Trees
 
-## DP
+## Solution: DP
 
 ![DP](./96.png)
 
