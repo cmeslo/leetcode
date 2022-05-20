@@ -1,10 +1,12 @@
 # 368. Largest Divisible Subset
 
-## 368_01.cpp
+## Solution 1: Recursion + memo (368_01.cpp)
 最開始用 recursive 方法做會TLE，加上memo優化後Accepted，但時間複雜度高。
 
-## 369_02.cpp
+## Solution 2: DP (368_02.cpp)
+
 DP 的解法，學習了 https://www.youtube.com/watch?v=Wv6DlL0Sawg 的方法
+
 ```cpp
 class Solution {
 public:
@@ -35,4 +37,41 @@ public:
         return res;
     }
 };
+```
+
+## Solution 3: DP (368_03.cpp)
+
+不同的找答案方法。
+
+```cpp
+vector<int> largestDivisibleSubset(vector<int>& nums) {
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+
+    int max_len = 0;
+    int index = 0;
+    vector<int> dp(n, 1);
+    vector<int> prev(n, -1);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < i; ++j) {
+            if (nums[i] % nums[j] == 0) {
+                if (dp[j] + 1 > dp[i]) {
+                    dp[i] = dp[j] + 1;
+                    prev[i] = j;
+                }
+            }
+        }
+        if (dp[i] > max_len) {
+            index = i;
+            max_len = dp[i];
+        }
+    }
+
+    vector<int> res;
+    while (index != -1) {
+        res.push_back(nums[index]);
+        index = prev[index];
+    }
+    return res;
+}
 ```
