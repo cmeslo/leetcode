@@ -1,14 +1,13 @@
 class Solution {
 public:
     int hammingDistance(int x, int y) {
-        int n = x ^ y;
-        int dist = 0;
-        while (n) {
-            if ((n >> 1) << 1 != n) {
-                dist++;
-            }
-            n >>= 1;
+        int res = 0;
+        for (int i = 0; i < 32; ++i) {
+            int bitA = (x >> i) & 1;
+            int bitB = (y >> i) & 1;
+            if (bitA != bitB)
+                ++res;
         }
-        return dist;
+        return res;
     }
 };
