@@ -51,3 +51,37 @@ TreeNode* buildTree(unordered_map<int, int>& m, int inStart, int inEnd, vector<i
     return root;
 }
 ```
+
+or
+
+```cpp
+class Solution {
+public:
+    vector<int>* inorder_;
+    vector<int>* postorder_;
+    unordered_map<int, int> m_;
+    
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int n = inorder.size();
+        inorder_ = &inorder;
+        postorder_ = &postorder;
+        
+        for (int i = 0; i < n; ++i)
+            m_[inorder[i]] = i;
+        
+        int postIndex = n - 1;
+        return buildTree(0, n - 1, postIndex);
+    }
+    
+    TreeNode* buildTree(int inStart, int inEnd, int& postIndex) {
+        if (inStart > inEnd) return nullptr;
+        
+        int rootVal = (*postorder_)[postIndex--];
+        TreeNode* root = new TreeNode(rootVal);
+        root->right = buildTree(m_[rootVal] + 1, inEnd, postIndex);
+        root->left = buildTree(inStart, m_[rootVal] - 1, postIndex);
+        
+        return root;
+    }
+};
+```
