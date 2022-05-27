@@ -4,7 +4,7 @@
 
 ## Solution 1: 450_01.cpp
 
-找到 ```節點A``` 後純粹替換節點裡的值 ```a```，再遞歸刪掉剛替換的值 ```a``` 所對應的 ```節點B```，代碼較短
+找到要刪除的 ```節點A``` 後，用 ```節點B``` 的 值 ```b``` 替換 ```節點A``` 裡的值 ```key```，再遞歸刪掉剛替換的 ```節點B```，代碼較短。
 
 ```cpp
 TreeNode* deleteNode(TreeNode* root, int key) {
@@ -34,7 +34,7 @@ TreeNode* deleteNode(TreeNode* root, int key) {
 
 ## Solution 2: 450_02.cpp
 
-真正的交換兩個節點，代碼較長
+真正的交換兩個節點，代碼較長。
 
 ```cpp
 TreeNode* deleteNode(TreeNode* root, int key) {
