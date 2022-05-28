@@ -36,6 +36,8 @@ TreeNode* deleteNode(TreeNode* root, int key) {
 
 真正的交換兩個節點，代碼較長。
 
+cpp:
+
 ```cpp
 TreeNode* deleteNode(TreeNode* root, int key) {
     if (!root) return nullptr;
@@ -67,6 +69,43 @@ TreeNode* deleteNode(TreeNode* root, int key) {
         return new_root;
     }
 
+    return root;
+}
+```
+
+java:
+
+```java
+public TreeNode deleteNode(TreeNode root, int key) {
+    if (root == null) return null;
+
+    if (root.val == key) {
+        if (root.left == null)
+            return root.right;
+        else if (root.right == null)
+            return root.left;
+        else {
+            TreeNode pre = null;
+            TreeNode new_node = root.right;
+            while (new_node.left != null) {
+                pre = new_node;
+                new_node = new_node.left;
+            }
+            if (pre == null) {
+                new_node.left = root.left;
+                return new_node;
+            }
+            pre.left = new_node.right;
+            new_node.left = root.left;
+            new_node.right = root.right;
+            return new_node;
+        }
+    }
+
+    if (key < root.val)
+        root.left = deleteNode(root.left, key);
+    else if (root.val < key)
+        root.right = deleteNode(root.right, key);
     return root;
 }
 ```
