@@ -1,6 +1,6 @@
 # 53. Maximum Subarray
 
-## Solution: Kadane's algorithm
+## Solution 1: Kadane's algorithm
 
 ```cpp
 int maxSubArray(vector<int>& nums) {
@@ -17,7 +17,7 @@ int maxSubArray(vector<int>& nums) {
 ```
 
 
-## Solution 2:
+## Solution 2
 
 ```
 [x x x] [x x x x] x x x
