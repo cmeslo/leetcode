@@ -3,6 +3,8 @@
 ## Solution 1: Topological sort + bitset
 
 ```cpp
+// 399 ms, Your runtime beats 46.47 % of cpp submissions.
+
 vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
     vector<int> inDegree(n);
     vector<vector<int>> G(n);
@@ -47,6 +49,8 @@ vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
 ## Solution 2: DFS
 
 ```cpp
+// 194 ms, Your runtime beats 84.65 % of cpp submissions.
+
 class Solution {
 public:
     vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
