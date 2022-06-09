@@ -2,7 +2,11 @@
 
 ## Solution: Union find
 
+### 寫法一
+
 ```cpp
+// 92 ms, Your runtime beats 95.46 % of cpp submissions.
+
 class UFS {
 public:
     vector<int> parents_, ranks_;
@@ -80,4 +84,65 @@ public:
 // "tom": {a, b, c, d}
 
 
+```
+
+### 寫法二
+
+```cpp
+// 156 ms, Your runtime beats 60.69 % of cpp submissions.
+
+class Solution {
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        // 1. initialization
+        for (auto& ac : accounts) {
+            for (int i = 1; i < ac.size(); ++i) {
+                father[ac[i]] = ac[i];
+                owner[ac[i]] = ac[0];
+            }
+        }
+        
+        // 2. union
+        for (auto& ac : accounts) {
+            for (int i = 2; i < ac.size(); ++i) {
+                Union(ac[i - 1], ac[i]);
+            }
+        }
+        
+        // 3. build ans
+        for (auto& [email, name] : owner) {
+            string root = Find(email);
+            group[root].insert(email);
+        }
+        vector<vector<string>> res;
+        for (auto& [root, emailSet] : group) {
+            vector<string> cur;
+            cur.push_back(owner[root]);
+            for (string email : emailSet)
+                cur.push_back(email);
+            res.push_back(cur);
+        }
+        return res;
+    }
+    
+private:
+    unordered_map<string, string> father;
+    unordered_map<string, string> owner;
+    unordered_map<string, set<string>> group;
+    
+    string Find(string x) {
+        if (x != father[x])
+            father[x] = Find(father[x]);
+        return father[x];
+    }
+    
+    void Union(string a, string b) {
+        a = Find(a), b = Find(b);
+        if (a == b) return;
+        if (a < b)
+            father[a] = b;
+        else
+            father[b] = a;
+    }
+};
 ```
