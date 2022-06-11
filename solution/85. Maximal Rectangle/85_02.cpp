@@ -1,36 +1,31 @@
 class Solution {
 public:
     int maximalRectangle(vector<vector<char>>& matrix) {
-        if (matrix.empty()) return 0;
-        
-        int res = 0;
-        vector<int> height(matrix[0].size(), 0);
-        for (int i = 0; i < matrix.size(); ++i)
-        {
-            for (int j = 0; j < matrix[i].size(); ++j) {
-                height[j] = matrix[i][j] == '0' ? 0 : height[j] + 1;
+        int m = matrix.size(), n = matrix[0].size();
+        int ans = 0;
+        vector<int> row(n + 2, 0);
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                row[j + 1] = matrix[i][j] == '0' ? 0 : row[j + 1] + 1;
             }
-            res = max(res, maxInRow(height));
+            ans = max(ans, maxHistogram(row));
         }
-        return res;
+        return ans;
     }
     
-    int maxInRow(vector<int>& height) {
-        int res = 0;
-        stack<int> s;
-        height.push_back(0);
-        
-        for (int i = 0; i < height.size(); ++i)
-        {
-            if (s.empty() || height[s.top()] <= height[i]) {
-                s.push(i);
-            } else {
-                int cur = s.top(); s.pop();
-                int len = s.empty() ? i : i - s.top() - 1;
-                res = max(res, height[cur] * len);
-                --i;
+private:
+    int maxHistogram(vector<int>& H) {
+        int area = 0;
+        stack<int> st;
+        st.push(0);
+        for (int i = 1; i < H.size(); ++i) {
+            while (H[st.top()] > H[i]) {
+                int h = H[st.top()]; st.pop();
+                int w = i - st.top() - 1;
+                area = max(area, h * w);
             }
+            st.push(i);
         }
-        return res;
+        return area;
     }
 };
