@@ -1,14 +1,12 @@
 class Solution {
 public:
     int rob(vector<int>& nums) {
-        int ans = 0;
-        int pre2 = 0, pre1 = 0;
-        for (const int n : nums) {
-            ans = max(pre1, pre2 + n);
-            pre2 = pre1;
-            pre1 = ans;
+        int prepre = 0, pre = 0;
+        for (int x : nums) {
+            int cur = max(prepre + x, pre);
+            prepre = pre;
+            pre = cur;
         }
-        
-        return ans;
+        return max(prepre, pre);
     }
 };
