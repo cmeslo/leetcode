@@ -1,47 +1,39 @@
 class TrieNode {
 public:
-    vector<TrieNode*> childs;
+    vector<TrieNode*> next;
     bool isWord;
-    TrieNode(): childs(26), isWord(false) {}
-    ~TrieNode() {
-        for (auto& child : childs)
-            delete child;
-    }
+    TrieNode(): next(26), isWord(false) {}
 };
 
 class StreamChecker {
 public:
     StreamChecker(vector<string>& words) {
-        _root = new TrieNode();
-        _s = "";
-        
         for (const string& word : words) {
-            auto* cur = _root;
-            for (int i = word.length() - 1; i >= 0; i--) {
-                auto& next = cur->childs[word[i] - 'a'];
-                if (!next) next = new TrieNode();
-                cur = next;
+            auto cur = &root;
+            for (int i = word.size() - 1; i >= 0; --i) {
+                int j = word[i] - 'a';
+                if (!cur->next[j])
+                    cur->next[j] = new TrieNode();
+                cur = cur->next[j];
             }
             cur->isWord = true;
         }
     }
     
     bool query(char letter) {
-        _s += letter;
-        
-        auto* cur = _root;
-        for (int i = _s.length() - 1; i >= 0; i--) {
-            auto* next = cur->childs[_s[i] - 'a'];
-            if (!next) return false;
-            if (next->isWord) return true;
-            cur = next;
+        stream.push_back(letter - 'a');
+        auto cur = &root;
+        for (int i = stream.size() - 1; i >= 0; --i) {
+            cur = cur->next[stream[i]];
+            if (!cur) return false;
+            if (cur->isWord) return true;
         }
         return false;
     }
-    
+
 private:
-    TrieNode* _root;
-    string _s;
+    TrieNode root;
+    vector<int> stream;
 };
 
 /**
