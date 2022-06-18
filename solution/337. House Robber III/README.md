@@ -71,7 +71,7 @@ private:
 };
 ```
 
-## Solution 2
+## Solution 2 (推薦)
 
 ```cpp
 class Solution {
