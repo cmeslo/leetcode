@@ -12,20 +12,18 @@
 class Solution {
 public:
     int rob(TreeNode* root) {
-        vector<int> ans = helper(root);
-        return max(ans[0], ans[1]);
+        auto ans = dp(root);
+        return max(ans.first, ans.second);
     }
     
 private:
-    vector<int> helper(TreeNode* root) {
-        if (!root) return {0, 0};
+    pair<int, int> dp(TreeNode* node) { // rob node, pass node
+        if (!node) return {0, 0};
         
-        vector<int> ans(2);
-        auto left = helper(root->left);
-        auto right = helper(root->right);
+        auto l = dp(node->left);
+        auto r = dp(node->right);
         
-        ans[0] = max(left[0], left[1]) + max(right[0], right[1]);
-        ans[1] = root->val + left[0] + right[0];
-        return ans;
+        return {node->val + l.second + r.second,
+                max(l.first, l.second) + max(r.first, r.second)};
     }
 };
