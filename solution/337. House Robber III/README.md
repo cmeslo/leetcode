@@ -46,28 +46,22 @@ public:
         return max(rob(root, true), rob(root, false));
     }
     
-private:
-    unordered_map<TreeNode*, int> robRoot, passRoot;
-    
-    int rob(TreeNode* root, bool rootIncluded) {
+    int rob(TreeNode* root, bool isRob) {
         if (!root) return 0;
-        if (rootIncluded && robRoot.count(root)) return robRoot[root];
-        if (!rootIncluded && passRoot.count(root)) return passRoot[root];
         
-        int left = rob(root->left, false);
-        int right = rob(root->right, false);
-        
-        if (!rootIncluded) {
-            left = max(left, rob(root->left, true));
-            right = max(right, rob(root->right, true));
-        }
-        
-        if (rootIncluded) {
-            return robRoot[root] = root->val + left + right;
+        if (isRob) {
+            if (dpRob.count(root)) return dpRob[root];
+            return dpRob[root] = root->val + rob(root->left, false) + rob(root->right, false);
         } else {
-            return passRoot[root] = left + right;
+            if (dpPass.count(root)) return dpPass[root];
+            return dpPass[root] = max(rob(root->left, true), rob(root->left, false))
+                + max(rob(root->right, true), rob(root->right, false));
         }
     }
+    
+private:
+    unordered_map<TreeNode*, int> dpRob;
+    unordered_map<TreeNode*, int> dpPass;
 };
 ```
 
