@@ -1,6 +1,8 @@
 # 1290. Convert Binary Number in a Linked List to Integer
 
-## C++
+## Solution
+
+### C++
 
 ```cpp
 int getDecimalValue(ListNode* head) {
@@ -15,7 +17,7 @@ int getDecimalValue(ListNode* head) {
 }
 ```
 
-## Java
+### Java
 
 ```java
 public int getDecimalValue(ListNode head) {
