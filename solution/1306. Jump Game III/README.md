@@ -1,6 +1,6 @@
 # 1306. Jump Game III
 
-bfs
+## Solution 1: BFS
 
 ```cpp
 // 60 ms
@@ -25,5 +25,17 @@ bool canReach(vector<int>& arr, int start) {
     }
 
     return false;
+}
+```
+
+## Solution 2: DFS
+
+```cpp
+bool canReach(vector<int>& arr, int start) {
+    if (start < 0 || start >= arr.size() || arr[start] < 0) return false;
+    if (arr[start] == 0) return true;
+    arr[start] = -arr[start];
+    return canReach(arr, start - arr[start])
+        || canReach(arr, start + arr[start]);
 }
 ```
