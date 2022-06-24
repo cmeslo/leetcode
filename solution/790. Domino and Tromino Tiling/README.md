@@ -43,3 +43,20 @@ int numTilings(int n) {
     return A;
 }
 ```
+
+由於 case C 和 case B 像鏡像、它們的數量是一樣的，所以可以寫成:
+
+```cpp
+int numTilings(int n) {
+    const int M = 1e9 + 7;
+    long preA = 1;
+    long A = 1, B = 0;
+    for (int i = 2; i <= n; ++i) {
+        long a = (A + preA + B + B) % M;
+        long b = (preA + B) % M;
+        preA = A;
+        A = a, B = b;
+    }
+    return A;
+}
+```
