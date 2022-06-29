@@ -1,15 +1,11 @@
 class Solution {
 public:
     int maxPower(string s) {
-        char pre = ' ';
-        int max_pow = 0, pow = 1;
-        
-        for (const char& c : s) {
-            pow = pre == c ? pow + 1 : 1;
-            max_pow = max(max_pow, pow);
-            pre = c;
+        int res = 1, cur = 1;
+        for (int i = 1; i < s.size(); ++i) {
+            cur = s[i - 1] == s[i] ? cur + 1 : 1;
+            res = max(res, cur);
         }
-        
-        return max_pow;
+        return res;
     }
 };
