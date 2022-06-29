@@ -1,6 +1,6 @@
 # 416. Partition Equal Subset Sum
 
-## Recursive (416_01.cpp)
+## Solution 1: Recursive (416_01.cpp)
 
 Your runtime beats 95.95 % of cpp submissions.
 
@@ -31,7 +31,7 @@ private:
 };
 ```
 
-## DP (416_02.cpp)
+## Solution 2: DP (416_02.cpp)
 
 DP定義: ```dp[i][j] 是指 nums 從 0 到 i (左閉右閉) 範圍中，是否可以取出若干數字，它們的和是 j```
 
