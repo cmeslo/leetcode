@@ -23,7 +23,7 @@ ListNode* insertionSortList(ListNode* head) {
 }
 ```
 
-優化版本，不必每次由頭開始:
+優化版本，不一定需要每次由頭開始找插入位置:
 
 ```cpp
 // Runtime: 16 ms, Your runtime beats 94.19 % of cpp submissions.
@@ -50,6 +50,9 @@ ListNode* insertionSortList(ListNode* head) {
 ### Java
 
 ```java
+// Runtime: 2 ms, Your runtime beats 99.25 % of java submissions.
+// Memory Usage: 39.1 MB
+
 public ListNode insertionSortList(ListNode head) {
     ListNode dummy = new ListNode();
     ListNode pre = dummy;
