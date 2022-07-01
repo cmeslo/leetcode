@@ -1,67 +1,57 @@
 # 310. Minimum Height Trees
 
-解釋：從邊緣（葉子）開始往中心剪枝，到不能再剪時就是 <strong>最小樹高</strong>。
 
-## 310_01.cpp
 
-用 "入度" 來找葉子，需要多用 O(n) 空間保存 "入度"
+## Solution: Topological sort (310_01.cpp)
+
+### 解釋
+
+從邊緣（葉子）開始往中心消除，到剩下 1 或 2 個節點時就是 <strong>最小樹高</strong> 的樹根。
+
+### Code
 
 ```cpp
-class Solution {
-public:
-    vector<int> findMinHeightTrees(int n, vector<pair<int, int>>& edges)
-    {
-        if (n == 1) return { 0 };
+vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+    vector<vector<int>> adj(n);
+    vector<int> inDegree(n);
+    for (auto& e : edges) {
+        int a = e[0], b = e[1];
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+        ++inDegree[a];
+        ++inDegree[b];
+    }
 
-        vector<int> degrees(n);
-        vector<unordered_set<int>> graph = makeGraph(n, edges, degrees);
-        queue<int> leaves;
-        vector<int> ans;
+    queue<int> q;
+    for (int i = 0; i < n; ++i)
+        if (inDegree[i] <= 1)
+            q.push(i);
 
-        for (int i = 0; i < n; ++i) {
-            if (degrees[i] == 1) leaves.push(i);
-        }
-
-        while (n > 2) {
-
-            int curleaves = leaves.size();
-            n -= curleaves;
-
-            for (int i = 0; i < curleaves; ++i) {
-                int leap = leaves.front();
-                leaves.pop();
-                for (auto neighbor : graph[leap]) {
-                    graph[neighbor].erase(leap);
-                    degrees[neighbor]--;
-                    if (degrees[neighbor] == 1) leaves.push(neighbor);
+    int count = n;
+    while (count > 2) {
+        count -= q.size();
+        for (int i = q.size(); i > 0; --i) {
+            int node = q.front(); q.pop();
+            --inDegree[node];
+            for (int next : adj[node]) {
+                if (inDegree[next] == 0) continue;
+                if (--inDegree[next] == 1) {
+                    q.push(next);
                 }
             }
         }
-        while (!leaves.empty()) {
-            ans.push_back(leaves.front());
-            leaves.pop();
-        }
-        return ans;
     }
 
-    vector<unordered_set<int>> makeGraph(int n, vector<pair<int, int>>& edges, vector<int>& degrees)
-    {
-        vector<unordered_set<int>> graph(n, unordered_set<int>());
-
-        for (auto edge : edges) {
-            graph[edge.first].insert(edge.second);
-            graph[edge.second].insert(edge.first);
-            degrees[edge.first]++;
-            degrees[edge.second]++;
-        }
-        return graph;
+    vector<int> ans;
+    while (!q.empty()) {
+        ans.push_back(q.front());
+        q.pop();
     }
-};
+    return ans;
+}
 ```
 
-## 310_02.cpp
-
-用 "出度" 來找葉子
+### 寫法二 (310_02.cpp)
 
 ```cpp
 vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
