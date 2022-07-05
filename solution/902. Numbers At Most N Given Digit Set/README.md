@@ -1,8 +1,12 @@
 # 902. Numbers At Most N Given Digit Set
 
+## Solution 1: DFS (901.cpp)
+
+
 最初以為是排列問題，無腦使用排列的方法做出來，但TLE了
 
 ```cpp
+// TLE 的方法
 class Solution {
 public:
     int atMostNGivenDigitSet(vector<string>& digits, int n) {
@@ -27,7 +31,37 @@ private:
 };
 ```
 
-## 902.cpp
+實際上，有很大一部分數字是可以通過計算得到，所以優化如下：
+
+```cpp
+class Solution {
+public:
+    int atMostNGivenDigitSet(vector<string>& digits, int n) {
+        string N = to_string(n);
+        long res = 0, cur = 1;
+        for (int i = 0; i < N.size() - 1; ++i) {
+            cur *= digits.size();
+            res += cur;
+        }
+        return res + dfs(N, digits, 0);
+    }
+    
+    long dfs(const string& N, vector<string>& digits, int start) {
+        if (start >= N.size()) return 1;
+        int res = 0;
+        int i = 0;
+        for (; i < digits.size() && digits[i][0] < N[start]; ++i) {
+            res += pow(digits.size(), N.size() - start - 1);
+        }
+        if (i < digits.size() && digits[i][0] == N[start]) {
+            res += dfs(N, digits, start + 1);
+        }
+        return res;
+    }
+};
+```
+
+## Solution 2 : DP (902.cpp)
 
 ```cpp
 int atMostNGivenDigitSet(vector<string>& digits, int N) {
