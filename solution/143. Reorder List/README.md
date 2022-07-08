@@ -1,6 +1,6 @@
 # 143. Reorder List
 
-## deque
+## Solution 1: deque
 
 ```cpp
 void reorderList(ListNode* head) {
@@ -32,7 +32,7 @@ void reorderList(ListNode* head) {
 }
 ```
 
-## cut and merge
+## Solution 2: cut and merge (推薦)
 
 ```cpp
 void reorderList(ListNode* head) {
@@ -63,6 +63,29 @@ void reorderList(ListNode* head) {
         head2->next = tmp1;
         head = tmp1;
         head2 = tmp2;
+    }
+}
+```
+
+## Solution 3: Two pointers
+
+```cpp
+void reorderList(ListNode* head) {
+    vector<int> A;
+    auto p = head;
+    while (p) {
+        A.push_back(p->val);
+        p = p->next;
+    }
+    int i = 0, j = A.size() - 1;
+    bool flag = true;
+    while (i <= j) {
+        if (flag)
+            head->val = A[i++];
+        else
+            head->val = A[j--];
+        flag = !flag;
+        head = head->next;
     }
 }
 ```
