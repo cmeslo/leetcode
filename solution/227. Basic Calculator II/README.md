@@ -1,69 +1,50 @@
 # 227. Basic Calculator II
 
-## version 1
-
-ugly code
+## Solution 1: Two stack
 
 ```cpp
 int calculate(string s) {
-    int n = s.length();
-    stack<int> st_num;
-    stack<char> st_op;
+    stack<int> numStack;
+    stack<char> opStack;
 
+    int n = s.size();
     for (int i = 0; i < n; ++i) {
-        if (s[i] == ' ') continue;
-
-        if (isdigit(s[i])) {
+        if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/') {
+            opStack.push(s[i]);
+        } else if (isdigit(s[i])) {
             int num = 0;
-            while (i < n && isdigit(s[i]))
+            while (i < n && isdigit(s[i])) {
                 num = num * 10 + (s[i++] - '0');
-            --i;
+            }
+            numStack.push(num);
+            i--;
 
-            if (!st_op.empty()) {
-                int tmp;
-                if (st_op.top() == '*') {
-                    tmp = st_num.top() * num;
-                    st_num.pop();
-                    st_num.push(tmp);
-                    st_op.pop();
-                } else if (st_op.top() == '/') {
-                    tmp = st_num.top() / num;
-                    st_num.pop();
-                    st_num.push(tmp);
-                    st_op.pop();
-                } else {
-                    st_num.push(num);
+            if (!opStack.empty()) {
+                if (opStack.top() == '-') {
+                    opStack.pop();
+                    opStack.push('+');
+                    numStack.top() = - numStack.top();
+                } else if (opStack.top() == '*' || opStack.top() == '/') {
+                    int b = numStack.top(); numStack.pop();
+                    int a = numStack.top(); numStack.pop();
+                    numStack.push(opStack.top() == '*' ? a * b : a / b);
+                    opStack.pop();
                 }
-            } else {
-                st_num.push(num);
             }
-        } else {
-            st_op.push(s[i]);
         }
     }
 
-    int ans = 0;
-    while (!st_num.empty()) { // 不能直接從數字棧中取兩個數，從操作符棧中取一個符號來計算。比如 "1*2-3/4+5*6-7*8+9/10" 會出錯
-        int num = st_num.top(); st_num.pop(); 
-        if (st_op.empty()) {
-            ans += num;
-        } else {
-            if (st_op.top() == '+') {
-                ans += num;
-            } else if (st_op.top() == '-') {
-                ans -= num;
-            }
-            st_op.pop();
-        }
+    while (!opStack.empty()) {
+        int b = numStack.top(); numStack.pop();
+        int a = numStack.top(); numStack.pop();
+        numStack.push(a + b);
+        opStack.pop();
     }
-
-    return ans;
+    return numStack.top();
 }
 ```
 
-## version 2
-
-clean code
+## Solution 2: One stack
 
 ```cpp
 int calculate(string s) {
