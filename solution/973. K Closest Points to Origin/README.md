@@ -58,3 +58,19 @@ vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
     return res;
 }
 ```
+
+## Solution 3: nth_element
+
+雙百的解法
+
+```cpp
+// Runtime: 124 ms
+// Memory Usage: 49.1 MB
+
+vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+    nth_element(points.begin(), points.begin() + k, points.end(), [&](const auto& a, const auto& b) {
+        return (a[0] * a[0] + a[1] * a[1]) < (b[0] * b[0] + b[1] * b[1]);
+    });
+    return vector<vector<int>>(points.begin(), points.begin() + k);
+}
+```
