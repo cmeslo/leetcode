@@ -13,3 +13,23 @@ int findComplement(int num) {
     return res;
 }
 ```
+
+## Solution 2: mask
+
+```cpp
+int findComplement(int num) {
+    unsigned mask = ~0;
+    while (num & mask) mask <<= 1;
+    return ~num & ~mask;
+}
+```
+
+or
+
+```cpp
+int findComplement(int num) {
+    unsigned mask = ~0;
+    while (num & mask) mask <<= 1;
+    return ~mask ^ num;
+}
+```
