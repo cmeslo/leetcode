@@ -9,18 +9,12 @@
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
-        queue<TreeLinkNode*> q;
-        if (root != NULL) q.push(root);
-        
-        while (!q.empty()) {
-            int size = q.size();
-            for (int i = 0; i < size; ++i) {
-                TreeLinkNode* cur = q.front(); q.pop();
-
-                if (cur->left != NULL) q.push(cur->left);
-                if (cur->right != NULL) q.push(cur->right);
-                if (i < size - 1) cur->next = q.front();
-            }
+        if (!root) return;
+        if (root->left) {
+            root->left->next = root->right;
+            if (root->next) root->right->next = root->next->left;
         }
+        connect(root->left);
+        connect(root->right);
     }
 };
