@@ -37,4 +37,22 @@ void connect(TreeLinkNode *root) {
 
 ## Solution 3: Pointer ([116_03.cpp](https://github.com/cmeslo/leetcode/blob/master/solution/116.%20Populating%20Next%20Right%20Pointers%20in%20Each%20Node/116_04.cpp))
 
-Use ```start``` pointer to record first node of each layer, ```cur``` pointer to traverse each layer. O(1) space.
+Use ```head``` pointer to record first node of each layer, ```cur``` pointer to traverse each layer. O(1) space.
+
+```cpp
+Node* connect(Node* root) {
+    if (!root) return root;
+
+    Node *head = root;
+    while (head->left) {
+        auto cur = head;
+        while (cur) {
+            cur->left->next = cur->right;
+            if (cur->next) cur->right->next = cur->next->left;
+            cur = cur->next;
+        }
+        head = head->left;
+    }
+    return root;
+}
+```
