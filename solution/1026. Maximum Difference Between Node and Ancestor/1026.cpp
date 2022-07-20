@@ -12,19 +12,15 @@
 class Solution {
 public:
     int maxAncestorDiff(TreeNode* root) {
-        if (!root) return 0;
-        return maxDiff(root, root->val, root->val);
+        return dfs(root, root->val, root->val);
     }
     
 private:
-    int maxDiff(TreeNode* root, int curMax, int curMin) {
-        if (!root) return curMax - curMin;
-        
-        curMax = max(curMax, root->val);
-        curMin = min(curMin, root->val);
-        int left = maxDiff(root->left, curMax, curMin);
-        int right = maxDiff(root->right, curMax, curMin);
-        
-        return max(left, right);
+    int dfs(TreeNode* node, int mn, int mx) {
+        if (!node) return mx - mn;
+        mn = min(mn, node->val);
+        mx = max(mx, node->val);
+        return max(dfs(node->left, mn, mx),
+                   dfs(node->right, mn, mx));
     }
 };
