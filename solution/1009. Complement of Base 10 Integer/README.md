@@ -2,6 +2,8 @@
 
 兩個方法都是先求出全 1111 1111 的數，再與原數字做 相減 或 xor
 
+## Solution 1: 減法
+
 ```cpp
 int bitwiseComplement(int N) {
     if (N < 2) return 1 - N;
@@ -14,14 +16,22 @@ int bitwiseComplement(int N) {
 }
 ```
 
-更直觀的做法：
+## Solution 2: XOR (更直觀的做法)
+
+```
+0 0 0 1 0 1 <-- n
+
+0 0 0 1 1 1 <-- xor this
+
+0 0 0 0 1 0
+```
 
 ```cpp
-int bitwiseComplement(int N) {
+int bitwiseComplement(int n) {
     int x = 1;
-    while (x < N)
+    while (x < n)
         x = (x << 1) | 1;
 
-    return x ^ N;
+    return x ^ n;
 }
 ```
