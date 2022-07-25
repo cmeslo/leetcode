@@ -1,6 +1,39 @@
 # 1463. Cherry Pickup II
 
-## Top-down (1463_01.cpp)
+## Solution 1: Top-down DP (1463_01.cpp)
+
+```cpp
+// Runtime: 32 ms, Your runtime beats 99.40 % of cpp submissions.
+// Memory Usage: 9.7 MB, Your memory usage beats 90.63 % of cpp submissions.
+
+class Solution {
+public:
+    int cherryPickup(vector<vector<int>>& grid) {
+        memset(mem, -1, sizeof(mem));
+        m = grid.size(), n = grid[0].size();
+        return dfs(grid, 0, 0, n - 1);
+    }
+    
+private:
+    int mem[71][71][71];
+    int m, n;
+    
+    int dfs(vector<vector<int>>& grid, int y, int x1, int x2) {
+        if (y >= m) return 0;
+        if (mem[y][x1][x2] != -1) return mem[y][x1][x2];
+        
+        int cherry = 0;
+        for (int i = max(x1 - 1, 0); i <= min(x1 + 1, n - 1); ++i) {
+            for (int j = max(x2 - 1, 0); j <= min(x2 + 1, n - 1); ++j) {
+                cherry = max(cherry, dfs(grid, y + 1, i, j));
+            }
+        }
+        return mem[y][x1][x2] = cherry + grid[y][x1] + (x1 != x2) * grid[y][x2];
+    }
+};
+```
+
+or
 
 ```cpp
 int cherryPickup(vector<vector<int>>& grid) {
@@ -29,7 +62,7 @@ int cherryPickup(vector<vector<int>>& grid) {
 - Space complexity: O(h * w^2)
 
 
-## Bottom-up DP (1463_02.cpp)
+## Solution 2: Bottom-up DP (1463_02.cpp)
 
 ### 解釋
 
@@ -65,7 +98,7 @@ dp[y][x1][x2] = dp[y - 1][a][b] + grid[x1] + (x1 != x2) * grid[x2]
 dp[y][x1][x2] = dp[y + 1][a][b] + grid[x1] + (x1 != x2) * grid[x2]
 ```
 
-### 代碼 - 三維DP
+### 寫法一：三維DP
 
 ```cpp
 int cherryPickup(vector<vector<int>>& grid) {
@@ -88,7 +121,7 @@ int cherryPickup(vector<vector<int>>& grid) {
 }
 ```
 
-### 代碼 - 空間壓縮成二維
+### 寫法二：空間壓縮成二維
 
 ```cpp
 int cherryPickup(vector<vector<int>>& grid) {
@@ -113,7 +146,7 @@ int cherryPickup(vector<vector<int>>& grid) {
 }
 ```
 
-### 代碼 - 不擴充邊界，然後從上向下走：
+### 寫法三：不擴充邊界，然後從上向下走：
 
 ```cpp
 int cherryPickup(vector<vector<int>>& grid) {
