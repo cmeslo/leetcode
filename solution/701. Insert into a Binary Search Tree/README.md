@@ -19,6 +19,36 @@ TreeNode* insertIntoBST(TreeNode* root, int val) {
 
 ```cpp
 TreeNode* insertIntoBST(TreeNode* root, int val) {
+    TreeNode* node = new TreeNode(val);
+    if (!root) return node;
+
+    auto cur = root;
+    while (true) {
+        if (val < cur->val) {
+            if (cur->left)
+                cur = cur->left;
+            else {
+                cur->left = node;
+                break;
+            }
+        } else {
+            if (cur->right)
+                cur = cur->right;
+            else {
+                cur->right = node;
+                break;
+            }
+        }
+    }
+
+    return root;
+}
+```
+
+or
+
+```cpp
+TreeNode* insertIntoBST(TreeNode* root, int val) {
     auto node = new TreeNode(val);
     if (!root) return node;
     TreeNode *pre = nullptr, *cur = root;
