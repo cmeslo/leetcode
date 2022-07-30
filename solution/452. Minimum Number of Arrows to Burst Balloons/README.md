@@ -1,13 +1,13 @@
 # 452. Minimum Number of Arrows to Burst Balloons #
 
-## 452_01.cpp ##
+## Solution: Greedy 1 (452_01.cpp) ##
 
 1. sort by end
 2. shoot as right as possible
 
-Your runtime beats 84.10 % of cpp submissions.
-
 ```cpp
+// Your runtime beats 84.10 % of cpp submissions.
+
 int findMinArrowShots(vector<vector<int>>& points) {
     if (points.empty()) return 0;
 
@@ -28,13 +28,13 @@ int findMinArrowShots(vector<vector<int>>& points) {
 }
 ```
 
-## 452_02.cpp ##
+## Solution: Greedy 2 (452_02.cpp) ##
 
-sort by start
-
-Your runtime beats 94.75 % of cpp submissions.
+1. sort by start
 
 ```cpp
+// Your runtime beats 94.75 % of cpp submissions.
+
 int findMinArrowShots(vector<vector<int>>& points) {
     sort(begin(points), end(points), [](const auto& a, const auto& b) {
         return (a[0] < b[0]) || (a[0] == b[0] && a[1] < b[1]);
