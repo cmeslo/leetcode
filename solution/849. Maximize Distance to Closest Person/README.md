@@ -1,10 +1,12 @@
 # 849. Maximize Distance to Closest Person
 
-## 849_01.cpp
+## Solution 1: 849_01.cpp
 
 每次遇到空位，就數一下連續空位的長度
 
 頭尾空位需要特別處理
+
+time: ```O(n^2)```
 
 ```cpp
 int maxDistToClosest(vector<int>& seats) {
@@ -26,13 +28,15 @@ int maxDistToClosest(vector<int>& seats) {
 }
 ```
 
-## 849_02.cpp
+## Solution 2: 849_02.cpp
 
 記錄最後一個人出現的位置 last，
 
 每當遇到另一個人、就與 last 計算距離、再更新答案，
 
 同樣頭尾要特殊處理
+
+time: ```O(n)```
 
 ```cpp
 int maxDistToClosest(vector<int>& seats) {
