@@ -1,6 +1,6 @@
 # 142. Linked List Cycle II
 
-## 142.cpp
+## Solution: Floyd cycle detection algorithm
 Floyd cycle detection algorithm, similar problem - [287. Find the Duplicate Number](https://github.com/cmeslo/leetcode/tree/master/solution/287.%20Find%20the%20Duplicate%20Number).
 
 ```cpp
@@ -21,6 +21,27 @@ ListNode *detectCycle(ListNode *head) {
     }
 
     return begin;
+}
+```
+
+or
+
+```cpp
+ListNode *detectCycle(ListNode *head) {
+    auto slow = head, fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) {
+            auto cur = head;
+            while (cur != slow) {
+                cur = cur->next;
+                slow = slow->next;
+            }
+            return slow;
+        }
+    }
+    return nullptr;
 }
 ```
 
