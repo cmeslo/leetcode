@@ -1,6 +1,8 @@
 # 1510. Stone Game IV
 
-## 思考過程：
+## Solution 1: DP (1510_01.cpp)
+
+### 思考過程：
 
 ```
 1 2 3 4  5  6
@@ -18,28 +20,28 @@ dp[9] = true    x
 dp[10]= false   {1, 4, 9} (dp[10 - 1] == false || dp[10 - 4] == false || dp[10 - 9] == false)
 ```
 
-## Code
-
-### 寫法一：1510_01.cpp
+### Code
 
 ```cpp
-// Your runtime beats 45.45 % of cpp submissions.
+// Your runtime beats 71.30 % of cpp submissions.
 
 bool winnerSquareGame(int n) {
     vector<bool> dp(n + 1, false);
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j * j <= i; ++j) {
-            if (dp[i - j * j]) continue;
-            dp[i] = true;
-            break;
+            if (dp[i - j * j] == false) {
+                dp[i] = true;
+                break;
+            }
         }
     }
-
     return dp[n];
 }
 ```
 
-### 寫法二：1510_02.cpp
+## Solution 2: Recursion (1510_02.cpp)
+
+### Code
 
 ```cpp
 // Your runtime beats 76.27 % of cpp submissions.
