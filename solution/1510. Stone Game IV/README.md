@@ -1,6 +1,26 @@
 # 1510. Stone Game IV
 
-## 1510_01.cpp
+## 思考過程：
+
+```
+1 2 3 4  5  6
+1 4 9 16 25 36
+ 
+dp[1] = true    x
+dp[2] = false   {1} dp[2 - 1] == false
+dp[3] = true    {1} dp[3 - 1] == false
+dp[4] = true    x
+dp[5] = false   {1, 4} (dp[5 - 1] == false || dp[5 - 4] == false)
+dp[6] = true    {1, 4} (dp[6 - 1] == false || dp[6 - 4] == false)
+dp[7] = false   {1, 4} (dp[7 - 1] == false || dp[7 - 4] == false)
+dp[8] = true    {1, 4} (dp[8 - 1] == false || dp[8 - 4] == false)
+dp[9] = true    x
+dp[10]= false   {1, 4, 9} (dp[10 - 1] == false || dp[10 - 4] == false || dp[10 - 9] == false)
+```
+
+## Code
+
+### 寫法一：1510_01.cpp
 
 ```cpp
 // Your runtime beats 45.45 % of cpp submissions.
@@ -19,7 +39,7 @@ bool winnerSquareGame(int n) {
 }
 ```
 
-## 1510_02.cpp
+### 寫法二：1510_02.cpp
 
 ```cpp
 // Your runtime beats 76.27 % of cpp submissions.
