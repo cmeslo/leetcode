@@ -2,6 +2,34 @@
 
 ## Solution 1: Bit Manipulation (421_01.cpp) ##
 
+### 寫法一：
+
+```cpp
+// Runtime: 460 ms, Your runtime beats 49.15 % of cpp submissions.
+// Memory Usage: 92.5 MB, Your memory usage beats 25.35 % of cpp submissions.
+
+int findMaximumXOR(vector<int>& nums) {
+    int res = 0, mask = 0;
+    for (int i = 31; i >= 0; --i) {
+        mask |= (1 << i);
+        unordered_set<int> prefix;
+        for (int x : nums)
+            prefix.insert(x & mask);
+
+        int expect = res | (1 << i);
+        for (int p : prefix) {
+            if (prefix.count(expect ^ p)) { // 我確實可以得到 expect
+                res = expect;
+                break;
+            }
+        }
+    }
+    return res;
+}
+```
+
+### 寫法二：
+
 ```cpp
 // Runtime: 294 ms, Your runtime beats 86.68 % of cpp submissions.
 // Memory Usage: 50.5 MB, Your memory usage beats 97.91 % of cpp submissions.
@@ -29,6 +57,8 @@ int findMaximumXOR(vector<int>& nums) {
 ```
 
 ## Solution 2: Trie (421_02.cpp) ##
+
+### 寫法一：
 
 ```cpp
 // Runtime: 200 ms, Your runtime beats 98.97 % of cpp submissions.
@@ -75,7 +105,7 @@ public:
 };
 ```
 
-or
+### 寫法二：
 
 ```cpp
 class TrieNode {
