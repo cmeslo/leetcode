@@ -1,42 +1,44 @@
 class TrieNode {
 public:
-    TrieNode* childs[2];
-    TrieNode() {
-        childs[0] = childs[1] = nullptr;
-    }
+    TrieNode* next[2];
+    int val;
+    TrieNode(): val(0) {
+        next[0] = next[1] = nullptr;
+    };
 };
 
 class Solution {
 public:
     int findMaximumXOR(vector<int>& nums) {
         TrieNode root;
-        
-        for (int n : nums) {
-            auto* cur = &root;
+        for (int x : nums) {
+            auto cur = &root;
             for (int i = 31; i >= 0; --i) {
-                int bit = (n >> i) & 1;
-                auto& node = cur->childs[bit];
-                if (!node) node = new TrieNode();
-                cur = node;
+                int bit = (x >> i) & 1;
+                if (!cur->next[bit])
+                    cur->next[bit] = new TrieNode();
+                cur = cur->next[bit];
             }
+            cur->val = x;
         }
         
-        int ans = 0;
-        for (int n : nums) {
-            auto* cur = &root;
-            int tmp = 0;
+        int res = 0;
+        for (int x : nums) {
+            auto cur = &root;
             for (int i = 31; i >= 0; --i) {
-                int bit = (n >> i) & 1;
-                if (cur->childs[1 - bit]) {
-                    tmp |= (1 << i);
-                    cur = cur->childs[1 - bit];
-                } else {
-                    cur = cur->childs[bit];
-                }
+                int expect = !((x >> i) & 1);
+                if (cur->next[expect])
+                    cur = cur->next[expect];
+                else
+                    cur = cur->next[!expect];
             }
-            ans = max(ans, tmp);
+            res = max(res, x ^ cur->val);
         }
-        
-        return ans;
+        return res;
     }
 };
+
+
+// 0 0 1 0 1 <--5
+// 1 1 0 0 1 <--25
+// 1 1 1 0 0 <--28
