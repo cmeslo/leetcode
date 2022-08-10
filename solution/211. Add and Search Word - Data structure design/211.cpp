@@ -1,57 +1,47 @@
 class TrieNode {
 public:
-    vector<TrieNode*> childs;
-    const string* word;
-    
-    TrieNode(): childs(26), word(nullptr) {};
-    ~TrieNode() {
-        for (auto* child : childs)
-            delete child;
-    }
+    vector<TrieNode*> next;
+    bool isWord;
+    TrieNode(): next(26), isWord(false) {};
 };
 
 class WordDictionary {
-private:
-    TrieNode* root;
-
-    bool search(string& word, TrieNode* node, int s) {
-        auto* cur = node;
-        for (int i = s; i < word.length(); i++) {
-            if (word[i] != '.') {
-                const auto& child = cur->childs[word[i] - 'a'];
-                if (!child) return false;
-                cur = child;
-            } else {
-                for (int j = 0; j < 26; j++) {
-                    const auto& child = cur->childs[j];
-                    if (child && search(word, child, i+1)) return true;
-                }
-                return false;
-            }
-        }
-        return cur->word ? true : false;
-    }
-    
 public:
-    /** Initialize your data structure here. */
     WordDictionary() {
-        root = new TrieNode();
     }
     
-    /** Adds a word into the data structure. */
     void addWord(string word) {
-        auto* cur = root;
-        for (const char& c : word) {
-            auto& child = cur->childs[c - 'a'];
-            if (!child) child = new TrieNode();
+        auto cur = &root;
+        for (char& c : word) {
+            auto& child = cur->next[c - 'a'];
+            if (!child)
+                child = new TrieNode();
             cur = child;
         }
-        cur->word = &word;
+        cur->isWord = true;
     }
     
-    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
     bool search(string word) {
-        return search(word, root, 0);
+        return dfs(&root, 0, word);
+    }
+    
+private:
+    TrieNode root;
+    
+    bool dfs(TrieNode* node, int i, const string& word) {
+        if (!node) return false;
+        
+        if (i == word.size())
+            return node->isWord;
+        
+        if (word[i] != '.')
+            return dfs(node->next[word[i] - 'a'], i + 1, word);
+        
+        for (auto child : node->next)
+            if (dfs(child, i + 1, word))
+                return true;
+        
+        return false;
     }
 };
 
