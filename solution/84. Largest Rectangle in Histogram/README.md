@@ -11,6 +11,8 @@
 ### Code
 
 ```cpp
+// Runtime: 112 ms, Your runtime beats 100.00 % of cpp submissions.
+
 int largestRectangleArea(vector<int>& H) {
     H.insert(begin(H), 0);
     H.push_back(0);
