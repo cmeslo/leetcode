@@ -1,12 +1,14 @@
 # 84. Largest Rectangle in Histogram
 
-## 解釋：
+## Solution: Monotonic Stack
 
-每次遇到下降的柱 H[i] 時，
+### 解釋：
 
-排在 i 前面、並且比 H[i] 高的柱，它們能夠組成的最大面積都可以分別計算了。
+使用單調棧保存單調遞增的矩形（柱），每次遇到下降的柱 ```H[i]``` 時，
 
-## Code
+那些排在 ```i``` 前面、並且比 ```H[i]``` 高的柱，它們能夠組成的最大面積都可以分別計算了。
+
+### Code
 
 ```cpp
 int largestRectangleArea(vector<int>& H) {
