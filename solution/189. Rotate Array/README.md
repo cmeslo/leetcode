@@ -2,9 +2,22 @@
 
 兩個方法都是 Your runtime beats 99.08 % of cpp submissions.
 
-## 189_01.cpp
+## Solution 1: Reverse (189_01.cpp)
 
 最初想到，也是比較直觀的解法
+
+### Example
+
+```
+Input: nums = [1,2,3,4,5,6,7], k = 3
+Output: [5,6,7,1,2,3,4]
+
+[1 2 3 4] [5 6 7]
+[4 3 2 1] [7 6 5]
+5 6 7 1 2 3 4
+```
+
+### Code
 
 ```cpp
 void rotate(vector<int>& nums, int k) {
@@ -18,13 +31,15 @@ void rotate(vector<int>& nums, int k) {
     reverse(nums.begin(), nums.end());
 }
 ```
-## 189_02.cpp
+## Solution 2: 189_02.cpp
 
 參考了別人的做法，
 
 每次走 k 步，並且把當前數字移到 k 個數字之後，
 
 最後再多加一個 count 變量來記錄已經改了多少個數字
+
+### Code
 
 ```cpp
 void rotate(vector<int>& nums, int k) {
