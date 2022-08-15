@@ -1,20 +1,17 @@
 # 454. 4Sum II
 
 ```cpp
-int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) {
+int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
     unordered_map<int, int> m;
-    for (int a : A)
-        for (int b : B)
-            ++m[a + b];
+    for (int a : nums1)
+        for (int b : nums2)
+            m[a + b]++;
 
-    int ans = 0;
-    for (int c : C)
-        for (int d : D) {
-            auto it = m.find(- c - d);
-            if (it != m.end())
-                ans += it->second;
-        }
-
-    return ans;
+    int res = 0;
+    for (int c : nums3)
+        for (int d : nums4)
+            if (m.count(0 - c - d))
+                res += m[0 - c - d];
+    return res;
 }
 ```
