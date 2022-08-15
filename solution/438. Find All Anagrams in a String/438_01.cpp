@@ -1,23 +1,21 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        if (s.empty() || p.size() > s.size()) return vector<int>();
-
-        vector<int> res;
-        vector<int> cnt(26, 0); //a-z
-        for (char c : p) cnt[c - 'a']++;
+        vector<int> f(26);
+        for (char& c : p)
+            f[c - 'a']++;
         
-        for (int i = 0; i <= s.size() - p.size(); ++i) {
-            int test = 1;
-            vector<int> tmp = vector<int>(cnt);
-            for (int j = i; j < i + p.size(); ++j) {
-                int letter = s[j] - 'a';
-                if (--tmp[letter] < 0) {
-                    test = 0;
-                    break;
-                }
+        vector<int> res;
+        int count = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            if (i >= p.size()) {
+                if (++f[s[i - p.size()] - 'a'] > 0)
+                    count--;
             }
-            if (test == 1) res.push_back(i);
+            if (f[s[i] - 'a']-- > 0) {
+                if (++count == p.size())
+                    res.push_back(i - p.size() + 1);
+            }
         }
         return res;
     }
