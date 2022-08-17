@@ -23,6 +23,8 @@ int findMaxLength(vector<int>& nums) {
 
 or
 
+添加一個 offset 保持正數
+
 ```cpp
 // Runtime: 108 ms, Your runtime beats 99.04 % of cpp submissions.
 // Memory Usage: 85.7 MB, Your memory usage beats 10.99 % of cpp submissions.
