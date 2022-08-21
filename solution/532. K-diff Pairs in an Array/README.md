@@ -1,6 +1,6 @@
 # 532. K-diff Pairs in an Array
 
-## set
+## Solution 1: set
 
 ```cpp
 int findPairs(vector<int>& nums, int k) {
@@ -26,20 +26,19 @@ int findPairs(vector<int>& nums, int k) {
 }
 ```
 
-## map
+## Solution 2: hashmap
 
 ```cpp
 int findPairs(vector<int>& nums, int k) {
     unordered_map<int, int> m;
+    for (int x : nums)
+        m[x]++;
 
-    for (int n : nums)
-        ++m[n];
-
-    int ans = 0;
-    for (auto it : m)
-        if ((k == 0 && it.second > 1) || (k > 0 && m.count(it.first + k)))
-            ++ans;
-
-    return ans;
+    int res = 0;
+    for (auto& [x, count] : m) {
+        if ((k == 0 && count > 1) || (k > 0 && m.count(x + k)))
+            res++;
+    }
+    return res;
 }
 ```
