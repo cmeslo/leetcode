@@ -1,5 +1,7 @@
 # 567. Permutation in String
 
+## Solution: Sliding window
+
 ```cpp
 bool checkInclusion(string s1, string s2) {
     int len1 = s1.size(), len2 = s2.size();
