@@ -1,6 +1,6 @@
 # 104. Maximum Depth of Binary Tree
 
-## bfs (104_01.cpp)
+## Solution 1: BFS (104_01.cpp)
 
 ```cpp
 int maxDepth(TreeNode* root) {
@@ -23,7 +23,7 @@ int maxDepth(TreeNode* root) {
 }
 ```
 
-## dfs (104_02.cpp)
+## Solution 2: DFS (104_02.cpp)
 
 ```cpp
 int maxDepth(TreeNode* root) {
