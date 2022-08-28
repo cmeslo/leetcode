@@ -2,7 +2,7 @@
 
 兩個解法都是 ```Your runtime beats 98.58 % of cpp submissions.```
 
-## 沒有sort
+## Solution 1: DFS (沒有sort)
 
 ```cpp
 class Solution {
@@ -31,7 +31,7 @@ private:
 };
 ```
 
-## 有sort
+## Solution 2: DFS (有sort)
 
 區別在於，對於sort了的數組，可以及早停止循環 ```nums[i] <= target```
 
