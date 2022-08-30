@@ -42,3 +42,20 @@ int removeCoveredIntervals(vector<vector<int>>& intervals) {
     return ans;
 }
 ```
+
+or
+
+```cpp
+int removeCoveredIntervals(vector<vector<int>>& intervals) {
+    int ans = 0, left = -1, right = -1;
+    sort(intervals.begin(), intervals.end());
+    for (auto& a : intervals) {
+        if (a[0] > left && a[1] > right) {
+            left = a[0];
+            ans++;
+        }
+        right = max(right, a[1]);
+    }
+    return ans;
+}
+```
