@@ -2,11 +2,12 @@ class Solution {
 public:
     int majorityElement(vector<int>& nums) { // using Moore Voting Algorithm
         int res = 0, cnt = 0;
-        for (int n : nums) {
+        for (int x : nums) {
             if (cnt == 0) {
-                res = n; cnt++;
+                res = x;
+                cnt++;
             } else {
-                res == n ? cnt++ : cnt--;
+                res == x ? cnt++ : cnt--;
             }            
         }
         return res;
