@@ -1,26 +1,25 @@
 # 171. Excel Sheet Column Number
 
 ```cpp
-int titleToNumber(string s) {
-    int n = s.length();
-    int ans = 0;
-    for (int i = 0; i < n; i++)
-        ans += pow(26, i) * (s[n - 1 - i] - 'A' + 1);
-
-    return ans;
-}
-```
-
-or
-
-```cpp
-int titleToNumber(string s) {
-    int ans = 0;
-
-    for (int i = 0; i < s.length(); i++) {
-        ans = ans * 26 + (s[i] - 'A' + 1);
+class Solution {
+public:
+    int titleToNumber(string columnTitle) {
+        int ans = 0;
+        for (char& x : columnTitle)
+            ans = ans * 26 + (x - 'A' + 1);
+        return ans;
     }
+};
 
-    return ans;
-}
+
+// 1  2  3  ... 26
+// A  B  C  ... Z
+
+// 27 28 29 ... 52
+// AA AB AC ... AZ
+
+// 53 53 55 ... 78
+// BA BB BC ... BZ
+
+// AAA
 ```
