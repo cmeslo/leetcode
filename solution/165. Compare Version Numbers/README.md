@@ -26,3 +26,37 @@ int compareVersion(string version1, string version2) {
     return 0;
 }
 ```
+
+or
+
+```cpp
+int compareVersion(string version1, string version2) {
+    vector<int> A, B;
+    istringstream iss1(version1);
+    string cur = "";
+    while (getline(iss1, cur, '.'))
+        A.push_back(stoi(cur));
+
+    istringstream iss2(version2);
+    while (getline(iss2, cur, '.'))
+        B.push_back(stoi(cur));
+
+    int i = 0, j = 0;
+    while (i < A.size() && j < B.size()) {
+        if (A[i] > B[j])
+            return 1;
+        else if (A[i] < B[j])
+            return -1;
+        i++, j++;
+    }
+    while (i < A.size()) {
+        if (A[i++] != 0)
+            return 1;
+    }
+    while (j < B.size()) {
+        if (B[j++] != 0)
+            return -1;
+    }
+    return 0;
+}
+```
