@@ -15,9 +15,32 @@ dp[7] = 3 = dp[7 - 4] + 1
 dp[8] = 1 = dp[8 - 8] + 1
 ```
 
+```cpp
+vector<int> countBits(int num) {
+    vector<int> dp(num + 1, 0);
+    int offset = 1;
+    for (int i = 1; i <= num; ++i) {
+        if (offset << 1 == i) offset <<= 1;
+        dp[i] = dp[i - offset] + 1;
+    }
+    return dp;
+}
+```
+
 ## 338_02.cpp
 ```
 dp[i] = dp[i / 2] + i % 2;
+```
+
+```cpp
+vector<int> countBits(int num) {
+    vector<int> dp(num + 1, 0);
+    for (int i = 1; i <= num; ++i) {
+        // dp[i] = dp[i / 2] + i % 2;
+        dp[i] = dp[i >> 1] + (i & 1);
+    }
+    return dp;
+}
 ```
 
 ## 338_03.cpp
@@ -47,4 +70,17 @@ i    binary  1的數目
 13   1101      3 
 14   1110      3 
 15   1111      4 
+```
+
+```cpp
+// Runtime: 3 ms, Your runtime beats 97.31 % of cpp submissions.
+// Memory Usage: 7.9 MB, Your memory usage beats 47.22 % of cpp submissions.
+
+vector<int> countBits(int n) {
+    vector<int> ans(n + 1);
+    for (int i = 0; i <= n; ++i) {
+        ans[i] = i % 2 ? ans[i - 1] + 1 : ans[i / 2];
+    }
+    return ans;
+}
 ```
