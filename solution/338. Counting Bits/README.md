@@ -1,6 +1,18 @@
 # 338. Counting Bits #
 
-## 338_01.cpp
+## Brute Force
+
+```cpp
+vector<int> countBits(int n) {
+    vector<int> ans(n + 1);
+    for (int i = 0; i <= n; ++i) {
+        ans[i] = __builtin_popcount(i);
+    }
+    return ans;
+}
+```
+
+## Solution 1: DP (338_01.cpp)
 
 hints:
 ```
@@ -27,7 +39,7 @@ vector<int> countBits(int num) {
 }
 ```
 
-## 338_02.cpp
+## Solution 2: DP (338_02.cpp)
 ```
 dp[i] = dp[i / 2] + i % 2;
 ```
@@ -43,7 +55,7 @@ vector<int> countBits(int num) {
 }
 ```
 
-## 338_03.cpp
+## Solution: 出規律 (338_03.cpp)
 找出規律如下表
 1. 奇數 ```res[i]```：1 的數目是```res[i-1]+1```
 2. 偶數 ```res[i]```：1 的數目是```res[i/2]```
