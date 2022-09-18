@@ -6,11 +6,13 @@ public:
         for (int x : nums)
             gain[x] += x;
         
-        vector<int> dp(n);
-        dp[1] = gain[1];
-        for (int i = 2; i < n; ++i) {
-            dp[i] = max(dp[i - 1], gain[i] + dp[i - 2]);
+        int a = 0; // 取nums[i]所能獲得的最大收益
+        int b = 0; // 不取nums[i]所能獲得的最大收益
+        for (int i = 0; i < n; ++i) {
+            int a2 = a, b2 = b;
+            a = b2 + gain[i];
+            b = max(a2, b2);
         }
-        return dp[n - 1];
+        return max(a, b);
     }
 };
