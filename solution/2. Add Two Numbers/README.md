@@ -2,8 +2,8 @@
 
 ```cpp
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-    ListNode dummy(0);
-    auto *p = &dummy;
+    ListNode dummy;
+    auto p = &dummy;
     int carry = 0;
     while (l1 || l2 || carry) {
         int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
