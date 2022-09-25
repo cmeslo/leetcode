@@ -1,6 +1,6 @@
 # 895. Maximum Frequency Stack
 
-## Solution 1 - priority_queue
+## Solution 1: Priority queue
 
 ```cpp
 class FreqStack {
@@ -58,28 +58,25 @@ private:
 };
 ```
 
-## Solution 2 - stack
+## Solution 2: Stack
 
 ```cpp
 class FreqStack {
 private:
-    unordered_map<int, int> freq_;
     vector<stack<int>> stacks_;
+    unordered_map<int, int> freq_;
     
 public:
     FreqStack() {
     }
     
     void push(int val) {
-        auto it = freq_.find(val);
-        if (it == freq_.end())
-            it = freq_.emplace(val, 0).first;
+        int count = ++freq_[val];
         
-        int freq = ++it->second;
-        if (freq > stacks_.size())
+        if (count > stacks_.size())
             stacks_.push_back({});
         
-        stacks_[freq - 1].push(val);
+        stacks_[count - 1].push(val);
     }
     
     int pop() {
@@ -91,6 +88,7 @@ public:
         
         if (--freq_[val] == 0)
             freq_.erase(val);
+        
         return val;
     }
 };
