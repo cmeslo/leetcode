@@ -1,5 +1,7 @@
 # 763. Partition Labels
 
+## Solution 1 (推薦)
+
 記錄下每個數字最後一次出現的位置 end。
 
 從頭開始遍歷字符串 S，
@@ -26,6 +28,33 @@ vector<int> partitionLabels(string S) {
         }
     }
 
+    return ans;
+}
+```
+
+## Solution 2: merge intervals
+
+```cpp
+vector<int> partitionLabels(string s) {
+    int n = s.size();
+    vector<pair<int, int>> intervals(26, {n, -1});
+    for (int i = 0; i < n; ++i) {
+        auto& x = intervals[s[i] - 'a'];
+        x.first = min(x.first, i);
+        x.second = max(x.second, i);
+    }
+
+    vector<pair<int, int>> res;
+    for (char& c : s) {
+        auto& x = intervals[c - 'a'];
+        if (res.empty() || res.back().second < x.first)
+            res.push_back(x);
+        else
+            res.back().second = max(res.back().second, x.second);
+    }
+    vector<int> ans;
+    for (auto [l, r] : res)
+        ans.push_back(r - l + 1);
     return ans;
 }
 ```
