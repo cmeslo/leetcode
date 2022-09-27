@@ -32,6 +32,28 @@ vector<int> partitionLabels(string S) {
 }
 ```
 
+or
+
+```cpp
+vector<int> partitionLabels(string s) {
+    int n = s.size();
+
+    vector<int> last(26, -1);
+    for (int i = 0; i < n; ++i)
+        last[s[i] - 'a'] = i;
+
+    vector<int> ans;
+    for (int i = 0; i < n; ++i) {
+        int start = i, end = last[s[i] - 'a'];
+        while (i < end) {
+            end = max(end, last[s[i++] - 'a']);
+        }
+        ans.push_back(end - start + 1);
+    }
+    return ans;
+}
+```
+
 ## Solution 2: merge intervals
 
 ```cpp
