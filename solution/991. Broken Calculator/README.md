@@ -11,6 +11,7 @@
 - 答案應該是 ```x2``` 才對，更偏向喜歡 ```x2``` 是因為 ```(Y + 1 + 1) / 2``` 等價於 ```Y / 2 + 1``` （較少的操作達到相同的效果）。
 
 ### Code
+
 ```cpp
 int brokenCalc(int X, int Y) {
     if (X >= Y) return X - Y;
@@ -28,5 +29,21 @@ or
 int brokenCalc(int X, int Y) {
     if (X >= Y) return X - Y;
     return 1 + brokenCalc(X, Y % 2 ? Y + 1 : Y / 2);
+}
+```
+
+or
+
+```cpp
+int brokenCalc(int startValue, int target) {
+    int ans = 0;
+    while (startValue < target) {
+        if (target % 2)
+            target += 1;
+        else
+            target /= 2;
+        ans++;
+    }
+    return ans + startValue - target;
 }
 ```
