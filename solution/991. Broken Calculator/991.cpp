@@ -1,7 +1,24 @@
 class Solution {
 public:
-    int brokenCalc(int X, int Y) {
-        if (X >= Y) return X - Y;
-        return 1 + brokenCalc(X, Y % 2 ? Y + 1 : Y / 2);
+    int brokenCalc(int startValue, int target) {
+        int ans = 0;
+        while (startValue < target) {
+            if (target % 2)
+                target += 1;
+            else
+                target /= 2;
+            ans++;
+        }
+        return ans + startValue - target;
     }
 };
+
+
+
+// x2x2x2x2x2[-1-1-1...]
+//               k
+    
+// -1-1-1-1x2x2x2x2
+    
+//     [-1-1-1...] x2
+//         k/2 + 1
