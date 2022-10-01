@@ -1,6 +1,8 @@
 # 1337. The K Weakest Rows in a Matrix
 
-## 解釋
+## Solution 1: Heap
+
+### 解釋
 
 維護大小為 k 的 max heap，
 
@@ -47,4 +49,27 @@ private:
         return l;
     }
 };
+```
+
+## Solution 2: Sorting
+
+```cpp
+vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+    int m = mat.size(), n = mat[0].size();
+    vector<pair<int, int>> A;
+    for (int i = 0; i < m; ++i) {
+        int soldiers = 0;
+        for (int j = 0; j < n && mat[i][j] == 1; ++j) {
+            soldiers++;
+        }
+        A.push_back({soldiers, i});
+    }
+
+    sort(A.begin(), A.end());
+    vector<int> ans;
+    for (int i = 0; i < k; ++i) {
+        ans.push_back(A[i].second);
+    }
+    return ans;
+}
 ```
