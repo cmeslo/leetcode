@@ -1,7 +1,6 @@
 # 287. Find the Duplicate Number
 
-## 287_01.cpp
-Binary search
+## Solution 1: Binary search (287_01.cpp)
 
 由於是長度 n + 1，而只有 n 個數，Example:
 
@@ -39,7 +38,8 @@ int findDuplicate(vector<int>& nums) {
 }
 ```
 
-## 287_02.cpp
+## Solution 2: 找環 (287_02.cpp)
+
 Floyd cycle detection algorithm, take a look in [142. Linked List Cycle II](https://github.com/cmeslo/leetcode/tree/master/solution/142.%20Linked%20List%20Cycle%20II)
 
 時間複雜度： ```O(n)```、空間複雜度： ```O(1)```
@@ -81,3 +81,17 @@ Why they definitely meet if a cycle exists?
 https://www.youtube.com/watch?v=9YTjXqqJEFE
 
 https://www.quora.com/How-do-I-prove-that-the-tortoise-and-hare-in-Floyd-s-cycle-detection-algorithm-definitely-meet-if-a-cycle-exists-How-do-I-determine-the-starting-point-of-a-cycle-in-a-linked-list
+
+## Solution 3: 標記負號
+
+```cpp
+int findDuplicate(vector<int>& nums) {
+    for (int a : nums) {
+        int x = abs(a);
+        if (nums[x] < 0)
+            return x;
+        nums[x] *= -1;
+    }
+    return -1;
+}
+```
