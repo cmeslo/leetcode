@@ -1,6 +1,6 @@
 # 74. Search a 2D Matrix
 
-## binary search
+## Solution: binary search
 
 ```cpp
 bool searchMatrix(vector<vector<int>>& matrix, int target) {
@@ -21,5 +21,24 @@ bool searchMatrix(vector<vector<int>>& matrix, int target) {
     }
 
     return false;
+}
+```
+
+or
+
+```cpp
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    int m = matrix.size(), n = matrix[0].size();
+    int left = 0, right = m * n;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        int y = mid / n;
+        int x = mid % n;
+        if (matrix[y][x] < target)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return left < m * n && matrix[left / n][left % n] == target;
 }
 ```
