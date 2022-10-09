@@ -101,6 +101,33 @@ int threeSumMulti(vector<int>& arr, int target) {
 }
 ```
 
+or 寫得簡潔一點
+
+```cpp
+int threeSumMulti(vector<int>& arr, int target) {
+    const int M = 1e9 + 7;
+    unordered_map<int, long> m;
+    for (int x : arr) ++m[x];
+
+    long ans = 0;
+    for (auto [a, A] : m) {
+        for (auto [b, B] : m) {
+            int c = target - a - b;
+            if (!m.count(c)) continue;
+            int C = m[c];
+
+            if (a == b && b == c)
+                ans += A * (A - 1) * (A - 2) / 6;
+            else if (a == b && b != c)
+                ans += A * (A - 1) / 2 * C;
+            else if (a < b && b < c)
+                ans += A * B * C;
+        }
+    }
+    return ans % M;
+}
+```
+
 ### 為什麼用數組，要加多一個條件 ```if (i != j && j == k)```
 
 ```
