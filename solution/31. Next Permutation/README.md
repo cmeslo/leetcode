@@ -27,3 +27,23 @@ void nextPermutation(vector<int>& nums) {
     reverse(begin(nums) + i, end(nums));
 }
 ```
+
+or
+
+```cpp
+void nextPermutation(vector<int>& nums) {
+    int n = nums.size();
+    int i = n - 1;
+    while (i > 0 && nums[i - 1] >= nums[i]) {
+        --i;
+    }
+    if (i != 0) {
+        int j = i;
+        while (j < n && nums[i - 1] < nums[j]) {
+            ++j;
+        }
+        swap(nums[i - 1], nums[j - 1]);
+    }
+    sort(nums.begin() + i, nums.end());
+}
+```
