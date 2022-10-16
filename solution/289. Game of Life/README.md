@@ -1,6 +1,6 @@
 # 289. Game of Life
 
-## Solution 1，笨方法，複製原本的board
+## Solution 1: 複製原本的board
 
 ```cpp
 class Solution {
@@ -43,7 +43,7 @@ private:
 };
 ```
 
-## Solution 2，優化 (289.cpp)
+## Solution 2: In-place (289.cpp)
 
 1. in-place，使用原本的board，每次先把答案移到 0010 的位置上，最後移回來。
 2. 總結遊戲規則：```lives == 3 || (lives == 4 && board[y][x] == 1)```。
