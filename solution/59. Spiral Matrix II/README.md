@@ -1,59 +1,6 @@
 # 59. Spiral Matrix II
 
-## Code:
-
-```cpp
-vector<vector<int>> generateMatrix(int n) {
-    vector<vector<int>> ans(n, vector<int>(n, -1));
-    int start = 1, end = n * n;
-    int y = 0, x = 0;
-    int dir = 1; // 1 - right, 2 - down, 3 - left, 4 - up
-
-    while (start <= end) {
-        cout << y << ", " << x << endl;
-        if (dir == 1) { // go right
-            ans[y][x] = start++;
-            int next_x = x + 1;
-            if (next_x == n || (next_x < n && ans[y][next_x] != -1)) {
-                ++y;
-                dir = 2;
-            } else {
-                x = next_x;
-            }
-        } else if (dir == 2) { // go down
-            ans[y][x] = start++;
-            int next_y = y + 1;
-            if (next_y == n || (next_y < n && ans[next_y][x] != -1)) {
-                --x;
-                dir = 3;
-            } else {
-                y = next_y;
-            }
-        } else if (dir == 3) { // go left
-            ans[y][x] = start++;
-            int next_x = x - 1;
-            if (next_x < 0 || ans[y][next_x] != -1) {
-                --y;
-                dir = 4;
-            } else {
-                x = next_x;
-            }
-        } else if (dir == 4) { // go up
-            ans[y][x] = start++;
-            int next_y = y - 1;
-            if (next_y < 0 || ans[next_y][x] != -1) {
-                ++x;
-                dir = 1;
-            } else {
-                y = next_y;
-            }
-        }
-    }
-    return ans;
-}
-```
-
-更簡潔：
+## Solution: Simulation
 
 ```cpp
 vector<vector<int>> generateMatrix(int n) {
@@ -80,6 +27,34 @@ vector<vector<int>> generateMatrix(int n) {
         ++colStart;
     }
 
+    return ans;
+}
+```
+
+or
+
+```cpp
+vector<vector<int>> generateMatrix(int n) {
+    vector<vector<int>> ans(n, vector<int>(n));
+    int r1 = 0, r2 = n - 1;
+    int c1 = 0, c2 = n - 1;
+    int i = 1, size = n * n;
+    while (i <= size) {
+        for (int x = c1; x <= c2; ++x)
+            ans[r1][x] = i++;
+
+        for (int y = r1 + 1; y < r2 && i <= size; ++y)
+            ans[y][c2] = i++;
+
+        for (int x = c2; x >= c1 && i <= size; --x)
+            ans[r2][x] = i++;
+
+        for (int y = r2 - 1; y > r1 && i <= size; --y)
+            ans[y][c1] = i++;
+
+        r1++, r2--;
+        c1++, c2--;
+    }
     return ans;
 }
 ```
