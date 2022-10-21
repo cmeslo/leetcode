@@ -12,3 +12,12 @@ TreeNode* searchBST(TreeNode* root, int val) {
     return cur;
 }
 ```
+
+## Solution 2: Recursion
+
+```cpp
+TreeNode* searchBST(TreeNode* root, int val) {
+    if (!root || root->val == val) return root;
+    return searchBST(val < root->val ? root->left : root->right, val);
+}
+```
