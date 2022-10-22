@@ -1,6 +1,8 @@
 # 897. Increasing Order Search Tree
 
-## 解釋：
+## Solution 1: DFS
+
+### 解釋：
 
 最初的想法是，先拼接左子樹和右子樹，然後再按照 <strong>新左子樹->root->新右子樹</strong> 這樣拼接起來。
 
@@ -62,4 +64,30 @@ private:
     }
 };
 ```
-Time: O(N)
+Time: ```O(N)```
+
+## Solution 2: Iteration - Stack
+
+```cpp
+TreeNode* increasingBST(TreeNode* root) {
+    stack<TreeNode*> st;
+    TreeNode dummy;
+    auto cur = &dummy;
+    auto p = root;
+
+    while (p || !st.empty()) {
+        while (p) {
+            st.push(p);
+            p = p->left;
+        }
+
+        cur->right = st.top(); st.pop();
+        cur = cur->right;
+        cur->left = nullptr;
+
+        p = cur->right;
+    }
+
+    return dummy.right;
+}
+```
