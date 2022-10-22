@@ -23,3 +23,23 @@ private:
     }
 };
 ```
+
+or
+
+```cpp
+class Solution {
+public:
+    TreeNode* convertBST(TreeNode* root) {
+        if (!root) return root;
+        
+        convertBST(root->right);
+        root->val += mx;
+        mx = root->val;
+        convertBST(root->left);
+        return root;
+    }
+    
+private:
+    int mx = 0;
+};
+```
