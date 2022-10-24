@@ -20,3 +20,33 @@ int kthSmallest(TreeNode* root, int k) {
     return -1;
 }
 ```
+
+## Solution 2: DFS
+
+```cpp
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        this->k = k;
+        dfs(root);
+        return ans;
+    }
+    
+private:
+    int k;
+    int ans = -1;
+    
+    void dfs(TreeNode* root) {
+        if (!root) return;
+        
+        dfs(root->left);
+        
+        if (--k == 0) {
+            ans = root->val;
+            return;
+        }
+        
+        dfs(root->right);
+    }
+};
+```
