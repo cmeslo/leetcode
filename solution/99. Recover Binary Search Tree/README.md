@@ -1,8 +1,6 @@
 # 99. Recover Binary Search Tree
 
-## 99_01.cpp
-
-recursive
+## Solution 1: DFS (99_01.cpp)
 
 Your runtime beats 98.59 % of cpp submissions.
 
@@ -10,29 +8,25 @@ Your runtime beats 98.59 % of cpp submissions.
 class Solution {
 public:
     void recoverTree(TreeNode* root) {
-        pre = nullptr, first = nullptr, second = nullptr;
-        inOrderTraversal(root);
+        dfs(root);
         swap(first->val, second->val);
     }
     
 private:
     TreeNode *pre, *first, *second;
     
-    void inOrderTraversal(TreeNode* root) {
-        if (!root) return;
-        if (root->left) inOrderTraversal(root->left);
+    void dfs(TreeNode* node) {
+        if (!node) return;
         
-        if (!pre) {
-            pre = root;
-        } else {
-            if (pre->val > root->val) {
-                if (!first) first = pre;
-                second = root;
-            }
+        dfs(node->left);
+        
+        if (pre && pre->val > node->val) {
+            if (!first) first = pre;
+            second = node;
         }
-        pre = root;
+        pre = node;
         
-        if (root->right) inOrderTraversal(root->right);
+        dfs(node->right);
     }
 };
 ```
