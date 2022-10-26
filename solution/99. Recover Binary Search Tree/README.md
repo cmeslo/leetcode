@@ -31,7 +31,7 @@ private:
 };
 ```
 
-## 99_02.cpp
+## Solution 2: morris traversal (99_02.cpp)
 
 ```cpp
 void recoverTree(TreeNode* root) {
@@ -100,6 +100,30 @@ void recoverTree(TreeNode* root) {
         pre = cur;
 
         cur = cur->right;
+    }
+    swap(first->val, second->val);
+}
+```
+
+## Solution 3: inorder traversal with stack (99_03.cpp)
+
+```cpp
+void recoverTree(TreeNode* root) {
+    stack<TreeNode*> st;
+    TreeNode *pre = nullptr, *first = nullptr, *second = nullptr;
+    auto p = root;
+    while (p || !st.empty()) {
+        while (p) {
+            st.push(p);
+            p = p->left;
+        }
+        p = st.top(); st.pop();
+        if (pre && pre->val > p->val) {
+            if (!first) first = pre;
+            second = p;
+        }
+        pre = p;
+        p = p->right;
     }
     swap(first->val, second->val);
 }
