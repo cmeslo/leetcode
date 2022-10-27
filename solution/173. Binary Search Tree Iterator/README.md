@@ -2,7 +2,7 @@
 
 ## 解釋：
 
-重點是中序遍歷的非recursive實現方法。
+重點是中序遍歷的非 recursive 實現方法。
 
 ### 方法一 (stack)：
 
@@ -17,18 +17,15 @@ public:
     }
     
     int next() {
-        auto *cur = st.top(); st.pop();
-        int val = cur->val;
-        
-        if (cur->right) {
-            auto *tmp = cur->right;
-            while (tmp) {
-                st.push(tmp);
-                tmp = tmp->left;
+        TreeNode* ret = st.top(); st.pop();
+        if (ret->right) {
+            auto p = ret->right;
+            while (p) {
+                st.push(p);
+                p = p->left;
             }
         }
-        
-        return val;
+        return ret->val;
     }
     
     bool hasNext() {
