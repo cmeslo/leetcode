@@ -2,7 +2,7 @@
 
 題目定為Easy，再看看數字長度要求，應該不是要求實現一個真的```set```
 
-## 一組數組
+## 一維數組
 ```cpp
 class MyHashSet {
 private:
@@ -29,40 +29,39 @@ public:
 };
 ```
 
-## 二組數組，利用hash 節省一點空間
+## 二維數組，利用hash 節省一點空間
 
 插入相應數字時才分配空間
 
 ```cpp
 class MyHashSet {
+private:
+    vector<vector<int>> data;
+    const int M = 1000;
+    
 public:
-    /** Initialize your data structure here. */
     MyHashSet() {
-        data.resize(1000, vector<int>());
+        data.resize(M);
     }
     
     void add(int key) {
-        int hashkey = key / 1000;
-        if (data[hashkey].empty()) {
-            data[hashkey].resize(1000, 0);
-        }
-        data[hashkey][key % 1000] = 1;
+        auto& a = data[key % M];
+        if (a.empty())
+            a.resize(M + 1, 0);
+        a[key / M] = 1;
     }
     
     void remove(int key) {
-        int hashkey = key / 1000;
-        if (data[hashkey].empty()) return;
-        data[hashkey][key % 1000] = 0;
+        auto& a = data[key % M];
+        if (a.empty()) return;
+        a[key / M] = 0;
     }
     
-    /** Returns true if this set contains the specified element */
     bool contains(int key) {
-        int hashkey = key / 1000;
-        if (data[hashkey].empty()) return false;
-        return data[hashkey][key % 1000];
+        int hash = key % M;
+        auto& a = data[hash];
+        if (a.empty()) return false;
+        return a[key / M];
     }
-
-private:
-    vector<vector<int>> data;
 };
 ```
