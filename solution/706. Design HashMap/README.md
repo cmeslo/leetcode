@@ -1,6 +1,8 @@
 # 706. Design HashMap
 
-## 由於數據規模不大，所以可以暴力解：
+## Solution 1: Brute force
+
+由於數據規模不大，所以可以暴力解
 
 ```cpp
 // Your runtime beats 66.99 % of cpp submissions.
@@ -33,7 +35,9 @@ private:
 };
 ```
 
-## 好一點的方法，vector + list：
+## Solution 2: vector + list
+
+好一點的方法
 
 ```cpp
 // Your runtime beats 85.10 % of cpp submissions.
