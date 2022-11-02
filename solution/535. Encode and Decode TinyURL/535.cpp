@@ -1,28 +1,30 @@
 class Solution {
-private:
-    unordered_map<string, string> m_;
-    const string dict_ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    
 public:
 
     // Encodes a URL to a shortened URL.
     string encode(string longUrl) {
-        string shortUrl;
+        string url;
         
         do {
-            shortUrl = "";
-            for (int i = 0; i < 6; ++i)
-                shortUrl.push_back(dict_[rand() % 62]);
-        } while (m_.find(shortUrl) != m_.end());
+            url = "";
+            for (int i = 0; i < 6; ++i) {
+                url.push_back(dict[rand() % dict.size()]);
+            }
+        } while (cache.count(url));
         
-        m_[shortUrl] = longUrl;
-        return shortUrl;
+        cache[url] = longUrl;
+        return url;
     }
 
     // Decodes a shortened URL to its original URL.
     string decode(string shortUrl) {
-        return m_[shortUrl];
+        if (!cache.count(shortUrl)) return "";
+        return cache[shortUrl];
     }
+    
+private:
+    const string dict = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    unordered_map<string, string> cache;
 };
 
 // Your Solution object will be instantiated and called as such:
