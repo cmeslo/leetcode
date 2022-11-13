@@ -56,3 +56,49 @@ bool isBipartite(vector<vector<int>>& graph) {
     return true;
 }
 ```
+
+## Solution 3: Union Find
+
+```
+比如圖 c--a--b，與 a 相連 的 b 和 c，一定是相同顏色的
+```
+
+```cpp
+// Your runtime beats 96.24 % of cpp submissions.
+// Your memory usage beats 84.50 % of cpp submissions.
+
+class Solution {
+public:
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n = graph.size();
+        father.resize(n);
+        for (int i = 0; i < n; ++i)
+            father[i] = i;
+        
+        for (int i = 0; i < n; ++i) {
+            for (int j : graph[i]) {
+                if (FindFather(i) == FindFather(j)) return false;
+                Union(graph[i][0], j);
+            }
+        }
+        return true;
+    }
+
+private:
+    vector<int> father;
+    
+    int FindFather(int a) {
+        if (a != father[a])
+            father[a] = FindFather(father[a]);
+        return father[a];
+    }
+    
+    void Union(int a, int b) {
+        if (father[a] == father[b]) return;
+        if (a < b)
+            father[b] = a;
+        else
+            father[a] = b;
+    }
+};
+```
