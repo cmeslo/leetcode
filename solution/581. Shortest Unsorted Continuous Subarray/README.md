@@ -24,6 +24,9 @@ int findUnsortedSubarray(vector<int>& nums) {
 
 ## Solution 2: 使用 monotonic stack 找到不合理的位置
 
+- Time complexity: ```O(n)```
+- Space complexity: ```O(n)```
+
 ```cpp
 int findUnsortedSubarray(vector<int>& nums) {
     int n = nums.size();
@@ -49,6 +52,46 @@ int findUnsortedSubarray(vector<int>& nums) {
     }
     return r - l + 1;
 }
+```
+
+也可以不使用 stack (推薦):
+
+- Time complexity: ```O(n)```
+- Space complexity: ```O(1)```
+
+```cpp
+// Runtime: 22 ms, Your runtime beats 99.39 % of cpp submissions.
+// Memory Usage: 26.5 MB, Your memory usage beats 64.97 % of cpp submissions.
+
+int findUnsortedSubarray(vector<int>& nums) {
+    int n = nums.size();
+    int l = -1, r = -2;
+    int mn = INT_MAX, mx = INT_MIN;
+
+    for (int i = 0; i < n; ++i) {
+        mx = max(mx, nums[i]);
+        if (mx > nums[i])
+            r = i;
+    }
+
+    for (int i = n - 1; i >= 0; --i) {
+        mn = min(mn, nums[i]);
+        if (mn < nums[i])
+            l = i;
+    }
+
+    return r - l + 1;
+}
+
+// 這種做法與 stack 的原理其實是一樣的:
+
+// 我用 正向遞增 monotnoic stack 是找到第一個不合理的位置 i
+// 這個不合理的 i 其實就是指: 在這個 i 後面存在一個比 nums[i] 更小的數字
+// 尋找時要由後向前找
+
+// 我用 反向遞減 monotnoic stack 是找到最後一個不合理的位置 i
+// 這個不合理的 i 其實就是指: 在這個 i 前面存在一個比 nums[i] 更大的數字
+// 尋找時要由前向後找
 ```
 
 ## Solution 3: 找出不合理值（降序）中的 最小值 和 最大值
