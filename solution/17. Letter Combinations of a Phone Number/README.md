@@ -1,8 +1,6 @@
 # 17. Letter Combinations of a Phone Number
 
-## 17_01.cpp
-
-dfs
+## Solution 1: DFS (17_01.cpp)
 
 Time complexity: ```O(4^n)```
 
@@ -44,9 +42,7 @@ void dfs(const string& digits, const vector<vector<char>>& d, int l, string& cur
 }
 ```
 
-## 17_02.cpp
-
-bfs
+## Solution 2: BFS (17_02.cpp)
 
 Time complexity: ```O(4^n)```
 
@@ -77,6 +73,37 @@ vector<string> letterCombinations(string digits) {
             }
         }
         ans.swap(tmp);
+    }
+    return ans;
+}
+```
+
+or
+
+```cpp
+vector<string> letterCombinations(string digits) {
+    vector<string> ans;
+    if (digits.empty()) return ans;
+
+    unordered_map<char, vector<char>> m;
+    m['2'] = {'a', 'b', 'c'};
+    m['3'] = {'d', 'e', 'f'};
+    m['4'] = {'g', 'h', 'i'};
+    m['5'] = {'j', 'k', 'l'};
+    m['6'] = {'m', 'n', 'o'};
+    m['7'] = {'p', 'q', 'r', 's'};
+    m['8'] = {'t', 'u', 'v'};
+    m['9'] = {'w', 'x', 'y', 'z'};
+
+    ans.push_back("");
+    for (char& num : digits) {
+        vector<string> tmp;
+        for (char& d : m[num]) {
+            for (string& pre : ans) {
+                tmp.push_back(pre + d);
+            }
+        }
+        swap(ans, tmp);
     }
     return ans;
 }
