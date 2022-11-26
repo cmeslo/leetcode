@@ -90,13 +90,13 @@ private:
 
 ```cpp
 int countVowelStrings(int n) {
-  vector<int> dp = {0, 1, 1, 1, 1, 1};
-
-  for (int i = 1; i < n; ++i)
-      for (int j = 1; j <= 5; ++j)
-          dp[j] += dp[j - 1];
-
-  return accumulate(begin(dp), end(dp), 0);
+    vector<int> dp = {0, 1, 1, 1, 1, 1};
+  
+    for (int i = 1; i < n; ++i)
+        for (int j = 1; j <= 5; ++j)
+            dp[j] += dp[j - 1];
+  
+    return accumulate(begin(dp), end(dp), 0);
 }
 ```
 
@@ -104,14 +104,44 @@ or
 
 ```cpp
 int countVowelStrings(int n) {
-  vector<int> dp = {0, 1, 1, 1, 1, 1};
-
-  for (int i = 1; i <= n; ++i)
-      for (int j = 1; j <= 5; ++j)
-          dp[j] += dp[j - 1];
-
-  return dp[5];
+    vector<int> dp = {0, 1, 1, 1, 1, 1};
+  
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= 5; ++j)
+            dp[j] += dp[j - 1];
+  
+    return dp[5];
 }
+```
+
+or
+
+```cpp
+int countVowelStrings(int n) {
+    int a = 1, e = 1, i = 1, o = 1, u = 1;
+    for (int k = 1; k < n; ++k) {
+        int aa = a;
+        int ee = a + e;
+        int ii = a + e + i;
+        int oo = a + e + i + o;
+        int uu = a + e + i + o + u;
+        a = aa, e = ee, i = ii, o = oo, u = uu;
+    }
+    return a + e + i + o + u;
+}
+
+// a -> 5
+// e -> 4
+// i -> 3
+// o -> 2
+// u -> 1
+
+// dp[i][a] = dp[i - 1][a]
+// dp[i][e] = dp[i - 1][a] + dp[i - 1][e]
+// dp[i][i] = dp[i - 1][a] + dp[i - 1][e] + dp[i - 1][i] 
+// dp[i][o] = dp[i - 1][a] + dp[i - 1][e] + dp[i - 1][i] + dp[i - 1][o]
+// dp[i][u] = dp[i - 1][a] + dp[i - 1][e] + dp[i - 1][i] + dp[i - 1][o] + dp[i - 1][u]
+
 ```
 
 ## Solution 3: math (1641_03.cpp)
