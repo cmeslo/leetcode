@@ -1,16 +1,43 @@
 # 47. Permutations II
 
-## 47_01.cpp
+## Solution: DFS
+
+### 47_01.cpp
+
 Use set to remove duplicate.
 
-## 47_02.cpp
+```cpp
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        set<vector<int>> res;
+        dfs(nums, 0, res);
+        return vector<vector<int>> (res.begin(), res.end());
+    }
+    
+    void dfs(vector<int>& nums, int start, set<vector<int>>& res) {
+        if (start >= nums.size()) {
+            res.insert(nums);
+            return;
+        }
+        
+        for (int i = start; i < nums.size(); ++i) {
+            if (i != start && nums[start] == nums[i]) continue;
+            swap(nums[start], nums[i]);
+            dfs(nums, start + 1, res);
+            swap(nums[start], nums[i]);
+        }
+    }
+};
+```
+
+### 47_02.cpp
+
 Sort and check previous num.
 
-8 ms
-
-Your runtime beats 81.74 % of cpp submissions.
-
 ```cpp
+// 8 ms, Your runtime beats 81.74 % of cpp submissions.
+
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
@@ -42,15 +69,13 @@ private:
 };
 ```
 
-## 47_03.cpp
+### 47_03.cpp
 
 swap
 
-4 ms
-
-Your runtime beats 98.92 % of cpp submissions.
-
 ```cpp
+// 4 ms, Your runtime beats 98.92 % of cpp submissions.
+
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
