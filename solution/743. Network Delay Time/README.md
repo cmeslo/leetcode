@@ -3,6 +3,9 @@
 ## Solution: Dijkstra's algorithm
 
 ```cpp
+// Runtime: 115 ms, Your runtime beats 98.37 % of cpp submissions.
+// Memory Usage: 40 MB, Your memory usage beats 67.63 % of cpp submissions.
+
 int networkDelayTime(vector<vector<int>>& times, int n, int k) {
     using pii = pair<int, int>;
     vector<vector<pii>> adj(n + 1);
