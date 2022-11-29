@@ -1,6 +1,6 @@
 # 1091. Shortest Path in Binary Matrix
 
-## BFS
+## Solution: BFS
 
 ```cpp
 // Your runtime beats 96.98 % of cpp submissions.
@@ -30,6 +30,36 @@ int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
                 }
             }
         }
+    }
+    return -1;
+}
+```
+
+or
+
+```cpp
+int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+    int m = grid.size(), n = grid[0].size();
+    if (grid[0][0] == 1) return -1;
+
+    queue<pair<int, int>> q;
+    int steps = 1;
+    grid[0][0] = 1;
+    q.emplace(0, 0);
+    while (!q.empty()) {
+        int size = q.size();
+        while (size--) {
+            auto [i, j] = q.front(); q.pop();
+            if (i == m - 1 && j == n - 1) return steps;
+            for (int y = max(0, i - 1); y <= min(i + 1, n - 1); ++y) {
+                for (int x = max(0, j - 1); x <= min(j + 1, n - 1); ++x) {
+                    if (grid[y][x] == 1) continue;
+                    grid[y][x] = 1;
+                    q.emplace(y, x);
+                }
+            }
+        }
+        steps++;
     }
     return -1;
 }
