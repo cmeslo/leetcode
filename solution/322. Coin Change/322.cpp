@@ -1,16 +1,16 @@
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
-        const int k = amount + 1;
-        vector<int> dp(amount + 1, k);
+        const int INF = amount + 1;
+        vector<int> dp(amount + 1, INF);
         dp[0] = 0;
         
         for (int x = 1; x <= amount; ++x) {
             for (int coin : coins) {
-                if (x - coin >= 0)
+                if (x >= coin)
                     dp[x] = min(dp[x], dp[x - coin] + 1);
             }
         }
-        return dp[amount] == k ? -1 : dp[amount];
+        return dp[amount] != INF ? dp[amount] : -1;
     }
 };
