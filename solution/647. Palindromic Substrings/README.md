@@ -22,6 +22,23 @@ int countSubstrings(string s) {
 }
 ```
 
+or
+
+```cpp
+int countSubstrings(string s) {
+    int n = s.size();
+    int ans = 0;
+    vector<vector<bool>> dp(n, vector<bool>(n, 1));
+    for (int j = 0; j < n; ++j) {
+        for (int i = 0; i < j; ++i) {
+            dp[i][j] = s[i] == s[j] ? dp[i + 1][j - 1] : 0;
+            ans += dp[i][j];
+        }
+    }
+    return ans + n;
+}
+```
+
 ## Solution 2 - Brute force
 
 ```cpp
