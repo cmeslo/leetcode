@@ -91,3 +91,22 @@ int longestValidParentheses(string s) {
     return ans;
 }
 ```
+
+### 寫法三
+
+```cpp
+int longestValidParentheses(string s) {
+    int ans = 0;
+    s = '#' + s;
+    stack<int> st;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == ')' && s[st.top()] == '(') {
+            st.pop();
+            ans = max(ans, i - st.top());
+            continue;
+        }
+        st.push(i);
+    }
+    return ans;
+}
+```
