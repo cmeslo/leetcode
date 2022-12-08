@@ -29,6 +29,22 @@ int numberOfSteps (int num) {
 }
 ```
 
+or
+
+```cpp
+int numberOfSteps(int num) {
+    int res = 0;
+    while (num) {
+        if (num % 2)
+            num--;
+        else
+            num /= 2;
+        res++;
+    }
+    return res;
+}
+```
+
 ## Solution 2，計算：
 
 例子：14 -> 01110
