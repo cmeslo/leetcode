@@ -56,6 +56,18 @@ int missingNumber(vector<int>& nums) {
 1/2 * n * (1 + n) - sum
 ```
 
+```cpp
+int missingNumber(vector<int>& nums) {
+    int sum = 0, n = nums.size();
+
+    for (auto &a : nums) {
+        sum += a;
+    }
+
+    return 0.5 * n * (1 + n) - sum;
+}
+```
+
 ## 268_03.cpp
 與原數本應該要出現的數字做XOR，讓出現過的數字消失
 ```
