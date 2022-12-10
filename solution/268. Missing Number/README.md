@@ -50,7 +50,7 @@ int missingNumber(vector<int>& nums) {
 }
 ```
 
-## 268_02.cpp
+## Solution 2: Math (268_02.cpp)
 利用等差數列求和，計算出缺失的值
 ```
 1/2 * n * (1 + n) - sum
@@ -68,11 +68,25 @@ int missingNumber(vector<int>& nums) {
 }
 ```
 
-## 268_03.cpp
+## Solution 3: XOR (268_03.cpp)
+
 與原數本應該要出現的數字做XOR，讓出現過的數字消失
+
 ```
 9,6,4,2,3,5,7,0,1
 xor
 1,2,3,4,5,6,7,8,9
 ```
 得到答案8
+
+```cpp
+int missingNumber(vector<int>& nums) {
+    int res = 0;
+
+    for (int i = 0; i < nums.size(); ++i) {
+        res ^= (i + 1) ^ nums[i];
+    }
+
+    return res;
+}
+```
