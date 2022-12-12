@@ -37,3 +37,22 @@ bool hasAllCodes(string s, int k) {
     return codes.size() == (1 << k);
 }
 ```
+
+or
+
+```cpp
+bool hasAllCodes(string s, int k) {
+    int n = s.size();
+    if ((n - k + 1) * k < (1 << k)) return false;
+
+    unordered_set<int> codes;
+    for (int i = 0; i + k <= n; ++i) {
+        int x = 0;
+        for (int j = 0; j < k; ++j)
+            if (s[i + j] == '1')
+                x |= (1 << j);
+        codes.insert(x);
+    }
+    return codes.size() == (1 << k);
+}
+```
