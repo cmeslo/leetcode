@@ -62,3 +62,33 @@ int divide(int dividend, int divisor) {
         return quotient * sign;
 }
 ```
+
+or
+
+```cpp
+int divide(int dividend, int divisor) {
+    int sign = (dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0) ? 1 : -1;
+    long a = abs(dividend);
+    long b = abs(divisor);
+
+    long ans = 0;
+    while (a >= abs(divisor)) {
+        long cnt = 1;
+        b = abs(divisor);
+        while (a >= b) {
+            a -= b;
+            ans += cnt;
+            b += b;
+            cnt += cnt;
+        }
+    }
+
+    if (sign == 1)
+        return ans > INT_MAX ? INT_MAX : ans;
+    else
+        return -ans < INT_MIN ? INT_MIN : -ans;
+}
+
+// 10
+// 3 + 3 + 3 + 1
+```
