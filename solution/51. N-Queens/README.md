@@ -19,6 +19,23 @@ diag1_.resize(2 * n - 1, 0);
 diag2_.resize(2 * n - 1, 0);
 diag1_[y + x]
 diag2_[y - x + (n - 1)]
+
+//   * * * cols
+// * x x x
+// * x x x
+// * x x x
+// rows
+
+// 0,0  0,1  0,2
+// 1,0  1,1  1,2
+// 2,0  2,1  2,2
+      
+// "/" -> y + x is same
+// "\" -> y - x + n - 1 is same
+// y - x:     2 1 0 -1 -2
+// y - x + n: 5 4 3 2 1
+// y - x + n - 1: 4 3 2 1 0
+
 ```
 
 ### Code
