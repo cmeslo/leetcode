@@ -22,7 +22,7 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
 
     ListNode* ans = nullptr;
     while (b) {
-        if (!ans && b->val < 0) {
+        if (b->val < 0) {
             ans = b;
             break;
         }
@@ -56,8 +56,8 @@ list A 和 list B 有相交時，a 和 b 就會在同一點相遇，沒有相交
 ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
     auto a = headA, b = headB;
     while (a != b) {
-        a = a == nullptr ? headB : a->next;
-        b = b == nullptr ? headA : b->next;
+        a = (a ? a->next : headB);
+        b = (b ? b->next : headA);
     }
     return a;
 }
