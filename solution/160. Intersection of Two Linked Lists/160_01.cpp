@@ -17,7 +17,7 @@ public:
         
         ListNode* ans = nullptr;
         while (b) {
-            if (!ans && b->val < 0) {
+            if (b->val < 0) {
                 ans = b;
                 break;
             }
