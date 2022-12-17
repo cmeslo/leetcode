@@ -1,0 +1,17 @@
+# 167. Two Sum II - Input array is sorted
+
+## Solution: Two Pointers
+
+```cpp
+vector<int> twoSum(vector<int>& numbers, int target) {
+    int l = 0, r = numbers.size() - 1;
+    while (l < r) {
+        int sum = numbers[l] + numbers[r];
+        if (sum == target) break;
+        else if (sum < target) l++;
+        else if (target < sum) r--;
+    }
+
+    return {l + 1, r + 1};
+}
+```
