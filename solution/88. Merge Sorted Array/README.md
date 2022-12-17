@@ -1,6 +1,6 @@
 # 88. Merge Sorted Array
 
-## 88.cpp
+## Solution: Two Pointers (88.cpp)
 
 ```cpp
 void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
