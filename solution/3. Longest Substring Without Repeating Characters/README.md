@@ -1,8 +1,10 @@
 # 3. Longest Substring Without Repeating Characters
 
-## c++ 代碼
+## Solution: Sliding Window
 
-### 用 set 作為 window (3_01.cpp)
+### cpp
+
+#### 用 set 作為 window (3_01.cpp)
 
 ```cpp
 int lengthOfLongestSubstring(string s) {
@@ -22,20 +24,18 @@ int lengthOfLongestSubstring(string s) {
 }
 ```
 
-### 用 array 作為 map (3_02.cpp)
+#### 用 array 作為 map (3_02.cpp)
 
 ```cpp
 int lengthOfLongestSubstring(string s) {
     int ans = 0;
-
     vector<int> seen(256);
-    int start = 0;
-    for (int i = 0; i < s.length(); ++i) {
-        while (seen[s[i]] > 0) {
-            --seen[s[start++]];
-        }
-        ++seen[s[i]];
-        ans = max(ans, i - start + 1);
+    for (int i = 0, j = 0; j < s.size(); ++j) {
+        while (seen[s[j]])
+            seen[s[i++]]--;
+
+        seen[s[j]]++;
+        ans = max(ans, j - i + 1);
     }
     return ans;
 }
@@ -61,9 +61,9 @@ int lengthOfLongestSubstring(string s) {
 }
 ```
 
-## java 代碼
+### java
 
-### 用 array 作為 map (3_01.java)
+#### 用 array 作為 map (3_01.java)
 
 ```java
 public int lengthOfLongestSubstring(String s) {
