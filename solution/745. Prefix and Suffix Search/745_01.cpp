@@ -1,31 +1,28 @@
 class WordFilter {
 public:
     WordFilter(vector<string>& words) {
-        int index = 0;
-        for (string& w : words) {
-            int n = w.length();
-            vector<string> prefixes(n + 1, "");
-            vector<string> suffixes(n + 1, "");
-            for (int i = 1; i <= n; ++i) {
-                prefixes[i] = prefixes[i - 1] + w[i - 1];
-                suffixes[i] = w[n - i] + suffixes[i - 1];
+        for (int i = 0; i < words.size(); ++i) {
+            string& w = words[i];
+            int n = w.size();
+            vector<string> prefix(n + 1), suffix(n + 1);
+            for (int j = 0; j <= n; ++j) {
+                prefix[j] = w.substr(0, j);
+                suffix[j] = w.substr(j, n - j);
             }
-            for (string& pre : prefixes)
-                for (string& suf : suffixes)
-                    filter_[pre + '_' + suf] = index;
-            index++;
+            for (string& pre : prefix)
+                for (string& suf : suffix)
+                    m[pre + '_' + suf] = i;
         }
+        // m.erase("_");
     }
     
     int f(string prefix, string suffix) {
-        auto it = filter_.find(prefix + '_' + suffix);
-        if (it != filter_.end())
-            return it->second;
-        return -1;
+        auto it = m.find(prefix + '_' + suffix);
+        return it == m.end() ? -1 : it->second;
     }
     
 private:
-    unordered_map<string, int> filter_;
+    unordered_map<string, int> m;
 };
 
 /**
