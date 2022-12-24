@@ -4,6 +4,8 @@
 
 ### 寫法一
 
+Trie + BFS
+
 ```cpp
 class TrieNode {
 public:
@@ -88,6 +90,58 @@ public:
         return ans;
     }
 };
+```
+
+### 寫法三
+
+Trie + DFS
+
+```cpp
+class TrieNode {
+public:
+    vector<TrieNode*> next;
+    TrieNode(): next(26) {}
+};
+
+class Solution {
+public:
+    int minimumLengthEncoding(vector<string>& words) {
+        TrieNode root;
+        for (string& w : words) {
+            auto p = &root;
+            for (int i = w.size() - 1; i >= 0; --i) {
+                auto& next = p->next[w[i] - 'a'];
+                if (!next)
+                    next = new TrieNode();
+                p = next;
+            }
+        }
+        
+        int ans = 0;
+        dfs(&root, 0, ans);
+        return ans;
+    }
+    
+    void dfs(TrieNode* node, int cnt, int& ans) {
+        if (!node) return;
+        
+        int leaf = 1;
+        for (int i = 0; i < 26; ++i) {
+            if (node->next[i]) {
+                dfs(node->next[i], cnt + 1, ans);
+                leaf = 0;
+            }
+        }
+        
+        if (leaf)
+            ans += cnt + 1;
+    }
+};
+
+
+// .--e--m*--i--t*
+//  \
+//   l--l--e--b*
 ```
 
 ## Solution 2 - 暴力刪走所有結尾子字符串
