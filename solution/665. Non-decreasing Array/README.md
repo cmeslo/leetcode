@@ -1,6 +1,10 @@
 # 665. Non-decreasing Array
 
-## 解釋：
+## Solution 1
+
+time: ```O(n)```
+
+### 解釋：
 
 當出現下降時，要考慮的點是：
 
@@ -12,7 +16,7 @@ x x x 6 3 x x x x
       ^-----還是要把它下降到 3
 ```
 
-## Code
+### Code
 
 ```cpp
 bool checkPossibility(vector<int>& nums) {
@@ -49,5 +53,24 @@ bool checkPossibility(vector<int>& nums) {
         mx = max(mx, nums[i]);
     }
     return true;
+}
+```
+
+## Solution 2: LIS
+
+time: ```O(nlogn)```
+
+```cpp
+bool checkPossibility(vector<int>& nums) {
+    vector<int> A;
+    for (int x : nums) {
+        if (A.empty() || A.back() <= x) {
+            A.push_back(x);
+        } else {
+            auto it = upper_bound(A.begin(), A.end(), x);
+            *it = x;
+        }
+    }
+    return A.size() >= nums.size() - 1;
 }
 ```
