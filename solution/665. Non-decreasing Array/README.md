@@ -1,6 +1,6 @@
 # 665. Non-decreasing Array
 
-## Solution 1
+## Solution 1 (推薦)
 
 time: ```O(n)```
 
