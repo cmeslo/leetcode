@@ -14,3 +14,22 @@ int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
     return ans;
 }
 ```
+
+or
+
+```cpp
+int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+    sort(boxTypes.begin(), boxTypes.end(), [](auto & a, auto& b) {
+        return a[1] > b[1];
+    });
+
+    int ans = 0;
+    for (auto& box : boxTypes) {
+        int cnt = min(box[0], truckSize), cost = box[1];
+        ans += cnt * cost;
+        truckSize -= cnt;
+        if (truckSize == 0) break;
+    }
+    return ans;
+}
+```
