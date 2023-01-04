@@ -29,6 +29,28 @@ int wiggleMaxLength(vector<int>& nums) {
 
 ## Solution 2 - DP
 
+### 方法一: O(n^2)
+
+```cpp
+int wiggleMaxLength(vector<int>& nums) {
+    int n = nums.size();
+    int res = 0;
+    vector<vector<int>> dp(n, vector<int>(2, 1));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < i; ++j) {
+            if (nums[j] < nums[i])
+                dp[i][1] = max(dp[i][1], dp[j][0] + 1);
+            else if (nums[j] > nums[i])
+                dp[i][0] = max(dp[i][0], dp[j][1] + 1);
+        }
+        res = max({res, dp[i][0], dp[i][1]});
+    }
+    return res;
+}
+```
+
+### 方法二: O(n)
+
 拼接上一個轉折點，
 
 down 後面接 up，
@@ -41,9 +63,9 @@ int wiggleMaxLength(vector<int>& nums) {
 
     int up = 1, down = 1;
     for (int i = 1; i < n; ++i) {
-        if (nums[i - 1] > nums[i])
+        if (nums[i - 1] < nums[i])
             up = down + 1;
-        else if (nums[i - 1] < nums[i])
+        else if (nums[i - 1] > nums[i])
             down = up + 1;
     }
 
