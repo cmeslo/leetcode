@@ -1,6 +1,6 @@
 # 97. Interleaving String
 
-## Solution: DP 1
+## Solution 1: DP - O(n^3) 版本
 
 time: ```O(n^3)```
 
@@ -53,7 +53,7 @@ bool isInterleave(string s1, string s2, string s3) {
 //     dp[i][j][k] |= dp[i][j - 1][k - 1]
 ```
 
-## Solution: DP 2 (推薦)
+## Solution 2: DP - O(n^2) 版本 (推薦)
 
 time: ```O(n^2)```
 
