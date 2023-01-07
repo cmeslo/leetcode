@@ -1,6 +1,61 @@
 # 97. Interleaving String
 
-## Solution: DP
+## Solution: DP 1
+
+time: ```O(n^3)```
+
+```cpp
+bool isInterleave(string s1, string s2, string s3) {
+    int len1 = s1.size(), len2 = s2.size(), len3 = s3.size();
+    if (len1 + len2 != len3) return false;
+    s1 = '#' + s1;
+    s2 = '#' + s2;
+    s3 = '#' + s3;
+
+    vector<vector<vector<int>>> dp(len1 + 1, vector<vector<int>>(len2 + 1, vector<int>(len3 + 1, 0)));
+    for (int i = 0; i <= len1; ++i)
+        for (int j = 0 ; j <= len2; ++j)
+            dp[i][j][0] = 1;
+
+    for (int i = 0; i <= len1; ++i) {
+        for (int j = 0; j <= len2; ++j) {
+            for (int k = 1; k <= len3; ++k) {
+                if (i + j != k) continue;
+
+                if (s3[k] == s1[i])
+                    dp[i][j][k] |= dp[i - 1][j][k - 1];
+
+                if (s3[k] == s2[j])
+                    dp[i][j][k] |= dp[i][j - 1][k - 1];
+            }
+        }
+    }
+
+    return dp[len1][len2][len3];
+}
+
+// a a b c c
+// d b b c a
+// a a d b b c b c a c
+
+// x x x x c
+// x x x x a
+// x x x x x x x x x c
+
+// dp[i][j][k] := 用 s1 的前 i 個、s2 的前 j 個字符，組成 s3 的前 k 個字符
+
+// dp[i][j][k] |= dp[i][j][k - 1]
+
+// if (s3[k] == s1[i])
+//     dp[i][j][k] |= dp[i - 1][j][k - 1]
+    
+// if (s3[k] == s2[j])
+//     dp[i][j][k] |= dp[i][j - 1][k - 1]
+```
+
+## Solution: DP 2 (推薦)
+
+time: ```O(n^2)```
 
 ### 解釋
 
