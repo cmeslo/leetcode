@@ -69,3 +69,40 @@ private:
     }
 };
 ```
+
+or
+
+```cpp
+class Solution {
+public:
+    bool makesquare(vector<int>& matchsticks) {
+        int total = accumulate(matchsticks.begin(), matchsticks.end(), 0);
+        if (total % 4) return false;
+        sort(matchsticks.rbegin(), matchsticks.rend());
+        
+        visited.resize(matchsticks.size());
+        
+        return dfs(matchsticks, 0, 4, total / 4, 0);
+    }
+    
+private:
+    vector<int> visited;
+    
+    bool dfs(vector<int>& M, int start, int sides, int target, int sum) {
+        if (sides == 0) return true;
+        if (sum > target) return false;
+        if (sum == target) return dfs(M, 0, sides - 1, target, 0);
+        
+        unordered_set<int> seen; // 加速方法，在DFS搜索樹的同一層、已經用過相同長度的火柴而又沒有成功的、可以跳過了
+        for (int i = start; i < M.size(); ++i) {
+            if (visited[i] || seen.count(M[i])) continue;
+            visited[i] = 1;
+            seen.insert(M[i]);
+            if (dfs(M, i + 1, sides, target, sum + M[i]))
+                return true;
+            visited[i] = 0;
+        }
+        return false;
+    }
+};
+```
