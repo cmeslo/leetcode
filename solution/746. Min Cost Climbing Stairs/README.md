@@ -1,6 +1,6 @@
 # 746. Min Cost Climbing Stairs
 
-## DP
+## Solution: DP
 
 ```dp[i] = min(dp[i-1], dp[i-2]) + cost```
 
