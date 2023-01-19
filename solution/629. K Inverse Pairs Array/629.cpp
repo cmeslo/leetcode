@@ -36,8 +36,8 @@ public:
          
 // dp[i][j] = dp[i - 1][j - m]
 
-// dp[i][j]   = dp[i-1][j-0] + dp[i-1][j-1] + dp[i-1][j-2] + ... + dp[i-1][j-(i-2)] dp[i-1][j-(i-1)];
-// dp[i][j-1] = dp[i-1][j-1] + dp[i-1][j-2] + dp[i-1][j-3] + ... + dp[i-1][j-(i-1)] dp[i-1][j-i];
+// dp[i][j]   = dp[i-1][j-0] + dp[i-1][j-1] + dp[i-1][j-2] + ... + dp[i-1][j-(i-2)] + dp[i-1][j-(i-1)];
+// dp[i][j-1] = dp[i-1][j-1] + dp[i-1][j-2] + dp[i-1][j-3] + ... + dp[i-1][j-(i-1)] + dp[i-1][j-i];
 
 // dp[i][j] - dp[i][j-1] = dp[i-1][j] - dp[i-1][j-i]
 // dp[i][j] = dp[i-1][j] - dp[i-1][j-i] + dp[i][j-1]
