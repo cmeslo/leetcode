@@ -65,6 +65,37 @@ private:
 };
 ```
 
+or
+
+```cpp
+// Runtime: 245 ms, Your runtime beats 82.26 % of cpp submissions.
+// Memory Usage: 48 MB, Your memory usage beats 83.92 % of cpp submissions.
+
+int numMatchingSubseq(string s, vector<string>& words) {
+    vector<vector<int>> pos(26);
+    for (int i = 0; i < s.size(); ++i) {
+        pos[s[i] - 'a'].push_back(i);
+    }
+
+    int res = 0;
+    for (string& w : words) {
+        bool ok = true;
+        int i = 0;
+        for (char& c : w) {
+            int x = c - 'a';
+            auto it = lower_bound(pos[x].begin(), pos[x].end(), i);
+            if (it == pos[x].end()) {
+                ok = false;
+                break;
+            }
+            i = (*it) + 1;
+        }
+        if (ok) ++res;
+    }
+    return res;
+}
+```
+
 ## Solution 3: 狀態機
 
 ### 解釋
