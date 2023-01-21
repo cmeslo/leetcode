@@ -18,6 +18,8 @@ n = 5
 
 ### Code
 
+#### 寫法一
+
 ```cpp
 vector<vector<int>> generate(int numRows) {
     vector<vector<int>> ans{{1}};
@@ -32,5 +34,28 @@ vector<vector<int>> generate(int numRows) {
         ans.push_back(nums);
     }
     return ans;
+}
+```
+
+#### 寫法二
+
+```cpp
+res[i][j] = res[i - 1][j - 1] + res[i - 1][j]
+```
+
+```cpp
+vector<vector<int>> generate(int numRows) {
+    vector<vector<int>> res(numRows);
+
+    for (int i = 0; i < numRows; ++i) {
+        vector<int> cur(i + 1);
+        cur[0] = cur[i] = 1;
+        for (int j = 1; j < i; ++j) {
+            cur[j] += res[i - 1][j - 1] + res[i - 1][j];
+        }
+        res[i] = cur;
+    }
+
+    return res;
 }
 ```
