@@ -24,3 +24,22 @@ ListNode* partition(ListNode* head, int x) {
     return dummy1.next;
 }
 ```
+
+or
+
+```cpp
+ListNode* partition(ListNode* head, int x) {
+    ListNode dummy1, dummy2;
+    auto p1 = &dummy1, p2 = &dummy2;
+
+    while (head) {
+        auto& p = head->val < x ? p1 : p2;
+        p = p->next = head;
+        head = head->next;
+    }
+    p1->next = dummy2.next;
+    p2->next = nullptr;
+
+    return dummy1.next;
+}
+```
