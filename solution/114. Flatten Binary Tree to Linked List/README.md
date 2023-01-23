@@ -42,6 +42,35 @@ private:
 };
 ```
 
+### 寫法三：
+
+```cpp
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        dfs(root);
+    }
+    
+private:
+    TreeNode* dfs(TreeNode* node) {
+        if (!node) return node;
+        
+        auto tail_l = dfs(node->left);
+        auto tail_r = dfs(node->right);
+        
+        if (tail_l) {
+            tail_l->right = node->right;
+            node->right = node->left;
+            node->left = nullptr;
+        }
+        
+        if (tail_r) return tail_r;
+        if (tail_l) return tail_l;
+        return node;
+    }
+};
+```
+
 ## Solution 2: Iterative（推薦）
 
 Solution 1 由於遞歸用了 stack，所以 space complexity 不是 O(1) 的，
