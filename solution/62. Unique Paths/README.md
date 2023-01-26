@@ -23,7 +23,7 @@ int uniquePaths(int m, int n) {
 }
 ```
 
-## Solution 2: DP (62_01.cpp)
+## Solution 2: DP (62_02.cpp)
 
 用一維數組實現。
 
