@@ -1,5 +1,15 @@
 # 729. My Calendar I
 
+## Solution: Binary search
+
+```
+0-----5
+         7--9
+               12----15
+    4------8*
+    4-------------13*
+```
+
 ```cpp
 class MyCalendar {
 public:
