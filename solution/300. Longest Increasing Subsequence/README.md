@@ -23,7 +23,7 @@ int lengthOfLIS(vector<int>& nums) {
 }
 ```
 
-## Solution 2: 棧
+## Solution 2: Binary search
 
 time: ```O(nlogn)```
 
