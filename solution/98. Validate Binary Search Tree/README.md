@@ -1,6 +1,6 @@
 # 98. Validate Binary Search Tree
 
-## 98_01.cpp
+## Solution 1: DFS (98_01.cpp)
 
 ```cpp
 bool isValidBST(TreeNode* root) {
@@ -24,7 +24,9 @@ bool isValidBST(TreeNode* root) {
 }
 ```
 
-## 98_02.cpp
+## Solution 2: DFS
+
+(98_02.cpp)
 
 ```cpp
 class Solution {
@@ -42,6 +44,27 @@ private:
         
         return dfs(root->left, root, lower_bound)
             && dfs(root->right, upper_bound, root);
+    }
+};
+```
+
+or
+
+```cpp
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return dfs(root, LONG_MIN, LONG_MAX);
+    }
+    
+private:
+    bool dfs(TreeNode* node, long mn, long mx) {
+        if (!node) return true;
+        
+        return mn < node->val &&
+               node->val < mx &&
+               dfs(node->left, mn, node->val) &&
+               dfs(node->right, node->val, mx);
     }
 };
 ```
