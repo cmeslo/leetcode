@@ -8,41 +8,36 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        auto *slow = head, *fast = head;
+        auto slow = head, fast = head;
+        
         while (fast && fast->next) {
             slow = slow->next;
             fast = fast->next->next;
         }
         
-        if (fast) { // for odd
+        if (fast) // for odd
             slow = slow->next;
-        }
         
         slow = reverseList(slow);
         
         while (slow) {
             if (slow->val != head->val) return false;
-            head = head->next;
             slow = slow->next;
+            head = head->next;
         }
         
         return true;
     }
-
+    
 private:
     ListNode* reverseList(ListNode* head) {
-        if (!head) return nullptr;
-        
         ListNode* prev = nullptr;
-        ListNode* curr = head;
-        
-        while (curr) {
-            ListNode* next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
+        while (head) {
+            auto next = head->next;
+            head->next = prev;
+            prev = head;
+            head = next;
         }
-        
         return prev;
     }
 };
