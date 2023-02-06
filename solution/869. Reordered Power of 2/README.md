@@ -25,6 +25,25 @@ bool reorderedPowerOf2(int N) {
 }
 ```
 
+or
+
+```cpp
+bool reorderedPowerOf2(int n) {
+    unordered_set<string> s;
+    long x = 1;
+    while (x <= INT_MAX) {
+        string str = to_string(x);
+        sort(str.begin(), str.end());
+        s.insert(str);
+        x <<= 1;
+    }
+
+    string N = to_string(n);
+    sort(N.begin(), N.end());
+    return s.count(N);
+}
+```
+
 ## Solution 2 - 正規化 - counter
 
 因為 1 <= n <= 10^9，所以最多只會有9個相同的數字，
