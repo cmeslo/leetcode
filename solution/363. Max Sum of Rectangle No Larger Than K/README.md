@@ -33,7 +33,7 @@ int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {
         vector<int> compressed(n);
         for (int y2 = y1; y2 < m; ++y2) {
             int sum = 0;
-            set<int> s{{0}};
+            set<int> s{0};
             for (int x = 0; x < n; ++x) {
                 compressed[x] += matrix[y2][x];
                 sum += compressed[x];
