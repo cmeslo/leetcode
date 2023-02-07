@@ -34,6 +34,32 @@ vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
 }
 ```
 
+or
+
+```cpp
+vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+    int m = mat.size(), n = mat[0].size();
+    for (int j = 0; j < n; ++j) {
+        vector<int> tmp;
+        for (int y = 0, x = j; y < m && x < n; ++y, ++x)
+            tmp.push_back(mat[y][x]);
+        sort(tmp.begin(), tmp.end());
+        for (int y = 0, x = j, k = 0; y < m && x < n; ++y, ++x, ++k)
+            mat[y][x] = tmp[k];
+    }
+
+    for (int i = 1; i < m; ++i) {
+        vector<int> tmp;
+        for (int y = i, x = 0; y < m && x < n; ++y, ++x)
+            tmp.push_back(mat[y][x]);
+        sort(tmp.begin(), tmp.end());
+        for (int y = i, x = 0, k = 0; y < m && x < n; ++y, ++x, ++k)
+            mat[y][x] = tmp[k];
+    }
+    return mat;
+}
+```
+
 ## Solution 2: map + heap
 
 利用 ```同一條對角線上的元素，i - j 是相等的``` 這個特性，
