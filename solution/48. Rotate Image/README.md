@@ -38,13 +38,17 @@ matrix[n - 1 - j][i]          --> matrix[i][j]
 ### Code
 
 ```cpp
-for (int i = 0; i < n / 2; ++i) {
-    for (int j = i; j < n - 1 - i; ++j) {
-        int tmp = matrix[i][j];
-        matrix[i][j] = matrix[n - 1 - j][i];
-        matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
-        matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
-        matrix[j][n - 1 - i] = tmp;
+void rotate(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+
+    for (int i = 0; i < n / 2; ++i) {
+        for (int j = i; j < n - 1 - i; ++j) {
+            int tmp = matrix[i][j];
+            matrix[i][j] = matrix[n - 1 - j][i];
+            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
+            matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
+            matrix[j][n - 1 - i] = tmp;
+        }
     }
 }
 ```
@@ -100,6 +104,21 @@ void rotate(vector<vector<int>>& matrix) {
 }
 ```
 
+or
+
+```cpp
+void rotate(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+    for (int i = 0; i < n; ++i)
+        for (int k = i + 1; k < n; ++k)
+            swap(matrix[i][k], matrix[k][i]);
+
+    for (int i = 0; i < n; ++i)
+        for (int l = 0, r = n - 1; l < r; ++l, --r)
+            swap(matrix[i][l], matrix[i][r]);
+}
+```
+
 ## Solution 3: 48_03.cpp
 Get transpose, then reverse left and right sides.
 
@@ -111,10 +130,14 @@ Get transpose, then reverse left and right sides.
 
 ### Code
 ```cpp
-for (int i = 0; i < n; ++i) {
-    for (int j = i + 1; j < n; ++j) {
-        std::swap(matrix[i][j], matrix[j][i]);
+void rotate(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            std::swap(matrix[i][j], matrix[j][i]);
+        }
+        std::reverse(matrix[i].begin(), matrix[i].end());
     }
-    std::reverse(matrix[i].begin(), matrix[i].end());
 }
 ```
