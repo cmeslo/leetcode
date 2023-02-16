@@ -118,3 +118,33 @@ vector<vector<int>> verticalTraversal(TreeNode* root) {
     return ans;
 }
 ```
+
+or
+
+```cpp
+vector<vector<int>> verticalTraversal(TreeNode* root) {
+    map<int, vector<int>> m;
+    queue<pair<TreeNode*, int>> q;
+    q.push({root, 0});
+    while (!q.empty()) {
+        map<int, multiset<int>> tmp;
+        for (int size = q.size(); size > 0; --size) {
+            auto [node, x] = q.front(); q.pop();
+            tmp[x].insert(node->val);
+            if (node->left)
+                q.push({node->left, x - 1});
+            if (node->right)
+                q.push({node->right, x + 1});
+        }
+        for (auto [x, arr] : tmp) {
+            for (int val : arr)
+                m[x].push_back(val);
+        }
+    }
+
+    vector<vector<int>> res;
+    for (auto& [k, v] : m)
+        res.push_back(v);
+    return res;
+}
+```
