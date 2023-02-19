@@ -2,14 +2,14 @@
 
 ```cpp
 TreeNode* pruneTree(TreeNode* root) {
-    if (!root) return nullptr;
+    if (!root) return root;
 
     root->left = pruneTree(root->left);
     root->right = pruneTree(root->right);
 
-    if (root->val == 1)
-        return root;
-    else
-        return root->left || root->right ? root : nullptr;
+    if (!root->left && !root->right && root->val == 0)
+        return nullptr;
+
+    return root;
 }
 ```
