@@ -22,3 +22,24 @@ vector<int> inorderTraversal(TreeNode* root) {
     return ans;
 }
 ```
+
+## Solution 2
+
+```cpp
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        inorderTraversal(root, ans);
+        return ans;
+    }
+    
+private:
+    void inorderTraversal(TreeNode* node, vector<int>& ans) {
+        if (!node) return;
+        inorderTraversal(node->left, ans);
+        ans.push_back(node->val);
+        inorderTraversal(node->right, ans);
+    }
+};
+```
