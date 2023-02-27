@@ -1,6 +1,6 @@
 # 948. Bag of Tokens
 
-Solution: Simulation
+## Solution: Simulation
 
 ```cpp
 int bagOfTokensScore(vector<int>& tokens, int power) {
