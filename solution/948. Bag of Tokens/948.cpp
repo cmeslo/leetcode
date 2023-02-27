@@ -1,21 +1,29 @@
 class Solution {
 public:
-    int bagOfTokensScore(vector<int>& tokens, int P) {
+    int bagOfTokensScore(vector<int>& tokens, int power) {
         sort(tokens.begin(), tokens.end());
-        int n = tokens.size();
-        
+            
         int score = 0;
-        int l = 0, r = n - 1;
-        while (l <= r) {
-            while (l <= r && tokens[l] <= P) {
-                P -= tokens[l++];
+        int i = 0, j = tokens.size() - 1;
+        
+        while (i <= j) {
+            while (i <= j && power >= tokens[i]) {
+                power -= tokens[i++];
                 ++score;
             }
-            if (score == 0 || l >= r) break;
-            P += tokens[r--];
+            if (score == 0 || i >= j) break;
+            power += tokens[j--];
             --score;
         }
         
         return score;
     }
 };
+
+// 200 -> 100 -> 500
+
+// 0 -> 1 -> 0 -> 1 -> 2
+    
+// 100, 200, 300, 400
+//            i
+//            j
