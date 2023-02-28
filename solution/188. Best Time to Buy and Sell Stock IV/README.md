@@ -1,5 +1,9 @@
 # 188. Best Time to Buy and Sell Stock IV
 
+## Solution: DP
+
+### 寫法一（推薦）
+
 有兩個細節問題要弄清楚：
 
 1. 買入、賣出，哪一個才算是完成一次交易（或者兩個一起用，總共 2k 次交易）
@@ -51,3 +55,37 @@ private:
 ```
 
 reference: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/discuss/108870/Most-consistent-ways-of-dealing-with-the-series-of-stock-problems
+
+
+### 寫法二
+
+```cpp
+int maxProfit(int k, vector<int>& prices) {
+    int n = prices.size();
+
+    vector<vector<int>> hold(n + 1, vector<int>(k + 1));
+    vector<vector<int>> sold(n + 1, vector<int>(k + 1));
+
+    for (int j = 0; j <= k; ++j)
+        hold[0][j] = INT_MIN;
+
+    for (int i = 1; i <= n; ++i) {
+        int p = prices[i - 1];
+        for (int j = 1; j <= k; ++j) {
+            hold[i][j] = max(hold[i - 1][j], sold[i - 1][j - 1] - p);
+            sold[i][j] = max(sold[i - 1][j], hold[i - 1][j] + p);
+        }
+    }
+
+    return sold[n][k];
+}
+
+// hold[i][j] := the maximum profit afte finished j transaction at the end of i-th day and hold stock
+// sold[i][j] := the maximum profit afte finished j transaction at the end of i-th day and do not have stock
+
+// hold[i][j] = max(hold[i - 1][j], sold[i - 1][j] - prices[i]);
+
+// sold[i][j] = max(sold[i - 1][j], hold[i - 1][j - 1] + prices[i]);
+
+// dp[n][k][0] <--ans
+```
