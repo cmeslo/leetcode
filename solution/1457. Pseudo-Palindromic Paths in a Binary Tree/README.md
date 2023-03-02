@@ -45,18 +45,14 @@ public:
     }
     
 private:
-    int dfs(TreeNode* root, int f) {
-        if (!root) return 0;
+    int dfs(TreeNode* node, int ones) {
+        if (!node) return 0;
         
-        int ans = 0;
-        
-        f ^= 1 << (root->val - 1);
-        if (!root->left && !root->right)
-            ans = (f & (f - 1)) == 0;
+        ones ^= 1 << (node->val - 1);
+        if (!node->left && !node->right)
+            return (ones & (ones - 1)) == 0;
         else
-            ans = dfs(root->left, f) + dfs(root->right, f);
-        
-        return ans;
+            return dfs(node->left, ones) + dfs(node->right, ones);
     }
 };
 ```
