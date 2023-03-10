@@ -9,22 +9,24 @@ vector<vector<string>> findDuplicate(vector<string>& paths) {
     unordered_map<string, vector<string>> m;
 
     for (string& path : paths) {
-        istringstream ss(path);
-        string directory_path, info;
-        ss >> directory_path;
-        while (ss >> info) {
+        istringstream iss(path);
+        string dir_path, info;
+        iss >> dir_path;
+        while (iss >> info) {
             int i = info.find('(');
-            string file_content = info.substr(i + 1, info.size() - i - 1);
-            string file_name = info.substr(0, i);
-            m[file_content].push_back(directory_path + '/' + file_name);
+            string filename = info.substr(0, i);
+            string content = info.substr(i);
+            m[content].push_back(dir_path + '/' + filename);
         }
     }
 
-    vector<vector<string>> ans;
-    for (auto& [content, files] : m)
-        if (files.size() > 1)
-            ans.push_back(files);
-    return ans;
+    vector<vector<string>> res;
+    for (auto it : m) {
+        vector<string> cur;
+        if (it.second.size() > 1)
+            res.push_back(it.second);
+    }
+    return res;
 }
 ```
 
