@@ -31,3 +31,20 @@ string reverseWords(string s) {
     return s;
 }
 ```
+
+or
+
+```cpp
+string reverseWords(string s) {
+    int n = s.size();
+    int front = 0;
+    for (int i = 0; i <= n; ++i) {
+        if (i == n || s[i] == ' ') {
+            // reverse(s.begin() + front, s.begin() + i);
+            reverse(&s[front], &s[i]);
+            front = i + 1;
+        }
+    }
+    return s;
+}
+```
