@@ -18,7 +18,7 @@ public:
         *node = *(node->next);
         delete tmp;
         
-        // 寫法二
+        // 寫法三
         // *node = *(node->next);
         
         // 寫法四
