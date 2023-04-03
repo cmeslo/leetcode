@@ -13,7 +13,7 @@ public:
         // node->val = node->next->val;
         // node->next = node->next->next;
         
-        // 寫法二
+        // 寫法二 - 解引用
         ListNode* tmp = node->next;
         *node = *(node->next);
         delete tmp;
