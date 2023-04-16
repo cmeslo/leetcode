@@ -1,6 +1,6 @@
 # 219. Contains Duplicate II
 
-## Solution: Hash map
+## Solution 1: Hash map
 
 ```cpp
 bool containsNearbyDuplicate(vector<int>& nums, int k) {
@@ -14,7 +14,7 @@ bool containsNearbyDuplicate(vector<int>& nums, int k) {
 }
 ```
 
-## Solution: Sliding windows
+## Solution 2: Sliding windows
 
 ```cpp
 bool containsNearbyDuplicate(vector<int>& nums, int k) {
