@@ -41,6 +41,40 @@ private:
 };
 ```
 
+or
+
+```cpp
+// Runtime: 7 ms, Your runtime beats 86.81 % of cpp submissions.
+// Memory Usage: 8.2 MB, Your memory usage beats 93.70 % of cpp submissions.
+
+class Solution {
+public:
+    int maxLength(vector<string>& arr) {
+        vector<int> A;
+        for (string w : arr) {
+            int b = 0;
+            for (char& c : w)
+                b |= 1 << (c - 'a');
+            if (__builtin_popcount(b) == w.size())
+                A.push_back(b);
+        }
+        
+        int res = 0;
+        dfs(A, 0, 0, res);
+        return res;
+    }
+    
+    void dfs(vector<int>& A, int i, int state, int& res) {
+        res = max(res, __builtin_popcount(state));
+        
+        for (int j = i; j < A.size(); ++j) {
+            if (state & A[j]) continue;
+            dfs(A, j + 1, state | A[j], res);
+        }
+    }
+};
+```
+
 ### 寫法二：
 
 不預先計算反而比較快：
