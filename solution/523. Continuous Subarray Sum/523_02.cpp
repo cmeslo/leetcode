@@ -13,9 +13,10 @@ public:
         int sum = 0;
         for (int i = 0; i < nums.size(); ++i) {
             sum += nums[i];
-            if (k != 0) sum %= k; // (n*k + a)%k  is same as  a%k
+            if (k != 0) sum %= k; // (n*k + a) % k = a % k
             if (m.count(sum)) {
-                if (i - m[sum] > 1) return true;
+                if (i - m[sum] > 1)
+                    return true;
             } else {
                 m[sum] = i;
             }
