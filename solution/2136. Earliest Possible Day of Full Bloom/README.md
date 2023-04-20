@@ -21,3 +21,23 @@ int earliestFullBloom(vector<int>& plantTime, vector<int>& growTime) {
     return ans;
 }
 ```
+
+or
+
+```cpp
+int earliestFullBloom(vector<int>& plantTime, vector<int>& growTime) {
+    int n = plantTime.size();
+    vector<pair<int, int>> A(n);
+    for (int i = 0; i < n; ++i) {
+        A[i] = {growTime[i], plantTime[i]};
+    }
+    sort(A.rbegin(), A.rend());
+
+    int base = 0, mx = 0;
+    for (auto [g, p] : A) {
+        base = base + p;
+        mx = max({mx, base + g});
+    }
+    return mx;
+}
+```
