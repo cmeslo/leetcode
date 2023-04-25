@@ -4,37 +4,32 @@
 
 ```cpp
 int longestPalindrome(vector<string>& words) {
-    int res = 0;
     unordered_map<string, int> m;
+    for (string& w : words) m[w]++;
+
     bool middle = false;
-
-    for (string& w : words) {
-        m[w]++;
-    }
-
+    int res = 0;
     for (auto& [w, cnt] : m) {
+        if (cnt == 0) continue;
         if (w[0] == w[1]) {
-            if (cnt % 2 == 0)
-                res += cnt * 2;
-            else {
-                res += (cnt - 1) * 2;
+            if (cnt % 2) {
                 if (!middle) {
                     middle = true;
                     res += 2;
                 }
+                cnt--;
             }
+            res += cnt * 2;
+            cnt = 0;
         } else {
-            if (cnt <= 0) continue;
-            string mirror = w.substr(1, 1) + w.substr(0, 1);
-            if (m.count(mirror) && m[mirror] > 0) {
-                int mn = min(cnt, m[mirror]);
-                res += mn * 4;
-                cnt -= mn;
-                m[mirror] -= mn;
+            string mirror = w;
+            reverse(mirror.begin(), mirror.end());
+            if (m.count(mirror)) {
+                res += min(cnt, m[mirror]) * 4;
+                cnt = m[mirror] = 0;
             }
         }
     }
-
     return res;
 }
 ```
