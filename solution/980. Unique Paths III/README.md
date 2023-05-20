@@ -54,33 +54,32 @@ dfs 返回 int 的寫法：
 class Solution {
 public:
     int uniquePathsIII(vector<vector<int>>& grid) {
-        int m = grid.size(), n = grid[0].size();
-        int startY = 0, startX = 0;
-        int steps = 0;
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (grid[i][j] == 1) {
+        int startY = -1, startX = -1;
+        int empty = 0;
+        for (int i = 0; i < grid.size(); ++i) {
+            for (int j = 0; j < grid[0].size(); ++j) {
+                if (grid[i][j] == 0) {
+                    ++empty;
+                } else if (grid[i][j] == 1) {
                     startY = i;
                     startX = j;
-                } else if (grid[i][j] == 0) {
-                    ++steps;
                 }
             }
         }
-        return dfs(grid, startY, startX, steps + 1);
+        return dfs(grid, startY, startX, empty + 1);
     }
-    
+
 private:
-    int dfs(vector<vector<int>>& grid, int y, int x, int steps) {
+    int dfs(vector<vector<int>>& grid, int y, int x, int empty) {
         if (y < 0 || y >= grid.size() || x < 0 || x >= grid[0].size()) return 0;
         if (grid[y][x] == -1) return 0;
-        if (grid[y][x] == 2) return steps == 0;
-        
+        if (grid[y][x] == 2) return empty == 0;
+
         grid[y][x] = -1;
-        int res = dfs(grid, y + 1, x, steps - 1)
-            + dfs(grid, y - 1, x, steps - 1)
-            + dfs(grid, y, x + 1, steps - 1)
-            + dfs(grid, y, x - 1, steps - 1);
+        int res = dfs(grid, y - 1, x, empty - 1)
+                + dfs(grid, y, x - 1, empty - 1)
+                + dfs(grid, y + 1, x, empty - 1)
+                + dfs(grid, y, x + 1, empty - 1);
         grid[y][x] = 0;
         return res;
     }
