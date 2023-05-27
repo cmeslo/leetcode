@@ -87,3 +87,49 @@ private:
     }
 };
 ```
+
+## Solution 2
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> outerTrees(vector<vector<int>>& trees) {
+        int n = trees.size();
+        sort(trees.begin(), trees.end());
+        
+        vector<int> down;
+        down.push_back(0);
+        for (int i = 1; i < n; ++i) {
+            while (down.size() >= 2 && crossProduct(trees, down[down.size() - 2], down.back(), i) < 0)
+                down.pop_back();
+            down.push_back(i);
+        }
+        
+        vector<int> up;
+        up.push_back(trees.size() - 1);
+        for (int i = trees.size() - 2; i >= 0; --i) {
+            while (up.size() >= 2 && crossProduct(trees, up[up.size() - 2], up.back(), i) < 0)
+                up.pop_back();
+            up.push_back(i);
+        }
+        
+        vector<vector<int>> res;
+        for (int i : down)
+            res.push_back(trees[i]);
+        for (int i : up)
+            res.push_back(trees[i]);
+        sort(res.begin(), res.end());
+        res.erase(unique(res.begin(), res.end()), res.end());
+        return res;
+    }
+    
+private:
+    int crossProduct(vector<vector<int>>& trees, int a, int b, int c) {
+        int x1 = trees[b][0] - trees[a][0];
+        int y1 = trees[b][1] - trees[a][1];
+        int x2 = trees[c][0] - trees[a][0];
+        int y2 = trees[c][1] - trees[a][1];
+        return x1*y2 - y1*x2;
+    }
+};
+```
