@@ -1,6 +1,6 @@
 # 382. Linked List Random Node
 
-## 382_01.cpp
+## Solution 1: Brute force (382_01.cpp)
 
 Count the length of list.
 
@@ -36,7 +36,28 @@ private:
 };
 ```
 
-## Reservoir Sampling (382_02.cpp)
+or
+
+```cpp
+class Solution {
+public:
+    Solution(ListNode* head) {
+        while (head) {
+            A.push_back(head->val);
+            head = head->next;
+        }
+    }
+    
+    int getRandom() {
+        return A[rand() % A.size()];
+    }
+
+private:
+    vector<int> A;
+};
+```
+
+## Solution 2: Reservoir Sampling (382_02.cpp) (推薦)
 
 ### 水塘抽樣算法解釋
 
@@ -61,9 +82,9 @@ private:
 
 也就是說，每次都會
 
-有 1/i 的概率會改變選中的數字，
+有 ```1/i``` 的概率會改變選中的數字，
 
-有 1 - 1/i 的概率不改變選中的數字
+有 ```1 - 1/i``` 的概率不改變選中的數字
 
 
 ### Code
@@ -96,7 +117,7 @@ private:
 };
 ```
 
-1/i 可以用 rand() % i == 0
+```1/i``` 可以用 ```rand() % i == 0```
 
 ```cpp
 while (cur) {
@@ -106,7 +127,7 @@ while (cur) {
 }
 ```
 
-也可以用 rand() % i == i - 1 來表示，就是取第一個數或者最後一個數的意思
+也可以用 ```rand() % i == i - 1``` 來表示，就是取第一個數或者最後一個數的意思
 
 ```cpp
 while (cur) {
