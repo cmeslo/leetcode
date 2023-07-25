@@ -10,32 +10,19 @@
  */
 class Solution {
 public:
-    /** @param head The linked list's head.
-        Note that the head is guaranteed to be not null, so it contains at least one node. */
     Solution(ListNode* head) {
-        this->head = head;
-        len = 0;
-        
         while (head) {
-            ++len;
+            A.push_back(head->val);
             head = head->next;
         }
     }
     
-    /** Returns a random node's value. */
     int getRandom() {
-        int pos = rand() % len;
-        
-        auto *cur = head;
-        while (pos-- > 0)
-            cur = cur->next;
-        
-        return cur->val;
+        return A[rand() % A.size()];
     }
-    
+
 private:
-    ListNode *head;
-    int len;
+    vector<int> A;
 };
 
 /**
