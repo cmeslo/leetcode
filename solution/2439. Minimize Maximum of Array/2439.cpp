@@ -13,15 +13,13 @@ public:
     }
     
 private:
-    bool checkOK(vector<int>& nums, int mx) {
-        long carry = 0;
-        for (int i = nums.size() - 1; i >= 1; --i) {
-            if (nums[i] + carry > mx) {
-                carry = nums[i] + carry - mx;
-            } else {
-                carry = 0;
-            }
+    bool checkOK(vector<int>& nums, int limit) {
+        long cap = 0;
+        for (int x : nums) {
+            cap -= x - limit;
+            if (cap < 0)
+                return false;
         }
-        return nums[0] + carry <= mx;
+        return true;
     }
 };
