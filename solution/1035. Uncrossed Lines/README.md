@@ -1,6 +1,6 @@
 # 1035. Uncrossed Lines
 
-## 相當於 Longest Common Subsequence (LCS)
+## Solution: DP, 相當於 Longest Common Subsequence (LCS)
 
 最長共用子序列問題，用DP求解
 
