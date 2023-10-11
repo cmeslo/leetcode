@@ -90,6 +90,50 @@ public:
 };
 ```
 
+or
+
+```cpp
+class Solution {
+public:
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        for (int i = 0; i < equations.size(); ++i) {
+            string a = equations[i][0], b = equations[i][1];
+            double val = values[i];
+            adj[a].push_back({b, val});
+            adj[b].push_back({a, 1.0 / val});
+        }
+        
+        vector<double> res;
+        for (auto& q : queries) {
+            seen.clear();
+            double x = 1.0;
+            res.push_back(dfs(q[0], q[1], x));
+        }
+        return res;
+    }
+
+private:
+    unordered_map<string, vector<pair<string, double>>> adj;
+    unordered_set<string> seen;
+    
+    double dfs(const string& node, const string& target, double x) {
+        if (!adj.count(node) || !adj.count(target)) return -1.0;
+        if (node == target) return 1.0;
+        
+        for (auto& [next, val] : adj[node]) {
+            if (seen.count(next)) continue;
+            if (next == target) return x * val;
+            seen.insert(next);
+            double tmp = dfs(next, target, x * val);
+            if (tmp != -1.0)
+                return tmp;
+        }
+        
+        return -1.0;
+    }
+};
+```
+
 ## Solution 2: Floyd's algorithm
 
 ```cpp
