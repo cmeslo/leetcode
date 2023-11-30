@@ -39,3 +39,20 @@ int maxProfit(vector<int>& prices, int fee) {
     return sold;
 }
 ```
+
+or 
+
+```cpp
+int maxProfit(vector<int>& prices, int fee) {
+    int hold = -1e9, sold = 0;
+    for (int x : prices) {
+        int preHold = hold;
+        hold = max(hold, sold - x);
+        sold = max(sold, preHold + x - fee);
+    }
+    return sold;
+}
+
+// dp[i][1] = dp[i-1][0] - prices[i]
+// dp[i][0] = dp[i-1][1] + prices[i] - fee
+```
