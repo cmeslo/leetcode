@@ -6,16 +6,15 @@
 
 ```cpp
 int minSubArrayLen(int target, vector<int>& nums) {
-    int n = nums.size();
-    int res = n + 1;
-    for (int i = 0, j = 0; j < n; ++j) {
+    int i = 0, res = INT_MAX;
+    for (int j = 0; j < nums.size(); ++j) {
         target -= nums[j];
         while (target <= 0) {
             res = min(res, j - i + 1);
             target += nums[i++];
         }
     }
-    return res == n + 1 ? 0 : res;
+    return res == INT_MAX ? 0 : res;
 }
 ```
 
