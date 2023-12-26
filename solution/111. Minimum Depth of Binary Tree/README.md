@@ -1,9 +1,7 @@
 # 111. Minimum Depth of Binary Tree
 
 
-## 111_01.cpp
-
-recursive
+## Solution 1: DFS (111_01.cpp)
 
 ```cpp
 int minDepth(TreeNode* root) {
@@ -19,9 +17,7 @@ int minDepth(TreeNode* root) {
 }
 ```
 
-## 111_02.cpp
-
-bfs
+## Solution 2: BFS (111_02.cpp)
 
 ```cpp
 int minDepth(TreeNode* root) {
