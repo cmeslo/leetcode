@@ -11,42 +11,37 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        l1 = reverseList(l1);
-        l2 = reverseList(l2);
+        l1 = reverse(l1);
+        l2 = reverse(l2);
         
-        ListNode *ans = nullptr;
-        ListNode *cur = nullptr;
-        int carry = 0;
+        ListNode dummy;
+        auto p = &dummy;
+        int a = 0, b = 0, carry = 0;
         while (l1 || l2 || carry) {
-            int a = l1 ? l1->val : 0;
-            int b = l2 ? l2->val : 0;
-            
-            int sum = a + b + carry;
-            if (!cur) {
-                cur = new ListNode(sum % 10);
-                ans = cur;
-            } else {
-                cur->next = new ListNode(sum % 10);
-                cur = cur->next;
+            a = 0, b = 0;
+            if (l1) {
+                a = l1->val;
+                l1 = l1->next;
             }
-            carry = sum / 10;
-            
-            if (l1) l1 = l1->next;
-            if (l2) l2 = l2->next;
+            if (l2) {
+                b = l2->val;
+                l2 = l2->next;
+            }
+            p->next = new ListNode((a + b + carry) % 10);
+            carry = (a + b + carry) / 10;
+            p = p->next;
         }
-        
-        return reverseList(ans);
+        return reverse(dummy.next);
     }
     
-private:
-    ListNode* reverseList(ListNode* head) {
-        ListNode *pre = nullptr, *cur = head;
-        while (cur) {
-            auto *next = cur->next;
-            cur->next = pre;
-            pre = cur;
-            cur = next;
+    ListNode* reverse(ListNode* node) {
+        ListNode* prev = nullptr;
+        while (node) {
+            auto next = node->next;
+            node->next = prev;
+            prev = node;
+            node = next;
         }
-        return pre;
+        return prev;
     }
 };
