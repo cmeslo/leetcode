@@ -2,31 +2,52 @@
 
 ## Solution: Recursion
 
+### C++
 ```cpp
 class Solution {
 public:
     vector<TreeNode*> generateTrees(int n) {
-        return generateTrees(1, n);
+        return dfs(1, n);
     }
-    
-private:
-    vector<TreeNode*> generateTrees(int start, int end) {
-        if (start > end) return {nullptr};
-        
-        vector<TreeNode*> ans;
+
+    vector<TreeNode*> dfs(int start, int end) {
+        if (start > end) return { nullptr };
+
+        vector<TreeNode*> res;
         for (int i = start; i <= end; ++i) {
-            auto left_subtrees = generateTrees(start, i - 1);
-            auto right_subtrees = generateTrees(i + 1, end);
-            for (auto l : left_subtrees) {
-                for (auto r : right_subtrees) {
-                    TreeNode* root = new TreeNode(i);
+            vector<TreeNode*> L = dfs(start, i - 1);
+            vector<TreeNode*> R = dfs(i + 1, end);
+            for (auto& l : L) {
+                for (auto& r : R) {
+                    auto root = new TreeNode(i);
                     root->left = l;
                     root->right = r;
-                    ans.push_back(root);
+                    res.push_back(root);
                 }
             }
         }
-        return ans;
+        
+        return res;
     }
 };
+```
+
+### Python
+
+```py
+def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
+    def dfs(start, end):
+        if start > end:
+            return [None]
+        res = []
+        for i in range(start, end + 1):
+            L = dfs(start, i - 1)
+            R = dfs(i + 1, end)
+            for l in L:
+                for r in R:
+                    root = TreeNode(i, l, r)
+                    res.append(root)
+        return res
+    
+    return dfs(1, n)
 ```
