@@ -71,23 +71,23 @@ Time complexity: O(n)
 // Your runtime beats 77.30 % of cpp submissions.
 
 vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-    vector<int> ans;
-    deque<int> indexs;
+    vector<int> res;
+    deque<int> q; // {index1, index2, ...}
 
     for (int i = 0; i < nums.size(); ++i) {
-        while (!indexs.empty() && nums[indexs.back()] <= nums[i])
-            indexs.pop_back();
-        indexs.push_back(i);
+        while (!q.empty() && nums[q.back()] <= nums[i])
+            q.pop_back();
+        
+        q.push_back(i);
 
-        if (i < k - 1) continue;
-
-        ans.push_back(nums[indexs.front()]);
-
-        if (i - k + 1 == indexs.front())
-            indexs.pop_front();
+        if (i >= k - 1) {
+            res.push_back(nums[q.front()]);
+            if (q.front() == i - k + 1)
+                q.pop_front();
+        }
     }
 
-    return ans;
+    return res;
 }
 ```
 
