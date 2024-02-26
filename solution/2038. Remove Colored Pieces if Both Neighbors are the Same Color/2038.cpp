@@ -2,29 +2,20 @@ class Solution {
 public:
     bool winnerOfGame(string colors) {
         int n = colors.size();
-        
-        int cntA = 0, cntB = 0;
         int A = 0, B = 0;
-        colors.push_back('#');
-        
-        for (int i = 0; i <= n; ++i) {
-            if (i && colors[i-1] != colors[i]) {
-                if (colors[i-1] == 'A')
-                    cntA += max(0, A - 2);
-                else
-                    cntB += max(0, B - 2);
-            }
+        for (int i = 0; i < n; ++i) {
+            int j = i;
             if (colors[i] == 'A') {
-                B = 0;
-                ++A;
-            } else if (colors[i] == 'B') {
-                A = 0;
-                ++B;
+                while (j < n && colors[j] != 'B')
+                    ++j;
+                A += max(0, j - i - 2);
+            } else {
+                while (j < n && colors[j] != 'A')
+                    ++j;
+                B += max(0, j - i - 2);
             }
+            i = j - 1;
         }
-        // cout << cntA << ", " << cntB << endl;
-        return cntA > cntB;
+        return A > B;
     }
 };
-
-// ABBBBBBBAAA
