@@ -4,26 +4,19 @@ public:
         const int n = jobDifficulty.size();
         if (n < D) return -1;
         
-        jobDifficulty.insert(jobDifficulty.begin(), 0);
-        vector<vector<int>> mx(n + 1, vector<int>(n + 1));
-        for (int i = 1; i <= n; ++i) {
-            for (int j = i; j <= n; ++j) {
-                for (int k = i; k <= j; ++k)
-                    mx[i][j] = max(mx[i][j], jobDifficulty[k]);
-            }
-        }
-        
-        vector<vector<int>> dp(n + 1, vector<int>(D + 1, INT_MAX));
+        vector<vector<int>> dp(n + 1, vector<int>(D + 1, INT_MAX / 2));
         dp[0][0] = 0;
+        
         for (int i = 1; i <= n; ++i) {
-            for (int d = 1; d <= D; ++d) {
-                for (int j = 1; j <= i; ++j) {
-                    if (dp[j-1][d-1] == INT_MAX) continue;
-                    dp[i][d] = min(dp[i][d], dp[j-1][d-1] + mx[j][i]);
+            for (int d = 1; d <= min(D, i); ++d) {
+                int mx = 0;
+                for (int j = i; j >= d; --j) {
+                    mx = max(mx, jobDifficulty[j - 1]);
+                    dp[i][d] = min(dp[i][d], dp[j-1][d-1] + mx);
                 }
             }
         }
-        return dp[n][D] == INT_MAX ? -1 : dp[n][D];
+        return dp[n][D];
     }
 };
 
