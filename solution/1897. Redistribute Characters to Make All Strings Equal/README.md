@@ -2,6 +2,8 @@
 
 ## Solution: HashMap
 
+### C++
+
 ```cpp
 bool makeEqual(vector<string>& words) {
     const int n = words.size();
@@ -32,4 +34,16 @@ bool makeEqual(vector<string>& words) {
     
     return all_of(begin(f), end(f), [&](int c) { return c % n == 0; });
 }
+```
+
+### Python
+
+```py
+def makeEqual(self, words: List[str]) -> bool:
+    joint = ''.join(words)
+    s = set(joint)
+    
+    for i in s:
+        if joint.count(i) % len(words) != 0: return False
+    return True
 ```
