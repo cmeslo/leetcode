@@ -10,31 +10,29 @@
 class Solution {
 public:
     int maxAncestorDiff(TreeNode* root) {
-        int ans = 0;
-        dfs(root, ans);
-        return ans;
+        int res = 0;
+        dfs(root, res);
+        return res;
     }
-
-private:
-    pair<int, int> dfs(TreeNode* root, int& ans) {
-        if (!root) return {INT_MIN, INT_MAX};
-        
-        // pair<max, min>
-        pair<int, int> left = dfs(root->left, ans);
-        pair<int, int> right = dfs(root->right, ans);
-        
-        if (left.first != INT_MIN)
-            ans = max(ans, abs(root->val - left.first));
-        if (right.first != INT_MIN)
-            ans = max(ans, abs(root->val - right.first));
-        if (left.second != INT_MAX)
-            ans = max(ans, abs(root->val - left.second));
-        if (right.second != INT_MAX)
-            ans = max(ans, abs(root->val - right.second));
-        
-        int maxVal = max({root->val, left.first, right.first});
-        int minVal = min({root->val, left.second, right.second});
-        return {maxVal, minVal};
+    
+    pair<int, int> dfs(TreeNode* node, int& res) {
+        if (!node) return {-1, -1};
+        auto [l_min, l_max] = dfs(node->left, res);
+        auto [r_min, r_max] = dfs(node->right, res);
+        int  mn = node->val, mx = node->val;
+        if (l_min != -1) {
+            res = max(res, abs(node->val - l_min));
+            res = max(res, abs(node->val - l_max));
+            mn = min(mn, l_min);
+            mx = max(mx, l_max);
+        }
+        if (r_min != -1) {
+            res = max(res, abs(node->val - r_min));
+            res = max(res, abs(node->val - r_max));
+            mn = min(mn, r_min);
+            mx = max(mx, r_max);
+        }
+        return {mn, mx};
     }
 };
 ```
