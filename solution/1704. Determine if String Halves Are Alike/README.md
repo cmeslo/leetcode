@@ -1,25 +1,15 @@
 # 1704. Determine if String Halves Are Alike
 
 ```cpp
-class Solution {
-public:
-    bool halvesAreAlike(string s) {
-        int n = s.length();
-        if (n & 1) return false;
-        
-        int len = n / 2;
-        int cnt1 = 0, cnt2 = 0;
-        for (int i = 0; i < len; ++i) {
-            if (isVowel(s[i])) ++cnt1;
-            if (isVowel(s[i + len])) ++cnt2;
-        }
-        return cnt1 == cnt2;
-    }
+bool halvesAreAlike(string s) {
+    const int n = s.size();
+    unordered_set<char> vowels{'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
     
-private:
-    bool isVowel(const char& c) {
-        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
-            || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+    int cnt = 0;
+    for (int i = 0; i < n / 2; ++i) {
+        if (vowels.count(s[i])) ++cnt;
+        if (vowels.count(s[i + n/2])) --cnt;
     }
-};
+    return cnt == 0;
+}
 ```
