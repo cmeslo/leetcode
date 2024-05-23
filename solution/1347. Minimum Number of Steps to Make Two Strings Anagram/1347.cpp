@@ -8,8 +8,9 @@ public:
             --f[t[i] - 'a'];
         }
         for (int i = 0; i < 26; ++i)
-            res += abs(f[i]);
-        return res / 2;
+            if (f[i] > 0)
+                res += f[i];
+        return res;
     }
 };
 
