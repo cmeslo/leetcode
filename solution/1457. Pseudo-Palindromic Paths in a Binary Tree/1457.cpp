@@ -15,14 +15,13 @@ public:
         return dfs(root, 0);
     }
     
-private:
-    int dfs(TreeNode* node, int ones) {
+    int dfs(TreeNode* node, int x) {
         if (!node) return 0;
         
-        ones ^= 1 << (node->val - 1);
+        x ^= (1 << node->val);
         if (!node->left && !node->right)
-            return (ones & (ones - 1)) == 0;
-        else
-            return dfs(node->left, ones) + dfs(node->right, ones);
+            return x == 0 || (x & (x - 1)) == 0;
+        
+        return dfs(node->left, x) + dfs(node->right, x);
     }
 };
