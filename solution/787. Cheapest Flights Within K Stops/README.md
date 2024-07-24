@@ -1,9 +1,53 @@
 # 787. Cheapest Flights Within K Stops
 
-## 787_01.cpp
-DFS + 剪枝
+## Solution1: DFS + 剪枝 (787_01.cpp)
 
-## Bellman-Ford algorithm (787_02.cpp)
+```cpp
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+
+        int LIMIT = 100;
+        graph = vector<unordered_set<int>>(LIMIT);
+        cost = vector<vector<int>>(LIMIT, vector<int>(LIMIT, -1));
+        min_price = INT_MAX;
+        
+        for (const vector<int>& f : flights) {
+            graph[f[0]].insert(f[1]);
+            cost[f[0]][f[1]] = f[2];
+        }
+        
+        unordered_set<int> visited({src});
+        
+        dfs(src, dst, 0, K+1, visited);
+        return min_price == INT_MAX ? -1: min_price;
+    }
+    
+private:
+    vector<unordered_set<int>> graph;
+    vector<vector<int>> cost;
+    int min_price;
+    
+    void dfs(int node, int dst, int curr_cost, int K, unordered_set<int>& visited) {
+        if (K < 0) return;
+        if (node == dst) {
+            min_price = curr_cost;
+            return;
+        }
+        
+        for (int child : graph[node]) {
+            int new_cost = curr_cost + cost[node][child];
+            
+            if (visited.count(child) || new_cost > min_price) continue;
+            visited.insert(child);
+            dfs(child, dst, new_cost, K-1, visited);
+            visited.erase(child);
+        }
+    }
+};
+```
+
+## Solution2: Bellman-Ford algorithm (787_02.cpp)
 
 ```cpp
 // Bellman-Ford algorithm
@@ -31,7 +75,7 @@ Dijkstra 和 Bellman-Ford 兩種算法比較相似，具體對比可以看以下
 
 https://blog.csdn.net/mmy1996/article/details/52225893
 
-## Dijkstra algorithm (787_03.cpp)
+## Solution3: Dijkstra algorithm (787_03.cpp)
 
 ```cpp
 int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
