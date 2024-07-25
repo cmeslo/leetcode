@@ -1,6 +1,6 @@
 # 787. Cheapest Flights Within K Stops
 
-## Solution1: DFS + 剪枝 (787_01.cpp)
+## Solution 1: DFS + 剪枝 (787_01.cpp)
 
 ```cpp
 class Solution {
@@ -47,7 +47,7 @@ private:
 };
 ```
 
-## Solution2: Bellman-Ford algorithm (787_02.cpp)
+## Solution 2: Bellman-Ford algorithm (787_02.cpp)
 
 ```cpp
 // Bellman-Ford algorithm
@@ -75,7 +75,7 @@ Dijkstra 和 Bellman-Ford 兩種算法比較相似，具體對比可以看以下
 
 https://blog.csdn.net/mmy1996/article/details/52225893
 
-## Solution3: Dijkstra algorithm (787_03.cpp)
+## Solution 3: Dijkstra algorithm (787_03.cpp)
 
 ```cpp
 int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
@@ -104,5 +104,42 @@ int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int
         }
     }
     return -1;
+}
+```
+
+## Solution 4: BFS (787_04.cpp)
+
+接近雙百
+
+```cpp
+// Runtime: 11 ms, Your runtime beats 92.86 % of cpp submissions.
+// Memory Usage: 16.4 MB, Your memory usage beats 93.59 % of cpp submissions.
+
+int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+    using pii = pair<int, int>; // {cost, node}
+    using ai3 = array<int, 3>;
+    queue<pii> q;
+    
+    vector<vector<pii>> adj(n);
+    for (auto& f : flights) {
+        int a = f[0], b = f[1], price = f[2];
+        adj[a].push_back({b, price});
+    }
+    
+    k += 1;
+    vector<int> dist(n, INT_MAX);
+    dist[src] = 0;
+    q.push({0, src});
+    while (!q.empty() && k--) {
+        for (int i = q.size(); i > 0; --i) {
+            auto [cost, node] = q.front(); q.pop();
+            for (auto& [next, price] : adj[node]) {
+                if (cost + price >= dist[next]) continue;
+                dist[next] = cost + price;
+                q.push({dist[next], next});
+            }
+        }
+    }
+    return dist[dst] == INT_MAX ? -1 : dist[dst];
 }
 ```
