@@ -1,48 +1,59 @@
+// Runtime: 361 ms, Your runtime beats 94.96 % of cpp submissions.
+// Memory Usage: 134.6 MB, Your memory usage beats 99.24 % of cpp submissions.
+
 class Solution {
 public:
     vector<int> findAllPeople(int n, vector<vector<int>>& meetings, int firstPerson) {
-        father.resize(n);
-        for (int i = 0; i < n; ++i)
-            father[i] = i;
-        father[firstPerson] = 0;
-        
-        sort(meetings.begin(), meetings.end(), [&](auto& a, auto& b) {
+        const int m = meetings.size();
+        sort(meetings.begin(), meetings.end(), [](auto& a, auto& b) {
             return a[2] < b[2];
         });
         
-        unordered_set<int> knew{0, firstPerson};
-        for (int i = 0; i < meetings.size(); ++i) {
-            unordered_set<int> people;
-            int time = meetings[i][2];
-            for (; i < meetings.size() && meetings[i][2] == time; ++i) {
-                int a = meetings[i][0], b = meetings[i][1];
-                if (FindFather(a) != FindFather(b))
-                    Union(a, b);
-                people.insert(a);
-                people.insert(b);
+        father.resize(n);
+        for (int i = 0; i < n; ++i)
+            father[i] = i;
+        merge(0, firstPerson);
+        
+        for (int i = 0; i < m; ++i) {
+            int t = meetings[i][2];
+            int j = i;
+            while (j < m && t == meetings[j][2]) {
+                int a = meetings[j][0], b = meetings[j][1];
+                merge(a, b);
+                j++;
             }
-            i--;
-            for (int x : people) {
-                if (FindFather(x) == 0)
-                    knew.insert(x);
-                else
-                    father[x] = x;
+            j = i;
+            while (j < m && t == meetings[j][2]) {
+                int a = meetings[j][0], b = meetings[j][1];
+                if (findFather(a) != 0)
+                    father[a] = a;
+                if (findFather(b) != 0)
+                    father[b] = b;
+                j++;
             }
+            i = j - 1;
         }
-        return vector<int>(knew.begin(), knew.end());
+        
+        vector<int> res;
+        for (int i = 0; i < n; ++i) {
+            if (findFather(i) == 0)
+                res.push_back(i);
+        }
+        return res;
     }
-    
+
 private:
     vector<int> father;
     
-    int FindFather(int x) {
-        if (x != father[x])
-            father[x] = FindFather(father[x]);
+    int findFather(int x) {
+        if (father[x] != x)
+            father[x] = findFather(father[x]);
         return father[x];
     }
     
-    void Union(int a, int b) {
-        a = FindFather(a), b = FindFather(b);
+    void merge(int a, int b) {
+        a = findFather(a), b = findFather(b);
+        if (a == b) return;
         if (a < b)
             father[b] = a;
         else
