@@ -22,3 +22,23 @@ int bagOfTokensScore(vector<int>& tokens, int power) {
     return score;
 }
 ```
+
+or
+
+```cpp
+int bagOfTokensScore(vector<int>& tokens, int power) {
+    sort(tokens.begin(), tokens.end());
+    int l = 0, r = tokens.size() - 1;
+    int res = 0, score = 0;
+    while (l <= r && power >= tokens[l]) {
+        power -= tokens[l++];
+        score += 1;
+        res = max(res, score);
+        while (l <= r && power < tokens[l]) {
+            power += tokens[r--];
+            score -= 1;
+        }
+    }
+    return res;
+}
+```
