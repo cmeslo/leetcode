@@ -14,7 +14,7 @@ int bagOfTokensScore(vector<int>& tokens, int power) {
             power -= tokens[i++];
             ++score;
         }
-        if (score == 0 || i >= j) break;
+        if (score == 0 || i >= j) break; // i >= j 就 break, 保證了即使用1分換了 tokens[r], 最少可以換回 tokens[l] 保住1分
         power += tokens[j--];
         --score;
     }
