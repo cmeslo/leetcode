@@ -15,6 +15,21 @@ string customSortString(string order, string str) {
 }
 ```
 
+or
+
+```cpp
+string customSortString(string order, string s) {
+    vector<int> m(26, 27);
+    for (int i = 0; i < order.size(); ++i)
+        m[order[i] - 'a'] = i + 1;
+    
+    sort(s.begin(), s.end(), [m](char& a, char& b) {
+        return m[a - 'a'] < m[b - 'a'];
+    });
+    return s;
+}
+```
+
 ## Solution 2: counter
 
 ```cpp
