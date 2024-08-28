@@ -2,6 +2,8 @@
 
 ## Solution 1: custom sort
 
+### C++
+
 ```cpp
 string customSortString(string order, string str) {
     vector<int> dict(128);
@@ -28,6 +30,17 @@ string customSortString(string order, string s) {
     });
     return s;
 }
+```
+
+### Python
+```py
+def customSortString(self, order: str, s: str) -> str:
+    m = defaultdict(int)
+    for i in range(len(order)):
+        m[order[i]] = i + 1
+    
+    s = sorted(s, key=lambda c: m[c])
+    return ''.join(s)
 ```
 
 ## Solution 2: counter
