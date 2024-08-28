@@ -45,6 +45,7 @@ def customSortString(self, order: str, s: str) -> str:
 
 ## Solution 2: counter
 
+### C++
 ```cpp
 string customSortString(string order, string str) {
     unordered_map<char, int> m;
@@ -62,4 +63,23 @@ string customSortString(string order, string str) {
 
     return ans;
 }
+```
+
+### Python
+```py
+def customSortString(self, order: str, s: str) -> str:
+    m = defaultdict(int)
+    for c in s:
+        m[c] += 1
+        
+    res = ''
+    for c in order:
+        res += c * m[c]
+        m[c] = 0
+    
+    for c, count in m.items():
+        res += c * count
+    
+    return res
+
 ```
