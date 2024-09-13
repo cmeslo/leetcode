@@ -52,3 +52,22 @@ int findMinArrowShots(vector<vector<int>>& points) {
     return arrows;
 }
 ```
+
+or
+
+```cpp
+int findMinArrowShots(vector<vector<int>>& P) {
+    sort(P.begin(), P.end());
+
+    int res = 1, arrowX = P[0][1];
+    for (int i = 1; i < P.size(); ++i) {
+        if (arrowX >= P[i][0]) {
+            arrowX = min(arrowX, P[i][1]);
+        } else {
+          ++res;
+          arrowX = P[i][1];
+        }
+    }
+    return res;
+}
+```
