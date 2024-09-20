@@ -11,33 +11,33 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        if (!head) return;
-        
-        // 1. find the middle node
-        auto *slow = head, *fast = head;
+        auto slow = head, fast = head;
         while (fast && fast->next) {
             slow = slow->next;
             fast = fast->next->next;
         }
-        
-        // 2. cut and reverse the second list
-        ListNode *head2 = nullptr;
-        ListNode *last = slow->next;
+        auto p1 = head, p2 = reverse(slow->next);
         slow->next = nullptr;
-        while (last) {
-            auto *tmp = last->next;
-            last->next = head2;
-            head2 = last;
-            last = tmp;
-        }
         
-        // 3. merge two list
-        while (head && head2) {
-            auto *tmp1 = head->next, *tmp2 = head2->next;
-            head->next = head2;
-            head2->next = tmp1;
-            head = tmp1;
-            head2 = tmp2;
+        while (p1 && p2) {
+            auto next1 = p1->next;
+            auto next2 = p2->next;
+            p1->next = p2;
+            p2->next = next1;
+            p1 = next1;
+            p2 = next2;
         }
+    }
+    
+private:
+    ListNode* reverse(ListNode* head) {
+        ListNode* pre = nullptr;
+        while (head) {
+            auto next = head->next;
+            head->next = pre;
+            pre = head;
+            head = next;
+        }
+        return pre;
     }
 };
