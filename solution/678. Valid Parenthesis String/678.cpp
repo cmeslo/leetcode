@@ -1,44 +1,23 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        stack<int> st;
+        int cMin = 0, cMax = 0;
         for (int i = 0; i < s.size(); ++i) {
             if (s[i] == '(') {
-                st.push(i);
+                cMin++;
+                cMax++;
             } else if (s[i] == ')') {
-                if (!st.empty())
-                    st.pop();
-                else
-                    s[i] = 'r';
+                cMin--;
+                cMax--;
+            } else {
+                cMax++;
+                cMin--;
             }
+            
+            if (cMax < 0) return false; // 全部 * 當成左括號用都不夠
+            if (cMin < 0) // 把太多 * 當成右括號用了, 要重置一下
+                cMin = 0;
         }
-        while (!st.empty()) {
-            s[st.top()] = 'l';
-            st.pop();
-        }
-        
-        int left = 0, star = 0;
-        for (char& c : s) {
-            if (c == '*') {
-                ++star;
-            } else if (c == 'r') {
-                if (star <= 0) return false;
-                --star;
-            } else if (c == 'l') {
-                if (star >= 0) star = 0;
-                --star;
-            }
-        }
-        return star >= 0;
+        return cMin == 0;
     }
 };
-
-
-// *)
-// (*
-
-
-// (*))
-    
-// (*r)
-
