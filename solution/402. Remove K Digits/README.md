@@ -25,9 +25,6 @@ or
 
 ```cpp
 string removeKdigits(string num, int k) {
-    int n = num.size();
-    int targetSize = n - k;
-
     string res;
     for (char& c : num) {
         while (!res.empty() && res.back() > c && k) {
@@ -37,8 +34,9 @@ string removeKdigits(string num, int k) {
         if (!res.empty() || c != '0')
             res.push_back(c);
     }
-
-    while (res.size() && k--) res.pop_back();
+    
+    while (!res.empty() && k--)
+        res.pop_back();
     return res.empty() ? "0" : res;
 }
 ```
