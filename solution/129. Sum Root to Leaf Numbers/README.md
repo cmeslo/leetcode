@@ -9,15 +9,15 @@ public:
         return dfs(root, 0);
     }
 private:
-	int dfs(TreeNode* node, int num) {
-		if (!node) return 0;
+    int dfs(TreeNode* node, int num) {
+        if (!node) return 0;
         
-		num = num * 10 + node->val;
-		if (!node->left && !node->right)
-			return num;
+        num = num * 10 + node->val;
+        if (!node->left && !node->right)
+            return num;
         
-		return dfs(node->left, num) + dfs(node->right, num);
-	}
+        return dfs(node->left, num) + dfs(node->right, num);
+    }
 };
 ```
 
@@ -52,22 +52,22 @@ int sumOfLeftLeaves(TreeNode* root) {
 
 ```cpp
 int sumNumbers(TreeNode* root) {
-	int res = 0;
-	queue<TreeNode*> q;
-	q.push(root);
-	while (!q.empty()) {
-		auto node = q.front(); q.pop();
-		if (!node->left && !node->right)
-			res += node->val;
-		if (node->left) {
-			node->left->val += node->val * 10;
-			q.push(node->left);
-		}
-		if (node->right) {
-			node->right->val += node->val * 10;
-			q.push(node->right);
-		}
-	}
-	return res;
+    int res = 0;
+    queue<TreeNode*> q;
+    q.push(root);
+    while (!q.empty()) {
+        auto node = q.front(); q.pop();
+        if (!node->left && !node->right)
+            res += node->val;
+        if (node->left) {
+            node->left->val += node->val * 10;
+            q.push(node->left);
+        }
+        if (node->right) {
+            node->right->val += node->val * 10;
+            q.push(node->right);
+        }
+    }
+    return res;
 }
 ```
