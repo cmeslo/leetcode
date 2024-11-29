@@ -1,39 +1,43 @@
 class Solution {
 public:
     vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
-        tree.resize(n);
-        res.resize(n);
-        count.resize(n);
-        
+        this->n = n;
+        adj.resize(n);
         for (auto& e : edges) {
-            tree[e[0]].insert(e[1]);
-            tree[e[1]].insert(e[0]);
+            int a = e[0], b = e[1];
+            adj[a].push_back(b);
+            adj[b].push_back(a);
         }
         
+        dp.resize(n);
+        cnt.resize(n);
+        
+        init(0, -1); // init dp[0] only
         dfs(0, -1);
-        dfs2(0, -1);
-        return res;
+        return dp;
     }
     
 private:
-    vector<unordered_set<int>> tree;
-    vector<int> res, count;
+    int n;
+    vector<vector<int>> adj;
+    vector<int> dp;
+    vector<int> cnt;
     
-    void dfs(int root, int parent) {
-        for (int i : tree[root]) {
-            if (i == parent) continue;
-            dfs(i, root);
-            res[root] += res[i] + count[i];
-            count[root] += count[i];
+    void init(int node, int pre) {
+        for (int next : adj[node]) {
+            if (next == pre) continue;
+            init(next, node);
+            cnt[node] += cnt[next];
+            dp[node] += dp[next] + cnt[next];
         }
-        count[root]++; // add myself
+        cnt[node]++;
     }
     
-    void dfs2(int root, int parent) {
-        for (int i : tree[root]) {
-            if (i == parent) continue;
-            res[i] = res[root] - count[i] + count.size() - count[i];
-            dfs2(i, root);
+    void dfs(int node, int pre) {
+        for (int next : adj[node]) {
+            if (pre == next) continue;
+            dp[next] = dp[node] + (n - cnt[next]) - cnt[next];
+            dfs(next, node);
         }
     }
 };
