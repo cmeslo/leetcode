@@ -1,20 +1,12 @@
 class Solution {
 public:
     int findMaxK(vector<int>& nums) {
-        unordered_set<int> s;
-        int mx = -1;
+        unordered_set<int> s(nums.begin(), nums.end());
+        int res = -1;
         for (int x : nums) {
-            if (x < 0) {
-                s.insert(x);
-            }
+            if (s.count(-x))
+                res = max(res, abs(x));
         }
-        for (int x : nums) {
-            if (x > 0) {
-                if (s.count(-x)) {
-                    mx = max(mx, x);
-                }
-            }
-        }
-        return mx;
+        return res;
     }
 };
