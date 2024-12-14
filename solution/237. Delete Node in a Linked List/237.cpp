@@ -14,11 +14,11 @@ public:
         // node->next = node->next->next;
         
         // 寫法二 - 解引用
-        ListNode* tmp = node->next;
+        // ListNode* tmp = node->next;
         *node = *(node->next);
-        delete tmp;
+        // delete tmp;
         
-        // 寫法三
+        // 寫法二
         // *node = *(node->next);
         
         // 寫法四
