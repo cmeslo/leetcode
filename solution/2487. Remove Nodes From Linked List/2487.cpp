@@ -11,22 +11,16 @@
 class Solution {
 public:
     ListNode* removeNodes(ListNode* head) {
+        ListNode dummy(INT_MAX);
         stack<ListNode*> st;
+        st.push(&dummy);
         while (head) {
-            while (!st.empty() && st.top()->val < head->val) {
+            while (st.top()->val < head->val)
                 st.pop();
-            }
+            st.top()->next = head;
             st.push(head);
             head = head->next;
         }
-        
-        ListNode *res = nullptr;
-        while (!st.empty()) {
-            auto node = st.top(); st.pop();
-            res = node;
-            if (!st.empty())
-                st.top()->next = node;
-        }
-        return res;
+        return dummy.next;
     }
 };
