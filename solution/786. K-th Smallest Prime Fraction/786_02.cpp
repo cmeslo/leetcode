@@ -1,37 +1,33 @@
 class Solution {
 public:
-    vector<int> kthSmallestPrimeFraction(vector<int>& arr, int k) {
+    vector<int> kthSmallestPrimeFraction(vector<int>& A, int k) {
+        const int n = A.size();
+        int a = 0, b = 0;
+        
         double l = 0, r = 1, m;
         while (l < r) {
             m = l + (r - l) / 2;
-            int cnt = countSmallerOrEqual(arr, m);
-            if (cnt < k)
-                l = m;
-            else if (cnt > k)
-                r = m;
-            else
-                break;
-        }
-        
-        vector<int> res = {-1, -1};
-        double ans = 0;
-        for (int i = 0; i < arr.size(); ++i) {
-            auto pos = lower_bound(arr.begin(), arr.end(), arr[i] * 1.0 / m);
-            int j = pos - arr.begin();
-            if (pos != arr.end() && arr[i] * 1.0 / arr[j] > ans) {
-                ans = arr[i] * 1.0 / arr[j];
-                res = {arr[i], arr[j]};
+            
+            double fmax = 0;
+            int cnt = 0;
+            for (int i = 0, j = 0; i < n; ++i) {
+                while (j < n && A[i] > m * A[j]) ++j;
+                cnt += n - j;
+                if (n == j) break;
+                double f = A[i] * 1.0 / A[j];
+                if (f > fmax) {
+                    fmax = f;
+                    a = i, b = j;
+                }
             }
+            
+            if (cnt == k)
+                return {A[a], A[b]};
+            else if (cnt < k)
+                l = m;
+            else
+                r = m;
         }
-        return res;
-    }
-    
-    int countSmallerOrEqual(vector<int>& arr, double x) {
-        int cnt = 0;
-        for (int i = 0; i < arr.size(); ++i) {
-            auto pos = lower_bound(arr.begin(), arr.end(), arr[i] * 1.0 / x);
-            cnt += arr.end() - pos;
-        }
-        return cnt;
+        return {};
     }
 };
