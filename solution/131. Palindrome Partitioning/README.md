@@ -6,37 +6,45 @@
 class Solution {
 public:
     vector<vector<string>> partition(string s) {
-        int n = s.length();
-        vector<string> cur;
-        vector<vector<string>> ans;
-        dfs(s, 0, cur, ans);
-        return ans;
+        n = s.size();
+        dfs(s, 0);
+        return res;
     }
     
 private:
-    void dfs(const string& s, int start, vector<string>& cur, vector<vector<string>>& ans) {
-        if (start == s.length()) {
-            ans.push_back(cur);
+    int n;
+    vector<vector<string>> res;
+    vector<string> cur;
+    
+    void dfs(const string& s, int i) {
+        if (i == n) {
+            res.push_back(cur);
             return;
         }
-        
-        for (int i = start; i < s.length(); ++i) {
-            if (isPalindrome(s, start, i)) {
-                cur.push_back(s.substr(start, i - start + 1));
-                dfs(s, i + 1, cur, ans);
+        for (int j = i; j < n; ++j) {
+            if (isPalindrome(s, i, j)) {
+                cur.push_back(s.substr(i, j - i + 1));
+                dfs(s, j + 1);
                 cur.pop_back();
             }
         }
     }
     
-    bool isPalindrome(const string& s, int start, int end) {
-        while (start < end) {
-            if (s[start++] != s[end--])
+    bool isPalindrome(const string& s, int i, int j) {
+        while (i < j) {
+            if (s[i++] != s[j--])
                 return false;
         }
         return true;
     }
 };
+
+
+// a  a a   a b a
+// x (x x) [x x x]
+//    i j
+   
+// s[i:j] is palindrome + dfs(j + 1)
 ```
 
 or
