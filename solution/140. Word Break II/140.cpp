@@ -1,38 +1,39 @@
 class Solution {
 public:
     vector<string> wordBreak(string s, vector<string>& wordDict) {
-        unordered_set<string> dict(wordDict.cbegin(), wordDict.cend());
-        return wordBreak(s, dict);
+        n = s.size();
+        for (string& word : wordDict) {
+            D.insert(word);
+        }
+        
+        dfs(s, 0);
+        return res;
     }
     
 private:
-    unordered_map<string, vector<string>> mem;
+    int n;
+    unordered_set<string> D;
+    vector<string> res;
+    vector<string> cur;
     
-    vector<string> wordBreak(string s, unordered_set<string>& dict) {
-        if (mem.count(s)) return mem[s];
-        
-        
-        vector<string> ans;
-        if (dict.count(s)) ans.push_back(s);
-
-        for (int i = 1; i < s.length(); i++) {
-            const string& right = s.substr(i);
-            if (!dict.count(right)) continue;
-            
-            const string& left = s.substr(0, i);
-            vector<string> left_ans = append(wordBreak(left, dict), right);
-            ans.insert(ans.end(), left_ans.begin(), left_ans.end());
+    void dfs(const string& s, int i) {
+        if (i == n) {
+            string tmp;
+            for (string& w : cur) {
+                tmp += w + ' ';
+            }
+            tmp.pop_back();
+            res.push_back(tmp);
         }
-        
-        mem[s] = ans;
-        return mem[s];
-    }
-    
-    vector<string> append(const vector<string>& prefixes, const string& right) {
-        vector<string> res;
-        for (const string& prefix : prefixes) {
-            res.push_back(prefix + " " + right);
+        for (int j = i; j < n; ++j) {
+            string sub = s.substr(i, j - i + 1);
+            if (D.count(sub)) {
+                cur.push_back(sub);
+                dfs(s, j + 1);
+                cur.pop_back();
+            }
         }
-        return res;
     }
 };
+
+// [x x x] x x x x
