@@ -1,15 +1,13 @@
 class Solution {
 public:
     int specialArray(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
+        sort(nums.rbegin(), nums.rend());
         const int n = nums.size();
-        for (int i = 1; i <= n; ++i) {
-            int cnt = 0;
-            for (int x : nums) {
-                cnt += x >= i;
-            }
-            if (cnt == i)
-                return cnt;
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] < i + 1)
+                return -1;
+            if (i + 1 == n || nums[i + 1] < i + 1)
+                return i + 1;
         }
         return -1;
     }
