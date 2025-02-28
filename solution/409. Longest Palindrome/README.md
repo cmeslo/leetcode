@@ -52,3 +52,15 @@ int longestPalindrome(string s) {
     return s.size() - max(0, (int)odds.size() - 1);
 }
 ```
+
+## 409_03.cpp
+
+```cpp
+int longestPalindrome(string s) {
+    int odds = 0;
+    for (char c = 'A'; c <= 'z'; ++c) {
+        odds += count(s.begin(), s.end(), c) & 1;
+    }
+    return s.size() - max(0, odds - 1);
+}
+```
