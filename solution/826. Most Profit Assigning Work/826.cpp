@@ -11,13 +11,12 @@ public:
         
         sort(worker.begin(), worker.end());
         
-        int res = 0, i = 0;
+        int res = 0, i = 0, mx = 0;
         priority_queue<int> pq;
         for (int w : worker) {
             while (i < n && A[i].first <= w)
-                pq.push(A[i++].second);
-            if (!pq.empty())
-                res += pq.top();
+                mx = max(mx, A[i++].second);
+            res += mx;
         }
         return res;
     }
