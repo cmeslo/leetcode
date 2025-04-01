@@ -4,7 +4,7 @@ public:
         int l = 0, r = INT_MAX, mid;
         while (l < r) {
             mid = l + (r - l) / 2;
-            if (count(bloomDay, k, mid) >= m)
+            if (checkOK(bloomDay, m, k, mid))
                 r = mid;
             else
                 l = mid + 1;
@@ -12,18 +12,19 @@ public:
         return l == INT_MAX ? -1 : l;
     }
     
-    int count(vector<int>& bloomDay, int k, int t) {
-        int res = 0, cnt = 0;
+    bool checkOK(vector<int>& bloomDay, int m, int k, int t) {
+        int cnt = 0;
         for (int x : bloomDay) {
             if (x <= t) {
                 if (++cnt == k) {
                     cnt = 0;
-                    res++;
+                    if (--m == 0)
+                        return true;
                 }
             } else {
                 cnt = 0;
             }
         }
-        return res;
+        return false;
     }
 };
