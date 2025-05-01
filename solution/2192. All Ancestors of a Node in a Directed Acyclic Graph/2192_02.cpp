@@ -7,20 +7,17 @@ public:
         
         vector<vector<int>> res(n);
         for (int i = 0; i < n; ++i) {
-            vector<bool> seen(n);
-            seen[i] = true;
-            dfs(i, i, adj, seen, res);
+            dfs(i, i, adj, res);
         }
         return res;
     }
     
 private:
-    void dfs(int root, int node, vector<vector<int>>& adj, vector<bool>& seen, vector<vector<int>>& res) {
+    void dfs(int root, int node, vector<vector<int>>& adj, vector<vector<int>>& res) {
         for (int next : adj[node]) {
-            if (seen[next]) continue;
-            seen[next] = true;
+            if (!res[next].empty() && res[next].back() == root) continue;
             res[next].push_back(root);
-            dfs(root, next, adj, seen, res);
+            dfs(root, next, adj, res);
         }
     }
 };
