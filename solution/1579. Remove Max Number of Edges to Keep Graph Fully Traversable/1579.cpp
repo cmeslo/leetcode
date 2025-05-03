@@ -1,12 +1,12 @@
 class UFS {
 public:
+    vector<int> father;
+    int count;
+    
     UFS(int n): father(n), count(n) {
         for (int i = 0; i < n; ++i)
             father[i] = i;
     }
-    
-    vector<int> father;
-    int count;
     
     void merge(int a, int b) {
         a = findFather(a), b = findFather(b);
@@ -29,14 +29,15 @@ class Solution {
 public:
     int maxNumEdgesToRemove(int n, vector<vector<int>>& edges) {
         UFS alice(n), bob(n);
+        
         sort(edges.begin(), edges.end(), [](auto& a, auto& b) {
             return a[0] > b[0];
         });
-
+        
         int usedCount = 0;
         for (auto& e : edges) {
-            int type = e[0], a = e[1] - 1, b = e[2] - 1;
             bool used = false;
+            int type = e[0], a = e[1] - 1, b = e[2] - 1;
             if (type == 1 || type == 3) {
                 if (alice.findFather(a) != alice.findFather(b)) {
                     alice.merge(a, b);
@@ -49,9 +50,8 @@ public:
                     used = true;
                 }
             }
-            if (used) ++usedCount;
+            usedCount += used;
         }
         return alice.count == 1 && bob.count == 1 ? edges.size() - usedCount : -1;
     }
-
 };
