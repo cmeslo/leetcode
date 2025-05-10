@@ -11,24 +11,18 @@
 class Solution {
 public:
     ListNode* mergeNodes(ListNode* head) {
-        vector<int> A;
-        while (head) {
-            if (head->val == 0)
-                A.push_back(head->val);
-            else {
-                if (A.back() == 0)
-                    A.push_back(head->val);
-                else
-                    A.back() += head->val;
-            }
-            head = head->next;
-        }
         ListNode dummy;
-        auto pre = &dummy;
-        for (int x : A) {
-            if (x == 0) continue;
-            pre->next = new ListNode(x);
-            pre = pre->next;
+        auto p = &dummy;
+        int sum = 0;
+        head = head->next;
+        while (head) {
+            if (head->val == 0) {
+                p->next = new ListNode(sum);
+                p = p->next;
+                sum = 0;
+            }
+            sum += head->val;
+            head = head->next;
         }
         return dummy.next;
     }
