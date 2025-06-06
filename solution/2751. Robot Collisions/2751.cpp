@@ -3,13 +3,15 @@ public:
     vector<int> survivedRobotsHealths(vector<int>& P, vector<int>& H, string D) {
         const int n = P.size();
         
-        vector<pair<int, int>> R(n);
+        vector<int> idx(n);
         for (int i = 0; i < n; ++i)
-            R[i] = {P[i], i};
-        sort(R.begin(), R.end());
+            idx[i] = i;
+        sort(idx.begin(), idx.end(), [&](int a, int b) {
+            return P[a] < P[b];
+        });
         
         stack<int> st;
-        for (auto& [_, i] : R) {
+        for (int i : idx) {
             while (!st.empty() && D[st.top()] == 'R' && D[i] == 'L' && H[i]) {
                 if (H[st.top()] == H[i]) {
                     H[i] = 0;
@@ -26,9 +28,9 @@ public:
         }
         
         vector<int> res;
-        for (int i = 0; i < n; ++i) {
-            if (H[i] != 0)
-                res.push_back(H[i]);
+        for (int h : H) {
+            if (h > 0)
+                res.push_back(h);
         }
         return res;
     }
