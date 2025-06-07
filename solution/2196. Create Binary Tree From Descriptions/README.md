@@ -1,6 +1,6 @@
 # 2196. Create Binary Tree From Descriptions
 
-## Solution: DFS
+## Solution 1: DFS
 
 ```cpp
 class Solution {
