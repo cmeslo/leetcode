@@ -12,47 +12,41 @@
 class Solution {
 public:
     string getDirections(TreeNode* root, int startValue, int destValue) {
-        string path;
-        string startPath = dfs(root, startValue, path);
-        string destPath = dfs(root, destValue, path);
-        // cout << startPath << endl << destPath << endl;
-        
-        // remove same prefix
-        int i = 0;
-        while (i < startPath.size() && i < destPath.size() && startPath[i] == destPath[i]) ++i;
-        
-        // if (i == startPath.size())
-        //     return destPath;
-        // if (i == destPath.size())
-        //     return string(startPath.size() - i, 'U');
-        
-        string l = string(startPath.size() - i, 'U');
-        string r = destPath.substr(i);
+        TreeNode* lca = LCA(root, startValue, destValue);
 
-        return l + r;
+        string startPath, destPath;
+        dfs(lca, startValue, startPath);
+        dfs(lca, destValue, destPath);
+
+        return string(startPath.size(), 'U') + destPath;
     }
     
-private:
-    string dfs(TreeNode* node, int val, string& path) {
-        if (!node) return "";
-        if (node->val == val) return path;
+    TreeNode* LCA(TreeNode* node, int start, int dest) {
+        if (!node) return node;
+        if (node->val == start || node->val == dest) return node;
         
+        auto l = LCA(node->left, start, dest);
+        auto r = LCA(node->right, start, dest);
+        
+        if (l && r) return node;
+        return l ? l : r;
+    }
+
+    bool dfs(TreeNode* node, int val, string& path) {
+        if (!node) return false;
+
+        if (node->val == val) return true;
+
         path.push_back('L');
-        string l = dfs(node->left, val, path);
+        bool l = dfs(node->left, val, path);
+        if (l) return true;
         path.pop_back();
-        if (!l.empty()) return l;
-        
+
         path.push_back('R');
-        string r = dfs(node->right, val, path);
+        bool r = dfs(node->right, val, path);
+        if (r) return true;
         path.pop_back();
-        return r;
+
+        return false;
     }
 };
-
-
-// U U U ... R L
-
-// U*n + path_to_dest
-
-// L L L
-// L R L
