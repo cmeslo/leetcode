@@ -29,22 +29,17 @@ private:
     TreeNode* dfs(TreeNode* node) {
         if (!node) return node;
         
-        if (D.count(node->val)) {
-            if (node->left) {
-                if (!D.count(node->left->val))
-                    res.push_back(node->left);
-                node->left = dfs(node->left);
-            }
-            if (node->right) {
-                if (!D.count(node->right->val))
-                    res.push_back(node->right);
-                node->right = dfs(node->right);
-            }
-            return nullptr;
+        bool delete_me = D.count(node->val);
+        if (delete_me) {
+            if (node->left && !D.count(node->left->val))
+                res.push_back(node->left);
+            if (node->right && !D.count(node->right->val))
+                res.push_back(node->right);
         }
         
         node->left = dfs(node->left);
         node->right = dfs(node->right);
-        return node;
+        
+        return delete_me ? nullptr : node;
     }
 };
