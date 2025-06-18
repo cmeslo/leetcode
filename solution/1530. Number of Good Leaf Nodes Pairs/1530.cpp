@@ -12,46 +12,29 @@
 class Solution {
 public:
     int countPairs(TreeNode* root, int distance) {
-        dfs(root);
-        
-        for (auto l : leaf)
-            dfs2(l, nullptr, distance);
-        
-        return res / 2;
+        int res = 0;
+        dfs(root, distance, res);
+        return res;
     }
     
 private:
-    unordered_map<TreeNode*, vector<TreeNode*>> adj;
-    unordered_set<TreeNode*> leaf;
-    int res = 0;
-    
-    void dfs(TreeNode* node) {
-        if (!node) return;
+    vector<int> dfs(TreeNode* node, int distance, int& res) {
+        vector<int> count(distance + 1);
+        if (!node) return count;
         
-        if (node->left) {
-            adj[node].push_back(node->left);
-            adj[node->left].push_back(node);
-            dfs(node->left);
-        }
+        auto l = dfs(node->left, distance, res);
+        auto r = dfs(node->right, distance, res);
         
-        if (node->right) {
-            adj[node].push_back(node->right);
-            adj[node->right].push_back(node);
-            dfs(node->right);
-        }
+        for (int i = 0; i < distance; ++i)
+            for (int j = 0; i + j + 2 <= distance; ++j)
+                res += l[i] * r[j];
+        
+        for (int i = 0; i < distance; ++i)
+            count[i + 1] = l[i] + r[i];
         
         if (!node->left && !node->right)
-            leaf.insert(node);
-    }
-    
-    void dfs2(TreeNode* node, TreeNode* prev, int d) {
-        if (d == 0) return;
+            count[0] = 1;
         
-        for (auto next : adj[node]) {
-            if (next == prev) continue;
-            if (leaf.count(next))
-                ++res;
-            dfs2(next, node, d - 1);
-        }
+        return count;
     }
 };
