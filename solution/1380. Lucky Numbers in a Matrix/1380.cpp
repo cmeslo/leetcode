@@ -14,7 +14,7 @@ public:
         vector<int> res;
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                if (matrix[i][j] == col_max[j] && matrix[i][j] == row_min[i])
+                if (col_max[j] == row_min[i])
                     res.push_back(matrix[i][j]);
             }
         }
