@@ -3,16 +3,14 @@ public:
     vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
         const int n = names.size();
         
-        vector<pair<string, int>> A(n);
+        vector<pair<int, string>> A(n);
         for (int i = 0; i < n; ++i)
-            A[i] = {names[i], i};
+            A[i] = {heights[i], names[i]};
         
-        sort(A.begin(), A.end(), [&](auto& a, auto& b) {
-            return heights[a.second] > heights[b.second];
-        });
+        sort(A.rbegin(), A.rend());
         
         for (int i = 0; i < n; ++i)
-            names[i] = A[i].first;
+            names[i] = A[i].second;
         return names;
     }
 };
