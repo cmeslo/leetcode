@@ -2,13 +2,12 @@ class Solution {
 public:
     int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
         n = books.size();
-        memo.resize(n);
         return dfs(books, shelfWidth, 0);
     }
     
 private:
     int n;
-    vector<int> memo;
+    int memo[1001];
     
     int dfs(vector<vector<int>>& books, int shelfWidth, int start) {
         if (start >= n) return 0;
