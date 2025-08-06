@@ -5,22 +5,15 @@ public:
         for (char& c : word)
             f[c - 'a']++;
         
-        vector<pair<int, int>> A(26); // freq, key
-        for (int i = 0; i < 26; ++i)
-            A[i] = {f[i], i};
-        
-        sort(A.rbegin(), A.rend());
-        
-        unordered_map<char, int> m;
-        for (int i = 0; i < 26; ++i) {
-            char c = A[i].second + 'a';
-            if (m.count(c)) continue;
-            m[c] = i / 8 + 1;
-        }
+        sort(f.rbegin(), f.rend());
         
         int res = 0;
-        for (char& c : word)
-            res += m[c];
+        for (int i = 0; i < 26; ++i) {
+            res += f[i] * (i / 8 + 1);
+        }
         return res;
     }
 };
+
+
+// 3 2 1
