@@ -7,8 +7,7 @@ public:
         int l = 0, r = nums[n - 1] - nums[0], mid;
         while (l < r) {
             mid = l + (r - l) / 2;
-            int cnt = count(nums, mid);
-            if (cnt < k)
+            if (count(nums, mid) < k)
                 l = mid + 1;
             else
                 r = mid;
@@ -25,3 +24,9 @@ public:
         return cnt;
     }
 };
+
+// x x x x x x x
+//       i   j
+
+// A[j] - A[i] <= x
+// A[j] <= x + A[i]
