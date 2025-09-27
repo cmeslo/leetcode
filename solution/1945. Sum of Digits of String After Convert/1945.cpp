@@ -4,10 +4,8 @@ public:
         int res = 0;
         for (char& c : s) {
             int a = c - 'a' + 1;
-            while (a) {
-                res += a % 10;
-                a /= 10;
-            }
+            res += a / 10 + a % 10;
+            a /= 10;
         }
         while (--k) {
             int sum = 0;
