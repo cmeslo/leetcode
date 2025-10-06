@@ -11,29 +11,17 @@
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-        unordered_set<int> numSet(nums.begin(), nums.end());
+        unordered_set<int> A(nums.begin(), nums.end());
         
-        ListNode* dummy = new ListNode(0);
-        dummy->next = head;
-        
-        ListNode* prev = dummy;
-        ListNode* current = head;
-        
-        while (current != nullptr) {
-            if (numSet.find(current->val) != numSet.end()) {
-                prev->next = current->next;
-                delete current;
-                current = prev->next;
-            } else {
-                prev = current;
-                current = current->next;
-            }
+        ListNode dummy;
+        dummy.next = head;
+        auto p = &dummy;
+        while (p && p->next) {
+            if (A.count(p->next->val))
+                p->next = p->next->next;
+            else
+                p = p->next;
         }
-        
-        head = dummy->next;
-        
-        delete dummy;
-        
-        return head;
+        return dummy.next;
     }
 };
