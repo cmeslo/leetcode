@@ -1,38 +1,20 @@
-class TrieNode {
-public:
-    vector<TrieNode*> next;
-    int num;
-    TrieNode(): next(10), num(-1) {}
-};
-
 class Solution {
 public:
     vector<int> lexicalOrder(int n) {
-        TrieNode root;
-        for (int i = 1; i <= n; ++i) {
-            string x = to_string(i);
-            auto p = &root;
-            for (char& c : x) {
-                auto& nxt = p->next[c - '0'];
-                if (!nxt)
-                    nxt = new TrieNode();
-                p = nxt;
-            }
-            p->num = i;
-        }
-        
         vector<int> res;
-        for (auto nxt : root.next)
-            dfs(nxt, res);
+        for (int x = 1; x < 10; ++x)
+            dfs(x, n, res);
         return res;
     }
     
 private:
-    void dfs(TrieNode* p, vector<int>& res) {
-        if (!p) return;
-        res.push_back(p->num);
+    void dfs(int x, int n, vector<int>& res) {
+        if (x > n)
+            return;
         
-        for (auto& nxt : p->next)
-            dfs(nxt, res);
+        res.push_back(x);
+        
+        for (int i = 0; i < 10; ++i)
+            dfs(x * 10 + i, n, res);
     }
 };
