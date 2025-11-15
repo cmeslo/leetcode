@@ -1,26 +1,19 @@
 class Solution {
 public:
     int maxDifference(string s) {
-        unordered_map<char, int> frequencyMap;
-        for (char ch : s) {
-            frequencyMap[ch]++;
-        }
-
-        int maxOdd = -1;
-        int minEven = INT_MAX;
-
-        for (const auto& [_, freq] : frequencyMap) {
-            if (freq % 2 == 0) {
-                minEven = min(minEven, freq);
-            } else {
-                maxOdd = max(maxOdd, freq);
+        vector<int> f(26);
+        for (char& c : s)
+            ++f[c - 'a'];
+        
+        int max_odd = 0, min_even = s.size();
+        for (int i = 0; i < 26; ++i) {
+            if (f[i]) {
+                if (f[i] % 2)
+                    max_odd = max(max_odd, f[i]);
+                else
+                    min_even = min(min_even, f[i]);
             }
         }
-
-        if (maxOdd == -1 || minEven == INT_MAX) {
-            return 0;
-        }
-
-        return maxOdd - minEven;
+        return max_odd - min_even;
     }
 };
